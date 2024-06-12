@@ -1,0 +1,36 @@
+name: Build Solution
+
+inputs:
+  dotnet-version:
+    default: 8.0.x
+    type: string
+    required: false
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 'Use .Net Core Sdk ${{ parameters.dotnet-version }}'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ parameters.dotnet-version }}
+        include-prerelease: false
+
+    # - name: Cache NuGet packages
+    #   id:
+    # - uses: actions/cache@v3
+    #   with:
+    #     path: ~/.nuget/packages
+    #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-nuget
+
+    - name: Install Dependencies
+      run: dotnet restore ./Everything.sln
+      working-directory: ./src
+
+    - name: Build Solution
+      run: dotnet build ./Everything.sln --configuration Release --no-restore 
+      working-directory: ./src

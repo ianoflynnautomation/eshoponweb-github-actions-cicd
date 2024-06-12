@@ -5,5 +5,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  call-reusable-workflow:
-    uses: ./.github/jobs/build-solution.yml
+  build-solution:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
