@@ -16,14 +16,11 @@ runs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ inputs.dotnet-version }}
-        include-prerelease: false
 
     - name: Install Dependencies
       shell: bash
-      run: dotnet restore ./Everything.sln
-      working-directory: ./src
+      run: dotnet restore Everything.sln
 
     - name: Build Solution
       shell: bash
-      run: dotnet build ./Everything.sln --configuration Release --no-restore 
-      working-directory: ./src
+      run: dotnet build Everything.sln --configuration Release --no-restore 
