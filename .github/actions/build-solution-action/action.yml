@@ -1,9 +1,9 @@
 name: Build Solution
+description: 'Builds the solution using the specified .Net Core SDK version'
 
 inputs:
   dotnet-version:
-    default: 8.0.x
-    type: string
+    description: 'The version of the .Net Core SDK to use'
     required: true
     
 runs:
@@ -18,19 +18,12 @@ runs:
         dotnet-version: ${{ parameters.dotnet-version }}
         include-prerelease: false
 
-    # - name: Cache NuGet packages
-    #   id:
-    # - uses: actions/cache@v3
-    #   with:
-    #     path: ~/.nuget/packages
-    #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-nuget
-
     - name: Install Dependencies
+      shell: bash
       run: dotnet restore ./Everything.sln
       working-directory: ./src
 
     - name: Build Solution
+      shell: bash
       run: dotnet build ./Everything.sln --configuration Release --no-restore 
       working-directory: ./src
