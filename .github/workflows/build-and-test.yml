@@ -7,7 +7,6 @@ on:
 jobs:
   build_solution:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -16,3 +15,52 @@ jobs:
         uses: ./.github/actions/build-solution-action
         with:
           dotnet-version: 8.0.x
+
+  build_web_assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Web Assets
+        uses: ./.github/actions/build-web-assets
+        with:
+          dotnet-version: 8.0.x
+
+  build_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Unit Tests
+        uses: ./.github/actions/build-tests-action
+        with:
+          dotnet-version: 8.0.x
+          artifact-name: tests_UnitTests
+          project-pattern: "**/*UnitTests.csproj"
+    
+      - name: Build Integration Tests
+        uses: ./.github/actions/build-tests-action
+        with:
+          dotnet-version: 8.0.x
+          artifact-name: tests_IntegrationTests
+          project-pattern: "**/*IntegrationTests.csproj"
+      
+      - name: Build Public Api Integration Tests
+        uses: ./.github/actions/build-tests-action
+        with:
+          dotnet-version: 8.0.x
+          artifact-name: tests_PublicApiIntegrationTests
+          project-pattern: "**/*PublicApiIntegrationTests.csproj"
+
+      - name: Build Functional Tests
+        uses: ./.github/actions/build-tests-action
+        with:
+          dotnet-version: 8.0.x
+          artifact-name: tests_FunctionalTests
+          project-pattern: "**/*FunctionalTests.csproj"

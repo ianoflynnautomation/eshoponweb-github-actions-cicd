@@ -1,0 +1,38 @@
+name: Build Test Projects
+description: 'Builds the test projects for the eShopOnWeb project'
+
+inputs:
+  dotnet-version:
+    description: 'The version of the .Net Core SDK to use'
+    required: true
+  artifact-name:
+    description: 'The name of the artifact to publish'
+    required: true
+  project-pattern:
+    description: 'The pattern to use to find the test projects'
+    required: true
+  
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Install Dependencies
+      shell: bash
+      run: dotnet restore Everything.sln
+
+    - name: Build Test Projects
+      shell: bash
+      run: dotnet build ./src/${{ inputs.project-pattern }} --configuration Release --no-restore
+
+    - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ github.workspace }}/output
