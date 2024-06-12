@@ -42,25 +42,29 @@ jobs:
         with:
           dotnet-version: 8.0.x
           artifact-name: tests_UnitTests
-          project-pattern: "**/*UnitTests.csproj"
+          project-pattern: |
+            **/*UnitTests.csproj
     
       - name: Build Integration Tests
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: 8.0.x
           artifact-name: tests_IntegrationTests
-          project-pattern: "**/*IntegrationTests.csproj"
+          project-pattern: |
+            **/*IntegrationTests.csproj
       
       - name: Build Public Api Integration Tests
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: 8.0.x
           artifact-name: tests_PublicApiIntegrationTests
-          project-pattern: "**/*PublicApiIntegrationTests.csproj"
+          project-pattern: |
+            **/*PublicApiIntegrationTests.csproj
 
       - name: Build Functional Tests
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: 8.0.x
           artifact-name: tests_FunctionalTests
-          project-pattern: "**/*FunctionalTests.csproj"
+          project-pattern: |
+            **/*FunctionalTests.csproj
