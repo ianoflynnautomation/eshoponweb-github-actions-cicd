@@ -12,6 +12,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/build-solution-action
+      - name: Build Solution
+        uses: ./.github/actions/build-solution-action
         with:
           dotnet-version: 8.0.x
