@@ -12,10 +12,10 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: 'Use .Net Core Sdk ${{ parameters.dotnet-version }}'
+    - name: 'Use .Net Core Sdk ${{ inputs.dotnet-version }}'
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ parameters.dotnet-version }}
+        dotnet-version: ${{ inputs.dotnet-version }}
         include-prerelease: false
 
     - name: Install Dependencies
