@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Web Assets
-        uses: ./.github/actions/build-web-assets
+        uses: ./.github/actions/build-web-assets-action
         with:
           dotnet-version: 8.0.x
 

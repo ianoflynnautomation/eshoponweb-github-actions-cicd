@@ -29,10 +29,10 @@ runs:
 
     - name: Build Test Projects
       shell: bash
-      run: dotnet build ${{ inputs.project-pattern }} --configuration Release --no-restore
+      run: dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{ github.workspace }}/output
+        path: ${{ inputs.project-pattern }}
