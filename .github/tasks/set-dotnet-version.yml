@@ -1,0 +1,10 @@
+inputs:
+- name: dotnet-version
+  type: string
+
+steps:
+   - name: 'use .net core sdk ${{ parameters.dotnet-version }}'
+     uses: actions/setup-dotnet@v4
+     with:
+      dotnet-version: ${{ parameters.dotnet-version }}
+      include-prerelease: false

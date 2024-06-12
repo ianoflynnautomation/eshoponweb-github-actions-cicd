@@ -1,0 +1,39 @@
+name: Build Solution
+
+on:
+  workflow_call:
+    inputs:
+    dotnet-version:
+      default: 8.0.x
+      type: string
+      required: false
+    
+jobs:
+  build-solution:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: set dotnet version
+        uses: ./.github/tasks/set-dotnet-version.yml
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}
+
+      # - name: Cache NuGet packages
+      #   id:
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: ~/.nuget/packages
+      #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-nuget
+
+      - name: Install dependencies
+        run: dotnet restore ./Everything.sln
+        working-directory: ./src
+
+      - name: Build with dotnet
+        run: dotnet build ./Everything.sln --configuration Release --no-restore 
+        working-directory: ./src

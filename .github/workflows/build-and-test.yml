@@ -1,0 +1,9 @@
+name: eShopOnWeb Build and Test
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-test:
+    uses: ./.github/jobs/build-solution.yml
