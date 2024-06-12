@@ -10,5 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: ./.github/actions/build-solution-action.yml
+        with:
+          dotnet-version: 8.0.x
