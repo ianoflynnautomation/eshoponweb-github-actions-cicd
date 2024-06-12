@@ -5,5 +5,5 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-test:
+  call-reusable-workflow:
     uses: ./.github/jobs/build-solution.yml
