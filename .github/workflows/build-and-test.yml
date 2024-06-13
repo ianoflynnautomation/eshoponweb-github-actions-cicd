@@ -75,7 +75,7 @@ jobs:
   run_tests:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     needs: [ build_solution, build_tests, build_web_assets ]

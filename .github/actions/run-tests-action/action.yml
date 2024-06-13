@@ -15,8 +15,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - name: Checkout Repository
-    #   uses: actions/checkout@v4
 
     - name: Download ${{ inputs.test-artifact-name }} Artifact
       uses: actions/download-artifact@v4
@@ -25,9 +23,22 @@ runs:
         path: ${{ github.workspace }}
         pattern: ${{ inputs.test-project-pattern }}
 
+    # - name: Run ${{ inputs.test-artifact-name }} Tests
+    #   shell: bash
+    #   run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
+
     - name: Run ${{ inputs.test-artifact-name }} Tests
-      shell: bash
-      run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
+      shell: pwsh
+      run: powershell Invoke-WebRequest -Uri "https://localworker.blob.core.windows.net/win-x64/tests.zip" -OutFile "./tests.zip"
+    - name: Unzip tests binary
+      shell: pwsh
+      run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
+    - name: Run tests
+      uses: microsoft-approved-actions/vstest@master
+      with:
+        testAssembly: CloudTest.DefaultSamples*.dll
+        searchFolder: ${{ inputs.test-project-pattern }}
+        runInParallel: true
 
     
 
