@@ -34,7 +34,7 @@ runs:
       shell: pwsh
       run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
     - name: Run tests
-      uses: microsoft/vstest@main
+      uses: microsoft/vstest-action@v1.0.0
       with:
         testAssembly: CloudTest.DefaultSamples*.dll
         searchFolder: ${{ inputs.test-project-pattern }}
