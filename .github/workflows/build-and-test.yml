@@ -90,7 +90,7 @@ jobs:
           dotnet-version: 8.0.x
           test-artifact-name: tests_UnitTests
           test-project-pattern: |
-            **/*UnitTests.csproj
+            UnitTests/**/*
 
       - name: Run Integration Tests
         uses: ./.github/actions/run-tests-action
@@ -98,7 +98,7 @@ jobs:
           dotnet-version: 8.0.x
           test-artifact-name: tests_IntegrationTests
           test-project-pattern: |
-            **/*IntegrationTests.csproj
+            IntegrationTests/**/*
 
       - name: Run Public Api Integration Tests
         uses: ./.github/actions/run-tests-action
@@ -106,7 +106,7 @@ jobs:
           dotnet-version: 8.0.x
           test-artifact-name: tests_PublicApiIntegrationTests
           test-project-pattern: |
-            **/*PublicApiIntegrationTests.csproj
+            PublicApiIntegrationTests/**/*
 
       - name: Run Functional Tests
         uses: ./.github/actions/run-tests-action
@@ -114,5 +114,5 @@ jobs:
           dotnet-version: 8.0.x
           test-artifact-name: tests_FunctionalTests
           test-project-pattern: |
-            **/*FunctionalTests.csproj
+            FunctionalTests/**/*
 
