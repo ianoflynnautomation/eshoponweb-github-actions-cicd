@@ -7,9 +7,10 @@ on:
 jobs:
   build_solution:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
 
       - name: Build Solution
         uses: ./.github/actions/build-solution-action
@@ -18,9 +19,10 @@ jobs:
 
   build_web_assets:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
 
       - name: Build Web Assets
         uses: ./.github/actions/build-web-assets-action
@@ -32,10 +34,11 @@ jobs:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
 
       - name: Build Unit Tests
         uses: ./.github/actions/build-tests-action
@@ -68,3 +71,47 @@ jobs:
           artifact-name: tests_FunctionalTests
           project-pattern: |
             **/*FunctionalTests.csproj
+
+  run_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    steps:
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
+
+      - name: Run Unit Tests
+        uses: ./.github/actions/run-tests-action
+        with:
+          dotnet-version: 8.0.x
+          test-artifact-name: tests_UnitTests
+          test-project-pattern: |
+            **/*UnitTests.csproj
+
+      - name: Run Integration Tests
+        uses: ./.github/actions/run-tests-action
+        with:
+          dotnet-version: 8.0.x
+          test-artifact-name: tests_IntegrationTests
+          test-project-pattern: |
+            **/*IntegrationTests.csproj
+
+      - name: Run Public Api Integration Tests
+        uses: ./.github/actions/run-tests-action
+        with:
+          dotnet-version: 8.0.x
+          test-artifact-name: tests_PublicApiIntegrationTests
+          test-project-pattern: |
+            **/*PublicApiIntegrationTests.csproj
+
+      - name: Run Functional Tests
+        uses: ./.github/actions/run-tests-action
+        with:
+          dotnet-version: 8.0.x
+          test-artifact-name: tests_FunctionalTests
+          test-project-pattern: |
+            **/*FunctionalTests.csproj
+

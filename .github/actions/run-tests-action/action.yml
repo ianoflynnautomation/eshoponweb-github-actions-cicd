@@ -1,0 +1,33 @@
+name: Run Tests
+description: 'Runs the test projects for the eShopOnWeb project'
+
+inputs:
+  dotnet-version:
+    description: 'The version of the .Net Core SDK to use'
+    required: true
+  test-artifact-name:
+    description: 'The name of the artifact to publish'
+    required: true
+  test-project-pattern:
+    description: 'The pattern to use to find the test projects'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Download ${{ inputs.test-artifact-name }} Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.test-artifact-name }}
+        path: ${{ github.workspace }}
+        pattern: ${{ inputs.test-project-pattern }}
+
+    - name: Run ${{ inputs.test-artifact-name }} Tests
+      shell: bash
+      run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
+
+    
+
