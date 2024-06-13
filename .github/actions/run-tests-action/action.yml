@@ -11,6 +11,9 @@ inputs:
   test-project-pattern:
     description: 'The pattern to use to find the test projects'
     required: true
+  test-filter-criteria:
+    description: 'The filter criteria to use to run the tests'
+    required: false
 
 runs:
   using: "composite"
@@ -30,15 +33,23 @@ runs:
     - name: Run ${{ inputs.test-artifact-name }} Tests
       shell: pwsh
       run: powershell Invoke-WebRequest -Uri "https://localworker.blob.core.windows.net/win-x64/tests.zip" -OutFile "./tests.zip"
+      
     - name: Unzip tests binary
       shell: pwsh
       run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
+
     - name: Run tests
       uses: microsoft/vstest-action@v1.0.0
       with:
-        testAssembly: CloudTest.DefaultSamples*.dll
         searchFolder: ${{ inputs.test-project-pattern }}
+        test-filter-criteria: ${{ inputs.test-filter-criteria }}
         runInParallel: true
+    
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test_results
+        path: TestResults
 
     
 
