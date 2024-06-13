@@ -15,8 +15,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+    # - name: Checkout Repository
+    #   uses: actions/checkout@v4
 
     - name: Download ${{ inputs.test-artifact-name }} Artifact
       uses: actions/download-artifact@v4

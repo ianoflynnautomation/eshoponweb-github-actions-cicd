@@ -15,8 +15,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+    # - name: Checkout Repository
+    #   uses: actions/checkout@v4
 
     - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
       uses: actions/setup-dotnet@v4
