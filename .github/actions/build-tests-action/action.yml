@@ -33,7 +33,7 @@ runs:
     - name: Publish .NET project
       shell: cmd
       run:  |
-        dotnet publish ${{ inputs.project-pattern }} -c Release -o ${{env.DOTNET_ROOT}}/output
+        dotnet publish ${{ inputs.project-pattern }} -c Release 
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
