@@ -47,7 +47,7 @@ runs:
 
     - name: Run Tests
       shell: bash
-      run: dotnet test **/bin/**/*${{ inputs.test-filter-criteria }}
+      run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
