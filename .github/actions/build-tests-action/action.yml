@@ -31,7 +31,8 @@ runs:
 
     - name: Publish .NET project
       shell: powershell
-      run: dotnet publish ${{ inputs.project-pattern }} -o ${{ github.workspace }}/output
+      run:  |
+        dotnet publish ${{ inputs.project-pattern }} --no-build --output ${{ github.workspace }}/output
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
