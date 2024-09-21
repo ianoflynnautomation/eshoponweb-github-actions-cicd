@@ -27,12 +27,13 @@ runs:
 
     - name: Build Test Projects
       shell: powershell
-      run: dotnet build Everything.sln --configuration Release --no-restore
+      run: |
+        dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish .NET project
       shell: powershell
       run:  |
-        dotnet publish ${{ inputs.project-pattern }} --output ${{ github.workspace }}/output
+        dotnet publish '${{ inputs.project-pattern }}' --output ${{ github.workspace }}/output
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
