@@ -72,7 +72,6 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.0.1" />
     <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.42.0" />
-    <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.42.0" />
     <PackageVersion Include="Microsoft.Playwright.TestAdapter" Version="1.42.0" />
   </ItemGroup>
 </Project>
