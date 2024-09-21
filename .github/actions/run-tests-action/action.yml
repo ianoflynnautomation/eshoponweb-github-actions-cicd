@@ -46,13 +46,13 @@ runs:
     #     testAssembly: ${{ inputs.test-project-pattern }}
     #     runInParallel: true
 
-    - name: List directory files
-      shell: bash
-      run: ls -la ./tests/
+    # - name: List directory files
+    #   shell: bash
+    #   run: ls -la ${{ github.workspace }}
 
     - name: List directory files artifact
       shell: bash
-      run: ls -la ./tests/${{ inputs.test-artifact-name }}
+      run: ls -la ${{ github.workspace }}/${{ inputs.test-artifact-name }}
 
     - name: Run Tests
       shell: bash
