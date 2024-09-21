@@ -31,7 +31,8 @@ runs:
         dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish .NET project
-      shell: cmd
+      shell: powershell
+      working-directory: tests
       run:  |
         dotnet publish ${{ inputs.project-pattern }} -c Release 
 
