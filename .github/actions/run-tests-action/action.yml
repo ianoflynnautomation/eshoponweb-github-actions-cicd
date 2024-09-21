@@ -24,7 +24,9 @@ runs:
       with:
         name: ${{ inputs.test-artifact-name }}
         path: ${{ github.workspace }}
-        pattern: ${{ inputs.test-project-pattern }}
+        pattern: ${{ inputs.test-project-pattern }}   
+    - name: Display structure of downloaded files
+      run: ls -R ${{ github.workspace }}
 
     # - name: Run ${{ inputs.test-artifact-name }} Tests
     #   shell: bash
@@ -38,16 +40,17 @@ runs:
     #   shell: pwsh
     #   run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
 
-    # - name: Run tests
-    #   uses: microsoft/vstest-action@v1.0.0
-    #   with:
-    #     searchFolder: ${{ inputs.test-project-pattern }}
-    #     test-filter-criteria: ${{ inputs.test-filter-criteria }}
-    #     runInParallel: true
+    # Issue with microsoft/vstest-action https://github.com/microsoft/vstest-action/issues/31
+    - name: Run tests
+      uses: microsoft/vstest-action@v1.0.0
+      with:
+        searchFolder: ${{ inputs.test-project-pattern }}
+        test-filter-criteria: ${{ inputs.test-filter-criteria }}
+        runInParallel: true
 
-    - name: Run Tests
-      shell: bash
-      run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
+    # - name: Run Tests
+    #   shell: bash
+    #   run: dotnet test ${{ inputs.test-project-pattern }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
