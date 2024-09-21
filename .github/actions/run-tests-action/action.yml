@@ -26,6 +26,7 @@ runs:
         path: ${{ github.workspace }}
         pattern: ${{ inputs.test-project-pattern }}   
     - name: Display structure of downloaded files
+      shell: bash
       run: ls -R ${{ github.workspace }}
 
     # - name: Run ${{ inputs.test-artifact-name }} Tests
