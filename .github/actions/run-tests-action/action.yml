@@ -46,6 +46,14 @@ runs:
     #     testAssembly: ${{ inputs.test-project-pattern }}
     #     runInParallel: true
 
+    - name: List directory files
+      shell: bash
+      run: ls -la ./tests/
+
+    - name: List directory files artifact
+      shell: bash
+      run: ls -la ./tests/${{ inputs.test-artifact-name }}
+
     - name: Run Tests
       shell: bash
       run: dotnet test ./tests/${{ inputs.test-artifact-name }}/${{ inputs.test-project-pattern }}

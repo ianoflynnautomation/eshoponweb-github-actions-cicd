@@ -49,7 +49,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_UnitTests
           project-pattern: |
-            tests/UnitTests
+             **/*UnitTests/
     
       - name: Build Integration Tests
         uses: ./.github/actions/build-tests-action
@@ -57,7 +57,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_IntegrationTests
           project-pattern: |
-            tests/IntegrationTests/
+             **/*IntegrationTests/
       
       - name: Build Public Api Integration Tests
         uses: ./.github/actions/build-tests-action
@@ -65,7 +65,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_PublicApiIntegrationTests
           project-pattern: |
-              tests/PublicApiIntegrationTests/
+            **/*PublicApiIntegrationTests/
 
       - name: Build Functional Tests
         uses: ./.github/actions/build-tests-action
@@ -73,7 +73,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_FunctionalTests
           project-pattern: |
-            tests/FunctionalTests/
+            **/*FunctionalTests/
   # Issue with microsoft/vstest-action https://github.com/microsoft/vstest-action/issues/31
   run_tests:
     strategy:
