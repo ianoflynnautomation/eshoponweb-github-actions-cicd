@@ -25,7 +25,7 @@ runs:
         name: ${{ inputs.test-artifact-name }}
         path: ${{ github.workspace }}
         pattern: ${{ inputs.test-project-pattern }}   
-        
+
     # - name: Run ${{ inputs.test-artifact-name }} Tests
     #   shell: bash
     #   run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
@@ -42,8 +42,8 @@ runs:
     - name: Run tests
       uses: microsoft/vstest-action@v1.0.0
       with:
-        searchFolder: ${{ inputs.test-project-pattern }}
-        test-filter-criteria: ${{ inputs.test-filter-criteria }}
+        searchFolder: ./tests/
+        testAssembly: ${{ inputs.test-project-pattern }}
         runInParallel: true
 
     # - name: Run Tests
