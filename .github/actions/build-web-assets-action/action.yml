@@ -16,11 +16,11 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }}
 
     - name: Install Dependencies
-      shell: bash
+      shell: powershell
       run: dotnet restore Everything.sln
 
     - name: Build Web Assets
-      shell: bash
+      shell: powershell
       run: dotnet build ./src/Web/Web.csproj --configuration Release --no-restore
 
     - name: Publish Web Assets Artifact

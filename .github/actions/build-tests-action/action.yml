@@ -22,15 +22,15 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }}
 
     - name: Install Dependencies
-      shell: bash
+      shell: powershell
       run: dotnet restore Everything.sln
 
     - name: Build Test Projects
-      shell: bash
+      shell: powershell
       run: dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish .NET project
-      shell: bash
+      shell: powershell
       run: dotnet publish tests/${{ inputs.project-pattern }} --configuration Release -o ./output
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
