@@ -45,4 +45,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ./output
+        path: ${{env.DOTNET_ROOT}}/output
+        retention-days: 1
