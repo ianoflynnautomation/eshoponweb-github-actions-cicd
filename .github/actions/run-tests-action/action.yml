@@ -56,7 +56,7 @@ runs:
 
     - name: Run Tests
       shell: bash
-      run: dotnet test artifacts/tests/${{ inputs.test-artifact-name }}/${{ inputs.test-project-pattern }}
+      run: dotnet test artifacts/tests/${{ inputs.test-project-pattern }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
