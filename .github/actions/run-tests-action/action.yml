@@ -48,7 +48,7 @@ runs:
 
     - name: List directory files
       shell: bash
-      run: ls -la ${{ github.workspace }}/
+      run: ls -la  D:\a\eshoponweb-github-actions-cicd\eshoponweb-github-actions-cicd\
 
     # - name: List directory files artifact
     #   shell: bash
