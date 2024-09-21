@@ -32,10 +32,9 @@ runs:
 
     - name: Publish .NET project
       shell: cmd
-      working-directory: ${{ github.workspace }}
+      working-directory: ${{ github.workspace }}/tests/
       run:  |
-        dotnet publish ${{ inputs.project-pattern }} -o output
-
+        dotnet publish ${{ inputs.project-pattern }} --property:PackageOutputPath=./output
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
