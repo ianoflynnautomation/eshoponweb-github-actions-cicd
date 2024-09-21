@@ -25,10 +25,7 @@ runs:
         name: ${{ inputs.test-artifact-name }}
         path: ${{ github.workspace }}
         pattern: ${{ inputs.test-project-pattern }}   
-    - name: Display structure of downloaded files
-      shell: bash
-      run: ls -R ${{ github.workspace }}
-
+        
     # - name: Run ${{ inputs.test-artifact-name }} Tests
     #   shell: bash
     #   run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
