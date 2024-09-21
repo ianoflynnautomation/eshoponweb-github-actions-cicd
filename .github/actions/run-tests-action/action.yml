@@ -26,18 +26,6 @@ runs:
         path: artifacts
         pattern: ${{ inputs.test-project-pattern }}   
 
-    # - name: Run ${{ inputs.test-artifact-name }} Tests
-    #   shell: bash
-    #   run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
-
-    # - name: Run ${{ inputs.test-artifact-name }} Tests
-    #   shell: pwsh
-    #   run: powershell Invoke-WebRequest -Uri "https://localworker.blob.core.windows.net/win-x64/tests.zip" -OutFile "./tests.zip"
-      
-    # - name: Unzip tests binary
-    #   shell: pwsh
-    #   run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
-
     # Issue with microsoft/vstest-action https://github.com/microsoft/vstest-action/issues/31
     # - name: Run tests
     #   uses: microsoft/vstest-action@v1.0.0
@@ -45,14 +33,6 @@ runs:
     #     searchFolder: ./tests/
     #     testAssembly: ${{ inputs.test-project-pattern }}
     #     runInParallel: true
-
-    - name: List directory files
-      shell: bash
-      run: ls -R artifacts
-
-    # - name: List directory files artifact
-    #   shell: bash
-    #   run: ls -la ${{ github.workspace }}/${{ inputs.test-artifact-name }}
 
     - name: Run Tests
       shell: bash

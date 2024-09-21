@@ -29,8 +29,18 @@ runs:
       shell: bash
       run: dotnet build Everything.sln --configuration Release --no-restore
 
-    - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
+    - name: Publish .NET project
+      shell: bash
+      run: dotnet publish 'Release' --configuration ${{ matrix.buildConfiguration }} -o ${{ github.workspace }}/output
+
+    # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ inputs.artifact-name }}
+    #     path: ${{ inputs.project-pattern }}
+
+    - name: Publish ${{ inputs.artifact-name }}  artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{ inputs.project-pattern }}
+        path: ${{ github.workspace }}/output
