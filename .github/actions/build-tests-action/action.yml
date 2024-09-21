@@ -31,7 +31,7 @@ runs:
 
     - name: Publish .NET project
       shell: powershell
-      run: dotnet publish tests/${{ inputs.project-pattern }} --configuration Release -o ./output
+      run: dotnet publish 'tests/${{ inputs.project-pattern }}' --configuration Release -o ./output
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
