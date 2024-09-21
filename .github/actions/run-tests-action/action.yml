@@ -30,13 +30,13 @@ runs:
     #   shell: bash
     #   run: dotnet test --no-restore --no-build --verbosity normal ${{ inputs.test-project-pattern }}
 
-    # - name: Run ${{ inputs.test-artifact-name }} Tests
-    #   shell: pwsh
-    #   run: powershell Invoke-WebRequest -Uri "https://localworker.blob.core.windows.net/win-x64/tests.zip" -OutFile "./tests.zip"
+    - name: Run ${{ inputs.test-artifact-name }} Tests
+      shell: pwsh
+      run: powershell Invoke-WebRequest -Uri "https://localworker.blob.core.windows.net/win-x64/tests.zip" -OutFile "./tests.zip"
       
-    # - name: Unzip tests binary
-    #   shell: pwsh
-    #   run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
+    - name: Unzip tests binary
+      shell: pwsh
+      run: powershell Expand-Archive -Path tests.zip -DestinationPath ./
 
     # Issue with microsoft/vstest-action https://github.com/microsoft/vstest-action/issues/31
     - name: Run tests
