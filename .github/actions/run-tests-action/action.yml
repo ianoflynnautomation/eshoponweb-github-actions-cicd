@@ -23,7 +23,7 @@ runs:
       uses: actions/download-artifact@v4
       with:
         name: ${{ inputs.test-artifact-name }}
-        path: ${{ github.workspace }}
+        path: artifacts
         pattern: ${{ inputs.test-project-pattern }}   
 
     # - name: Run ${{ inputs.test-artifact-name }} Tests
@@ -48,7 +48,7 @@ runs:
 
     - name: List directory files
       shell: bash
-      run: ls -la  D:\a\eshoponweb-github-actions-cicd\eshoponweb-github-actions-cicd\
+      run: ls -R artifacts
 
     # - name: List directory files artifact
     #   shell: bash
@@ -56,7 +56,7 @@ runs:
 
     - name: Run Tests
       shell: bash
-      run: dotnet test ./tests/${{ inputs.test-artifact-name }}/${{ inputs.test-project-pattern }}
+      run: dotnet test artifacts/${{ inputs.test-artifact-name }}/${{ inputs.test-project-pattern }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
