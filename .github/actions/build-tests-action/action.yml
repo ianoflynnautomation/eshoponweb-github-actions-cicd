@@ -31,9 +31,9 @@ runs:
         dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish .NET project
-      shell: cmd
+      shell: bash
       run:  |
-        dotnet publish --property:PublishDir=${{ github.workspace }}.\output tests\${{ inputs.project-pattern }}
+        dotnet publish --property:PublishDir=${{ github.workspace }}.\output linux-x64 tests\${{ inputs.project-pattern }}
 
     - name: Publish ${{ inputs.artifact-name }}  artifacts
       uses: actions/upload-artifact@v4
