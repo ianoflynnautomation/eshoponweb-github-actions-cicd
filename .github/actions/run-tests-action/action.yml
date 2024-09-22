@@ -26,28 +26,16 @@ runs:
         path: artifacts
         pattern: ${{ inputs.test-project-pattern }}   
 
-    # Issue with microsoft/vstest-action https://github.com/microsoft/vstest-action/issues/31
-    # - name: Run tests
-    #   uses: microsoft/vstest-action@v1.0.0
-    #   with:
-    #     searchFolder: ./tests/
-    #     testAssembly: ${{ inputs.test-project-pattern }}
-    #     runInParallel: true
-
-    - name: display files
-      shell: bash
-      run: ls -la artifacts
-
     - name: Run Tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test *Tests.dll --no-build --logger trx --results-directory TestResults ${{ inputs.test-filter-criteria }}
+      run: dotnet test *Tests.dll --no-build --logger trx --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
       with:
         name: test_results
-        path: TestResults
+        path: ${{ github.workspace }}TestResults
 
     
 
