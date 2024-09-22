@@ -32,8 +32,9 @@ runs:
 
     - name: Publish .NET project
       shell: powershell
+      working-directory: ${{ github.workspace }}
       run:  |
-        dotnet publish -c Release -property:PublishDir=${{env.DOTNET_ROOT}}/output
+        dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir=${{env.DOTNET_ROOT}}/output
 
     # dotnet publish ${{ inputs.project-pattern }} --property:PublishDir=${{env.DOTNET_ROOT}}/output
 
