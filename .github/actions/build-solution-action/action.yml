@@ -16,11 +16,11 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }}
 
     - name: Install Dependencies
-      shell: powershell
+      shell: bash
       run: dotnet restore Everything.sln
 
     - name: Build Solution
-      shell: powershell
+      shell: bash
       run: dotnet build Everything.sln --configuration Release --no-restore 
 
     - name: Publish Project Artifact

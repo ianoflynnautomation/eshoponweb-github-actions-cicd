@@ -22,22 +22,22 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }}
 
     - name: Install Dependencies
-      shell: powershell
+      shell: bash
       run: dotnet restore Everything.sln
 
     - name: Build Test Projects
-      shell: powershell
+      shell: bash
       run: |
         dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish .NET project
-      shell: cmd
+      shell: bash
       run:  |
-        dotnet publish --property:PublishDir=${{ github.workspace }}.\output tests\${{ inputs.project-pattern }}
+        dotnet publish --property:PublishDir=${{ github.workspace }}\output tests\${{ inputs.project-pattern }}
 
     - name: Publish ${{ inputs.artifact-name }}  artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{ github.workspace }}.\output
+        path: ${{ github.workspace }}\output
         retention-days: 1
