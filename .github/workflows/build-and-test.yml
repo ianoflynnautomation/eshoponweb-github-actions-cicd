@@ -32,33 +32,43 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-  build_tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
-
+  build_ui_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build Unit Tests
+      - name: Build UI Tests
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          artifact-name: tests_UnitTests
+          artifact-name: tests_UITests
           project-pattern: |
-             UnitTests/UnitTests.csproj
-    
+            UITests/UITests.csproj
+  
+  build_integration_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Build Integration Tests
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_IntegrationTests
           project-pattern: |
-             IntegrationTests/IntegrationTests.csproj
-      
+            IntegrationTests/IntegrationTests.csproj
+
+  build_public_api_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Build Public Api Integration Tests
         uses: ./.github/actions/build-tests-action
         with:
@@ -66,6 +76,13 @@ jobs:
           artifact-name: tests_PublicApiIntegrationTests
           project-pattern: |
             PublicApiIntegrationTests/PublicApiIntegrationTests.csproj
+    
+  build_functional_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Build Functional Tests
         uses: ./.github/actions/build-tests-action
