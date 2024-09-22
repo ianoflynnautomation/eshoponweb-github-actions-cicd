@@ -28,7 +28,7 @@ runs:
     - name: Publish Test projects
       shell: pwsh
       run: |
-          $projects = Get-ChildItem -Recurse -Filter ${{ inputs.project-pattern }}
+          $projects = Get-ChildItem -Recurse -Filter tests/${{ inputs.project-pattern }}
           
           # Iterate over each project and run dotnet publish
           foreach ($project in $projects) {
