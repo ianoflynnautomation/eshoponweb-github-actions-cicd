@@ -44,7 +44,7 @@ runs:
     - name: Publish .NET project
       shell: cmd
       run:  |
-        dotnet publish --property:PublishDir=${{env.DOTNET_ROOT}}\output tests\${{ inputs.project-pattern }}
+        dotnet publish --property:PublishDir="${{ github.workspace }}.\output" tests\${{ inputs.project-pattern }}
 
     # dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
 
@@ -58,5 +58,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{env.DOTNET_ROOT}}\output
+        path: ${{ github.workspace }}.\output
         retention-days: 1
