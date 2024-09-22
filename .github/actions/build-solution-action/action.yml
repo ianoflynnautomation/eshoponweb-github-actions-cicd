@@ -26,7 +26,7 @@ runs:
     - name: Publish Web Assets
       shell: bash
       run:  |
-        dotnet publish --property:PublishDir="${{ github.workspace }}/output"
+        dotnet publish --property:PublishDir="${{ github.workspace }}/output" Everything.sln
 
     - name: Publish Project Artifact
       uses: actions/upload-artifact@v4

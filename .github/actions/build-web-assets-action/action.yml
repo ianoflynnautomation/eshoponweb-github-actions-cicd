@@ -28,8 +28,12 @@ runs:
       run:  |
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" src/Web/Web.csproj
 
+    - name: display contents of output directory
+      shell: bash
+      run: ls -R ${{ github.workspace }}/output
+
     - name: Publish Web Assets Artifact
       uses: actions/upload-artifact@v4
       with:
         name: test_WebAssets
-        path: ${{ github.workspace }}/output/Web/wwwroot
+        path: ${{ github.workspace }}/output/wwwroot
