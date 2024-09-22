@@ -49,7 +49,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_UnitTests
           project-pattern: |
-             UnitTests\UnitTests.csproj
+             UnitTests/UnitTests.csproj
     
       - name: Build Integration Tests
         uses: ./.github/actions/build-tests-action
@@ -57,7 +57,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_IntegrationTests
           project-pattern: |
-             IntegrationTests\IntegrationTests.csproj
+             IntegrationTests/IntegrationTests.csproj
       
       - name: Build Public Api Integration Tests
         uses: ./.github/actions/build-tests-action
@@ -65,7 +65,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_PublicApiIntegrationTests
           project-pattern: |
-            PublicApiIntegrationTests\PublicApiIntegrationTests.csproj
+            PublicApiIntegrationTests/PublicApiIntegrationTests.csproj
 
       - name: Build Functional Tests
         uses: ./.github/actions/build-tests-action
@@ -73,7 +73,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           artifact-name: tests_FunctionalTests
           project-pattern: |
-            FunctionalTests\FunctionalTests.csproj
+            FunctionalTests/FunctionalTests.csproj
 
   run_tests:
     strategy:
