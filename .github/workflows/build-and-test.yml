@@ -35,7 +35,7 @@ jobs:
   build_tests:
     strategy:
       matrix:
-        os: [windows-2022]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
