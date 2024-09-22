@@ -25,10 +25,10 @@ runs:
       shell: powershell
       run: dotnet restore Everything.sln
 
-    - name: Publish UnitTests projects
+    - name: Publish Test projects
       shell: pwsh
       run: |
-          $projects = Get-ChildItem -Recurse -Filter '${{ inputs.project-pattern }}'
+          $projects = Get-ChildItem -Recurse -Filter ${{ inputs.project-pattern }}
           
           # Iterate over each project and run dotnet publish
           foreach ($project in $projects) {
