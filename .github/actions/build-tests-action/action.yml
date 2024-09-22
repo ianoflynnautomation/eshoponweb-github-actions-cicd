@@ -34,7 +34,9 @@ runs:
       shell: powershell
       working-directory: tests
       run:  |
-        dotnet publish ${{ inputs.project-pattern }} --property:PublishDir=${{env.DOTNET_ROOT}}/output
+        dotnet publish -c Release -property:PublishDir=${{env.DOTNET_ROOT}}/output
+
+    # dotnet publish ${{ inputs.project-pattern }} --property:PublishDir=${{env.DOTNET_ROOT}}/output
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
