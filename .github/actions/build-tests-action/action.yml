@@ -33,7 +33,7 @@ runs:
     - name: Publish .NET project
       shell: bash
       run:  |
-        dotnet publish --property:PublishDir=${{env.DOTNET_ROOT}}\output tests\${{ inputs.project-pattern }}
+        dotnet publish --property:PublishDir=${{env.DOTNET_ROOT}}.\output tests\${{ inputs.project-pattern }}
 
     - name: Publish ${{ inputs.artifact-name }}  artifacts
       uses: actions/upload-artifact@v4
