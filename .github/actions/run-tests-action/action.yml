@@ -40,7 +40,7 @@ runs:
     - uses: dorny/test-reporter@v1
       with:
         artifact: test_results_${{ inputs.test-artifact-name }}
-        name: Test Results
+        name: Test Results for ${{ inputs.test-artifact-name }}
         path: '*.trx'
         reporter: dotnet-trx
 
