@@ -2,7 +2,7 @@
 
   <PropertyGroup>    
     <Nullable>enable</Nullable>
-
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

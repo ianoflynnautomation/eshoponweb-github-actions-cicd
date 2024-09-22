@@ -2,6 +2,7 @@
 
   <PropertyGroup>  
     <RootNamespace>Microsoft.eShopWeb.IntegrationTests</RootNamespace>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
