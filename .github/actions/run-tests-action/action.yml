@@ -41,7 +41,7 @@ runs:
     - name: Run Tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test --no-build --logger trx --results-directory TestResults ${{ inputs.test-filter-criteria }}
+      run: dotnet test *Tests.dll --no-build --logger trx --results-directory TestResults ${{ inputs.test-filter-criteria }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
