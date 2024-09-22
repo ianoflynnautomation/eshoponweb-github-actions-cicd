@@ -34,9 +34,14 @@ runs:
     #     testAssembly: ${{ inputs.test-project-pattern }}
     #     runInParallel: true
 
+    - name: display files
+      shell: bash
+      run: ls -la artifacts
+
     - name: Run Tests
       shell: bash
-      run: dotnet test ./artifacts/tests/**/*Tests.dll
+      working-directory: artifacts
+      run: dotnet test --no-build --logger trx --results-directory TestResults ${{ inputs.test-filter-criteria }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
