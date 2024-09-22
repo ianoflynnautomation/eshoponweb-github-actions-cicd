@@ -31,7 +31,7 @@ runs:
         dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish .NET project
-      shell: bash
+      shell: cmd
       run:  |
         dotnet publish --property:PublishDir=${{ github.workspace }}.\output tests\${{ inputs.project-pattern }}
 
