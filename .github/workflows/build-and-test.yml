@@ -32,20 +32,20 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-  build_ui_tests:
+  build_unit_tests:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build UI Tests
+      - name: Build Unit Tests
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          artifact-name: tests_UITests
+          artifact-name: tests_UnitTests
           project-pattern: |
-            UITests/UITests.csproj
+            UnitTests/UnitTests.csproj
   
   build_integration_tests:
     runs-on: ubuntu-latest
@@ -98,7 +98,7 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
-    needs: [ build_solution, build_tests, build_web_assets ]
+    needs: [ build_solution, build_unit_tests, build_functional_tests, build_public_api_tests, build_integration_tests , build_web_assets ]
 
     steps:
       - name: Checkout Repository
