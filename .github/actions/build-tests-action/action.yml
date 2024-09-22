@@ -28,8 +28,7 @@ runs:
     - name: Publish UnitTests projects
       shell: pwsh
       run: |
-          # Find all UnitTests.csproj files recursively
-          $projects = Get-ChildItem -Recurse -Filter '{inputs.project-pattern}'
+          $projects = Get-ChildItem -Recurse -Filter '${{ inputs.project-pattern }}'
           
           # Iterate over each project and run dotnet publish
           foreach ($project in $projects) {
