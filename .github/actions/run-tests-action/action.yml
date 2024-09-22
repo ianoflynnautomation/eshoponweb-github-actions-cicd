@@ -34,7 +34,7 @@ runs:
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
       with:
-        name: test_results
+        name: test_results_${{ inputs.test-artifact-name }}
         path: ${{ github.workspace }}/TestResults
 
     
