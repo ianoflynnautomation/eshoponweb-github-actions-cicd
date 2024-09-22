@@ -6,6 +6,11 @@ on:
 
 env:
   DOTNET_VERSION: '8.x'
+  
+permissions:
+  contents: read
+  actions: read
+  checks: write
 
 jobs:
   build_solution:
