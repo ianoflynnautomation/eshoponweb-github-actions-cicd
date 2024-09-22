@@ -25,17 +25,6 @@ runs:
       shell: powershell
       run: dotnet restore Everything.sln
 
-    # - name: Publish Test projects
-    #   shell: pwsh
-    #   run: |
-    #       $projects = Get-ChildItem -Recurse -Filter tests/${{ inputs.project-pattern }}
-          
-    #       # Iterate over each project and run dotnet publish
-    #       foreach ($project in $projects) {
-    #         Write-Host "Publishing project: $($project.FullName)"
-    #         dotnet publish $project.FullName -o './output'
-    #       }
-
     - name: Build Test Projects
       shell: powershell
       run: |
@@ -44,15 +33,7 @@ runs:
     - name: Publish .NET project
       shell: cmd
       run:  |
-        dotnet publish --property:PublishDir="${{ github.workspace }}.\output" tests\${{ inputs.project-pattern }}
-
-    # dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
-
-    # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ${{ inputs.artifact-name }}
-    #     path: ${{ inputs.project-pattern }}
+        dotnet publish --property:PublishDir=${{ github.workspace }}.\output tests\${{ inputs.project-pattern }}
 
     - name: Publish ${{ inputs.artifact-name }}  artifacts
       uses: actions/upload-artifact@v4
