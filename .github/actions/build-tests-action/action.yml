@@ -44,7 +44,7 @@ runs:
     - name: Publish .NET project
       shell: powershell
       run:  |
-        dotnet publish tests\${{ inputs.project-pattern }} --property PublishDir=.\output
+        dotnet publish tests\${{ inputs.project-pattern }} --property:PublishDir=.\output
 
     # dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
 
