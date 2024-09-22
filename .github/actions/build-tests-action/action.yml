@@ -25,17 +25,17 @@ runs:
       shell: bash
       run: dotnet restore Everything.sln
 
-    - name: Build Test Projects
+    - name: Build Solution
       shell: bash
       run: |
         dotnet build Everything.sln --configuration Release --no-restore
 
-    - name: Publish .NET project
+    - name: Publish Test project
       shell: bash
       run:  |
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
-    - name: Publish ${{ inputs.artifact-name }}  artifacts
+    - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}

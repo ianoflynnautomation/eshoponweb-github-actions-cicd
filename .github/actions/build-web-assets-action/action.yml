@@ -19,9 +19,14 @@ runs:
       shell: bash
       run: dotnet restore Everything.sln
 
-    - name: Build Web Assets
+    - name: Build Solution
       shell: bash
       run: dotnet build ./src/Web/Web.csproj --configuration Release --no-restore
+
+    - name: Publish Web Assets
+      shell: bash
+      run:  |
+        dotnet publish --property:PublishDir="${{ github.workspace }}/output" src/Web/Web.csproj
 
     - name: Publish Web Assets Artifact
       uses: actions/upload-artifact@v4
