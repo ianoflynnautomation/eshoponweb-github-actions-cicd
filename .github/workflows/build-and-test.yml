@@ -92,13 +92,13 @@ jobs:
           project-pattern: |
             FunctionalTests/FunctionalTests.csproj
 
-  run_tests:
+  run_unit_tests:
     strategy:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
-    needs: [ build_solution, build_unit_tests, build_functional_tests, build_public_api_tests, build_integration_tests , build_web_assets ]
+    needs: [ build_solution, build_web_assets, build_unit_tests ]
 
     steps:
       - name: Checkout Repository
@@ -112,6 +112,18 @@ jobs:
           test-project-pattern: |
             UnitTests/**/*
           test-filter-criteria: ""
+    
+  run_integration_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    needs: [ build_solution, build_unit_tests, build_integration_tests ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Run Integration Tests
         uses: ./.github/actions/run-tests-action
@@ -119,9 +131,20 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           test-artifact-name: tests_IntegrationTests
           test-project-pattern: |
-             IntegrationTests/**/*
-             PublicApiIntegrationTests/**/*
+            IntegrationTests/**/*
           test-filter-criteria: ""
+
+  run_public_api_integration_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    needs: [ build_solution, build_unit_tests, build_public_api_tests ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Run Public Api Integration Tests
         uses: ./.github/actions/run-tests-action
@@ -132,12 +155,23 @@ jobs:
             PublicApiIntegrationTests/**/*
           test-filter-criteria: ""
 
+  run_functional_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    needs: [ build_solution, build_unit_tests, build_functional_tests ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Run Functional Tests
         uses: ./.github/actions/run-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           test-artifact-name: tests_FunctionalTests
           test-project-pattern: |
-             FunctionalTests/**/*
+            FunctionalTests/**/*
           test-filter-criteria: ""
-
