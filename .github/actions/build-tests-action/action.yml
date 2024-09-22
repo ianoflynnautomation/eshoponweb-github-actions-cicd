@@ -32,7 +32,6 @@ runs:
 
     - name: Publish .NET project
       shell: powershell
-      working-directory: tests
       run:  |
         dotnet publish -c Release -property:PublishDir=${{env.DOTNET_ROOT}}/output
 
