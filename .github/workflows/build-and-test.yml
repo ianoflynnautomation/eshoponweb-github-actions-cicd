@@ -6,7 +6,7 @@ on:
 
 env:
   DOTNET_VERSION: '8.x'
-  
+
 permissions:
   contents: read
   actions: read
@@ -97,86 +97,119 @@ jobs:
           project-pattern: |
             FunctionalTests/FunctionalTests.csproj
 
-  run_unit_tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
-    needs: [ build_solution, build_web_assets, build_unit_tests ]
+  # run_unit_tests:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 20
+  #   needs: [ build_solution, build_web_assets, build_unit_tests ]
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Run Unit Tests
-        uses: ./.github/actions/run-tests-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          test-artifact-name: tests_UnitTests
-          test-project-pattern: |
-            UnitTests/**/*
-          test-filter-criteria: ""
+  #     - name: Run Unit Tests
+  #       uses: ./.github/actions/run-tests-action
+  #       with:
+  #         dotnet-version: ${{ env.DOTNET_VERSION }}
+  #         test-artifact-name: tests_UnitTests
+  #         test-project-pattern: |
+  #           UnitTests/**/*
+  #         test-filter-criteria: ""
     
-  run_integration_tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
-    needs: [ build_solution, build_unit_tests, build_integration_tests ]
+  # run_integration_tests:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 20
+  #   needs: [ build_solution, build_unit_tests, build_integration_tests ]
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Run Integration Tests
-        uses: ./.github/actions/run-tests-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          test-artifact-name: tests_IntegrationTests
-          test-project-pattern: |
-            IntegrationTests/**/*
-          test-filter-criteria: ""
+  #     - name: Run Integration Tests
+  #       uses: ./.github/actions/run-tests-action
+  #       with:
+  #         dotnet-version: ${{ env.DOTNET_VERSION }}
+  #         test-artifact-name: tests_IntegrationTests
+  #         test-project-pattern: |
+  #           IntegrationTests/**/*
+  #         test-filter-criteria: ""
 
-  run_public_api_integration_tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
-    needs: [ build_solution, build_unit_tests, build_public_api_tests ]
+  # run_public_api_integration_tests:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 20
+  #   needs: [ build_solution, build_unit_tests, build_public_api_tests ]
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Run Public Api Integration Tests
-        uses: ./.github/actions/run-tests-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          test-artifact-name: tests_PublicApiIntegrationTests
-          test-project-pattern: |
-            PublicApiIntegrationTests/**/*
-          test-filter-criteria: ""
+  #     - name: Run Public Api Integration Tests
+  #       uses: ./.github/actions/run-tests-action
+  #       with:
+  #         dotnet-version: ${{ env.DOTNET_VERSION }}
+  #         test-artifact-name: tests_PublicApiIntegrationTests
+  #         test-project-pattern: |
+  #           PublicApiIntegrationTests/**/*
+  #         test-filter-criteria: ""
 
-  run_functional_tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+  # run_functional_tests:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 20
+  #   needs: [ build_solution, build_unit_tests, build_functional_tests ]
+
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Run Functional Tests
+  #       uses: ./.github/actions/run-tests-action
+  #       with:
+  #         dotnet-version: ${{ env.DOTNET_VERSION }}
+  #         test-artifact-name: tests_FunctionalTests
+  #         test-project-pattern: |
+  #           FunctionalTests/**/*
+  #         test-filter-criteria: ""
+  
+  run_tests:
+    runs-on: [ubuntu-latest]
     timeout-minutes: 20
     needs: [ build_solution, build_unit_tests, build_functional_tests ]
-
+    strategy:
+      matrix:
+        include:
+          - testType: UnitTests
+            artifactName: tests_UnitTests
+            projectsPattern: '**/*UnitTests.csproj'
+          - testType: IntegrationTests
+            artifactName: tests_IntegrationTests
+            projectsPattern: '**/*IntegrationTests.csproj'
+          - testType: PublicApiIntegrationTests
+            artifactName: tests_PublicApiIntegrationTests
+            projectsPattern: '**/*PublicApiIntegrationTests.csproj'
+          - testType: FunctionalTests
+            artifactName: tests_FunctionalTests
+            projectsPattern: '**/*FunctionalTests.csproj'
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Run Functional Tests
+      - name: Run ${{ matrix.testType }} and Publish Test Results
         uses: ./.github/actions/run-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          test-artifact-name: tests_FunctionalTests
+          test-artifact-name: ${{ matrix.artifactName }}
           test-project-pattern: |
-            FunctionalTests/**/*
-          test-filter-criteria: ""
+            ${{ matrix.projectsPattern }}
+          test-filter-criteria: ${{ matrix.testFilterCriteria }}
