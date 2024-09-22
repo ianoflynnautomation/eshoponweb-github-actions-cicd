@@ -37,149 +37,41 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-  build_unit_tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+  build_tests:
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 20
+    needs: [ build_solution, build_unit_tests, build_functional_tests ]
+    strategy:
+      matrix:
+        include:
+          - test-type: UnitTests
+            artifact-name: tests_UnitTests
+            project-pattern: |
+              UnitTests/UnitTests.csproj
+          - test-type: IntegrationTests
+            artifact-name: tests_IntegrationTests
+            project-pattern: | 
+              IntegrationTests/IntegrationTests.csproj
+          - test-type: PublicApiIntegrationTests
+            artifact-name: tests_PublicApiIntegrationTests
+            project-pattern: |
+              PublicApiIntegrationTests/PublicApiIntegrationTests.csproj
+          - test-type: FunctionalTests
+            artifact-name: tests_FunctionalTests
+            project-pattern: |
+              FunctionalTests/FunctionalTests.csproj
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build Unit Tests
+      - name: Build ${{ matrix.test-type }} Tests and Publish Test Artifacts
         uses: ./.github/actions/build-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          artifact-name: tests_UnitTests
+          artifact-name: ${{ matrix.artifact-name }}
           project-pattern: |
-            UnitTests/UnitTests.csproj
-  
-  build_integration_tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Build Integration Tests
-        uses: ./.github/actions/build-tests-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          artifact-name: tests_IntegrationTests
-          project-pattern: |
-            IntegrationTests/IntegrationTests.csproj
-
-  build_public_api_tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Build Public Api Integration Tests
-        uses: ./.github/actions/build-tests-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          artifact-name: tests_PublicApiIntegrationTests
-          project-pattern: |
-            PublicApiIntegrationTests/PublicApiIntegrationTests.csproj
-    
-  build_functional_tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Build Functional Tests
-        uses: ./.github/actions/build-tests-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          artifact-name: tests_FunctionalTests
-          project-pattern: |
-            FunctionalTests/FunctionalTests.csproj
-
-  # run_unit_tests:
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   timeout-minutes: 20
-  #   needs: [ build_solution, build_web_assets, build_unit_tests ]
-
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v4
-
-  #     - name: Run Unit Tests
-  #       uses: ./.github/actions/run-tests-action
-  #       with:
-  #         dotnet-version: ${{ env.DOTNET_VERSION }}
-  #         test-artifact-name: tests_UnitTests
-  #         test-project-pattern: |
-  #           UnitTests/**/*
-  #         test-filter-criteria: ""
-    
-  # run_integration_tests:
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   timeout-minutes: 20
-  #   needs: [ build_solution, build_unit_tests, build_integration_tests ]
-
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v4
-
-  #     - name: Run Integration Tests
-  #       uses: ./.github/actions/run-tests-action
-  #       with:
-  #         dotnet-version: ${{ env.DOTNET_VERSION }}
-  #         test-artifact-name: tests_IntegrationTests
-  #         test-project-pattern: |
-  #           IntegrationTests/**/*
-  #         test-filter-criteria: ""
-
-  # run_public_api_integration_tests:
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   timeout-minutes: 20
-  #   needs: [ build_solution, build_unit_tests, build_public_api_tests ]
-
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v4
-
-  #     - name: Run Public Api Integration Tests
-  #       uses: ./.github/actions/run-tests-action
-  #       with:
-  #         dotnet-version: ${{ env.DOTNET_VERSION }}
-  #         test-artifact-name: tests_PublicApiIntegrationTests
-  #         test-project-pattern: |
-  #           PublicApiIntegrationTests/**/*
-  #         test-filter-criteria: ""
-
-  # run_functional_tests:
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   timeout-minutes: 20
-  #   needs: [ build_solution, build_unit_tests, build_functional_tests ]
-
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v4
-
-  #     - name: Run Functional Tests
-  #       uses: ./.github/actions/run-tests-action
-  #       with:
-  #         dotnet-version: ${{ env.DOTNET_VERSION }}
-  #         test-artifact-name: tests_FunctionalTests
-  #         test-project-pattern: |
-  #           FunctionalTests/**/*
-  #         test-filter-criteria: ""
+            ${{ matrix.project-pattern }}
   
   run_tests:
     runs-on: [ubuntu-latest]
@@ -188,28 +80,36 @@ jobs:
     strategy:
       matrix:
         include:
-          - testType: UnitTests
-            artifactName: tests_UnitTests
-            projectsPattern: '**/*UnitTests.csproj'
-          - testType: IntegrationTests
-            artifactName: tests_IntegrationTests
-            projectsPattern: '**/*IntegrationTests.csproj'
-          - testType: PublicApiIntegrationTests
-            artifactName: tests_PublicApiIntegrationTests
-            projectsPattern: '**/*PublicApiIntegrationTests.csproj'
-          - testType: FunctionalTests
-            artifactName: tests_FunctionalTests
-            projectsPattern: '**/*FunctionalTests.csproj'
+          - test-type: UnitTests
+            artifact-name: tests_UnitTests
+            project-pattern: |
+              **/*UnitTests.csproj
+            test-filter-criteria: ""
+          - test-type: IntegrationTests
+            artifact-name: tests_IntegrationTests
+            project-pattern: | 
+              **/*IntegrationTests.csproj
+            test-filter-criteria: ""
+          - test-type: PublicApiIntegrationTests
+            artifact-name: tests_PublicApiIntegrationTests
+            project-pattern: |
+              **/*PublicApiIntegrationTests.csproj
+            test-filter-criteria: ""
+          - test-type: FunctionalTests
+            artifact-name: tests_FunctionalTests
+            project-pattern: |
+              **/*FunctionalTests.csproj
+            test-filter-criteria: ""
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Run ${{ matrix.testType }} and Publish Test Results
+      - name: Run ${{ matrix.test-type }} and Publish Test Results
         uses: ./.github/actions/run-tests-action
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          test-artifact-name: ${{ matrix.artifactName }}
+          test-artifact-name: ${{ matrix.artifact-name }}
           test-project-pattern: |
-            ${{ matrix.projectsPattern }}
-          test-filter-criteria: ${{ matrix.testFilterCriteria }}
+            ${{ matrix.project-pattern }}
+          test-filter-criteria: ${{ matrix.test-filter-criteria }}
