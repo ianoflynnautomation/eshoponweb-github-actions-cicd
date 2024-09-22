@@ -34,9 +34,9 @@ runs:
       shell: powershell
       working-directory: ${{ github.workspace }}
       run:  |
-        dotnet publish Everything.sln -c Release -property:PublishDir="${{env.DOTNET_ROOT}}\output"
+        dotnet publish "${{ inputs.project-pattern }}" -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
 
-    # dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir=${{env.DOTNET_ROOT}}/output
+    # dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
 
     # - name: Publish Test Project ${{ inputs.artifact-name }} Artifact
     #   uses: actions/upload-artifact@v4
@@ -48,5 +48,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{env.DOTNET_ROOT}}\output
+        path: ${{env.DOTNET_ROOT}}/output
         retention-days: 1
