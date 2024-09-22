@@ -10,6 +10,11 @@
     <None Remove="appsettings.test.json" />
   </ItemGroup>
 
+    <PropertyGroup>
+    <IsPublishable>True</IsPublishable>
+    <PublishTo>output</PublishTo>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Include="appsettings.test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

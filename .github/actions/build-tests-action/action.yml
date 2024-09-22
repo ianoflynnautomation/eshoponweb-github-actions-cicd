@@ -25,16 +25,28 @@ runs:
       shell: powershell
       run: dotnet restore Everything.sln
 
-    - name: Build Test Projects
-      shell: powershell
+    - name: Publish UnitTests projects
+      shell: pwsh
       run: |
-        dotnet build Everything.sln --configuration Release --no-restore
+          # Find all UnitTests.csproj files recursively
+          $projects = Get-ChildItem -Recurse -Filter '*UnitTests.csproj'
+          
+          # Iterate over each project and run dotnet publish
+          foreach ($project in $projects) {
+            Write-Host "Publishing project: $($project.FullName)"
+            dotnet publish $project.FullName -o './output'
+          }
 
-    - name: Publish .NET project
-      shell: powershell
-      working-directory: ${{ github.workspace }}
-      run:  |
-        dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
+    # - name: Build Test Projects
+    #   shell: powershell
+    #   run: |
+    #     dotnet build Everything.sln --configuration Release --no-restore
+
+    # - name: Publish .NET project
+    #   shell: powershell
+    #   working-directory: ${{ github.workspace }}
+    #   run:  |
+    #     dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
 
     # dotnet publish ${{ inputs.project-pattern }} -c Release -property:PublishDir="${{env.DOTNET_ROOT}}/output"
 
@@ -48,5 +60,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{env.DOTNET_ROOT}}/output
+        path: ./output
         retention-days: 1

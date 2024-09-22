@@ -7,6 +7,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <IsPublishable>True</IsPublishable>
+    <PublishTo>output</PublishTo>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="WebRazorPages\**" />
     <EmbeddedResource Remove="WebRazorPages\**" />
