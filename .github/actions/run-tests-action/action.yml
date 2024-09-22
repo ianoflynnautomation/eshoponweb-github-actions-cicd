@@ -29,13 +29,21 @@ runs:
     - name: Run Tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test *Tests.dll --no-build --logger trx --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
+      run: dotnet test *Tests.dll --no-build --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
     
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
       with:
         name: test_results_${{ inputs.test-artifact-name }}
         path: ${{ github.workspace }}/TestResults
+    
+    - uses: dorny/test-reporter@v1
+      with:
+        artifact: test_results_${{ inputs.test-artifact-name }}
+        name: Test Results
+        path: ${{ github.workspace }}/TestResults/*.trx
+        reporter: dotnet-trx
+
 
     
 
