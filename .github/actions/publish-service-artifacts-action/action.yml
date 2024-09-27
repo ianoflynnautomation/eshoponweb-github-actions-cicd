@@ -45,7 +45,7 @@ runs:
       run: |
         dotnet publish --property:PublishDir="${{ github.workspace }}/staging" **/${{ inputs.project-name }}/${{ inputs.project-name }}.csproj
 
-    - name: Copy ${{ inputs.docker-file (if exists) to staging
+    - name: Copy ${{ inputs.docker-file }} to staging
       if: ${{ inputs.docker-file != null }}
       shell: bash
       run: |
