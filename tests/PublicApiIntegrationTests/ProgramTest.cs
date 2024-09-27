@@ -7,7 +7,7 @@ namespace PublicApiIntegrationTests;
 [TestClass]
 public class ProgramTest
 {
-    private static WebApplicationFactory<Program> _application = new();
+    private static WebApplicationFactory<Microsoft.eShopWeb.PublicApi.Program> _application = new();
 
     public static HttpClient NewClient
     {
@@ -20,7 +20,7 @@ public class ProgramTest
     [AssemblyInitialize]
     public static void AssemblyInitialize(TestContext _)
     {
-        _application = new WebApplicationFactory<Program>();
+        _application = new WebApplicationFactory<Microsoft.eShopWeb.PublicApi.Program>();
 
     }
 }
