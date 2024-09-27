@@ -33,3 +33,4 @@ runs:
       with:
         name: build_project
         path: ${{ github.workspace }}/output
+        retention-days: 1

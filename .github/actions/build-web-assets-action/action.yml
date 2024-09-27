@@ -33,3 +33,4 @@ runs:
       with:
         name: test_WebAssets
         path: ${{ github.workspace }}/output/wwwroot
+        retention-days: 1

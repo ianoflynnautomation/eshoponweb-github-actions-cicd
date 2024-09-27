@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
@@ -31,11 +31,11 @@
     <Using Include="System.Threading.Tasks" />
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <Content Include="appsettings.test.json">
-      <!-- <CopyToOutputDirectory>Always</CopyToOutputDirectory> -->
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </Content>
+    </Content>  
   </ItemGroup>
 
 </Project>
