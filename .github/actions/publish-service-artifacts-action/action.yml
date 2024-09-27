@@ -45,11 +45,10 @@ runs:
       run: |
         dotnet publish --property:PublishDir="${{ github.workspace }}/staging" **/${{ inputs.project-name }}/${{ inputs.project-name }}.csproj
 
-    - name: Copy ${{ inputs.docker-file }} to staging
-      if: ${{ inputs.docker-file != null }}
+    - name: Copy ${{ inputs.dockerfile }} to staging
       shell: bash
       run: |
-          cp ${{ inputs.docker-file }} ${{ github.workspace }}/staging/${{ inputs.service-name }}
+          cp ${{ inputs.dockerfile }} ${{ github.workspace }}/staging/${{ inputs.service-name }}
 
     - name: Publish ${{ inputs.service-name }} to GitHub Artifacts
       uses: actions/upload-artifact@v3
