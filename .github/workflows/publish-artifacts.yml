@@ -30,7 +30,7 @@ jobs:
           project-name: 'PublicApi'
           artifact-name: 'PublicApi'
           dockerfile: src/PublicApi/Dockerfile
-          container-mage: 'publicapi'
+          container-image: 'publicapi'
 
     steps:
       - name: Checkout Repository
@@ -43,8 +43,7 @@ jobs:
           service-name: ${{ matrix.service-name }}
           project-name: ${{ matrix.project-name }}
           artifact-name: ${{ matrix.artifact-name }}
-          docker-file: ${{ matrix.docker-file }}
-          container-image: ${{ matrix.container-image }}
+          docker-file: ${{ matrix.dockerfile }}
 
 
     
