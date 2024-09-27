@@ -59,6 +59,10 @@ jobs:
             artifact-name: tests_FunctionalTests
             project-pattern: |
               FunctionalTests/FunctionalTests.csproj
+          - test-type: SystemTests
+            artifact-name: tests_SystemTests
+            project-pattern: |
+              SystemTests/SystemTests.csproj 
 
     steps:
       - name: Checkout Repository

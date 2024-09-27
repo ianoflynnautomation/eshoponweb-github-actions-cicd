@@ -1,0 +1,58 @@
+name: Publish Service Artifacts
+description: 'Publishes the service artifacts for the eShopOnWeb project'
+
+inputs:
+  dotnet-version:
+    description: 'The version of the .Net Core SDK to use'
+    required: true
+  service-name:
+    description: 'The name of the service to publish'
+    required: true
+  project-name:
+    description: 'The name of the project to publish'
+    required: true
+  artifact-name:
+    description: 'The name of the artifact to publish'
+    required: true
+  dockerfile: 
+    description: 'The name of the Dockerfile to copy to the staging directory'
+    required: false
+  
+runs:
+  using: "composite"
+  steps:
+
+    - name: Download ${{ inputs.artifact-name }} Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.artifact-name }}
+
+    - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Restore Dependencies
+      shell: bash
+      run: dotnet restore Everything.sln
+
+    - name: Build Solution
+      shell: bash
+      run: dotnet build **/${{ inputs.project-name }}/${{ inputs.project-name }}.csproj --configuration Release --no-restore
+
+    - name: Publish ${{ inputs.service-name }} to staging
+      shell: bash
+      run: |
+        dotnet publish --property:PublishDir="${{ github.workspace }}/staging" **/${{ inputs.project-name }}/${{ inputs.project-name }}.csproj
+
+    - name: Copy ${{ inputs.docker-file (if exists) to staging
+      if: ${{ inputs.docker-file != null }}
+      shell: bash
+      run: |
+          cp ${{ inputs.docker-file }} ${{ github.workspace }}/staging/${{ inputs.service-name }}
+
+    - name: Publish ${{ inputs.service-name }} to GitHub Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+          name: 'publish_${{ inputs.artifact-name }}'
+          path: ${{ github.workspace }}/staging/${{ inputs.service-name }}
