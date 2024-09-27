@@ -33,7 +33,7 @@
 
     <ItemGroup>
     <Content Include="appsettings.test.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <!-- <CopyToOutputDirectory>Always</CopyToOutputDirectory> -->
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>
