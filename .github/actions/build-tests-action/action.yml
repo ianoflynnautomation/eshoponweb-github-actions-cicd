@@ -35,16 +35,11 @@ runs:
       shell: pwsh
       run: dotnet tool update --global PowerShell
 
-    - name: Display InMemorySystemTests directory
-      shell: bash
-      run: |
-        ls -R ${{ github.workspace }}/tests/InMemorySystemTests/bin
-
     - name: Ensure browsers are installed
       if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
       shell: pwsh
       run: |
-        pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install --with-deps
+        pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     - name: Publish Test project
       shell: bash
