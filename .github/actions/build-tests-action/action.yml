@@ -31,12 +31,12 @@ runs:
         dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Install PowerShell
-      if: ${{ ${{ inputs.project-pattern }} == 'InMemorySystemTests/InMemorySystemTests.csproj' }}
+      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
       shell: pwsh
       run: dotnet tool update --global PowerShell
 
     - name: Ensure browsers are installed
-      if: ${{ ${{ inputs.project-pattern }} == 'InMemorySystemTests/InMemorySystemTests.csproj' }}
+      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
       shell: pwsh
       run: |
         pwsh tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install --with-deps
@@ -47,7 +47,7 @@ runs:
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
     - name: Copy Playwright files
-      if: ${{ ${{ inputs.project-pattern }} == 'InMemorySystemTests/InMemorySystemTests.csproj' }}
+      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
       shell: bash
       run:  |
         cp -r tests/InMemorySystemTests/bin/Debug/net8.0/.playwright ${{ github.workspace }}/output
