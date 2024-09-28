@@ -165,6 +165,8 @@ jobs:
           test-project-pattern: |
             ${{ matrix.project-pattern }}
           test-filter-criteria: ${{ matrix.test-filter-criteria }}
+          browser-type: ${{ matrix.browser-type }}
+          headless: ${{ matrix.headless }}
   
   publish_service_artifacts:
     needs: [ run_tests]
