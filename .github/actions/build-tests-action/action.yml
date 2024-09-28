@@ -25,6 +25,11 @@ runs:
       shell: bash
       run: dotnet restore Everything.sln
 
+    - name: Build Solution
+      shell: bash
+      run: |
+        dotnet build Everything.sln --configuration Release --no-restore
+
     - name: Install PowerShell
       if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
       shell: pwsh
@@ -35,11 +40,6 @@ runs:
       shell: pwsh
       run: |
         pwsh tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install
-
-    - name: Build Solution
-      shell: bash
-      run: |
-        dotnet build Everything.sln --configuration Release --no-restore
 
     - name: Publish Test project
       shell: bash
