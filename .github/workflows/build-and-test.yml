@@ -60,9 +60,9 @@ jobs:
             project-pattern: |
               FunctionalTests/FunctionalTests.csproj
           - test-type: SystemTests
-            artifact-name: tests_SystemTests
+            artifact-name: tests_InMemeorySystemTests
             project-pattern: |
-              SystemTests/SystemTests.csproj 
+              InMemeorySystemTests/InMemeorySystemTests.csproj 
 
     steps:
       - name: Checkout Repository
@@ -103,6 +103,55 @@ jobs:
             project-pattern: |
               **/*FunctionalTests.csproj
             test-filter-criteria: ""
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run ${{ matrix.test-type }} and Publish Test Results
+        uses: ./.github/actions/run-tests-action
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          test-artifact-name: ${{ matrix.artifact-name }}
+          test-project-pattern: |
+            ${{ matrix.project-pattern }}
+          test-filter-criteria: ${{ matrix.test-filter-criteria }}
+
+  run_system_tests:
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 20
+    needs: [ build_solution, build_web_assets, build_tests ]
+    strategy:
+      matrix:
+        include:
+          - test-type: SystemTests_Chrome
+            artifact-name: tests_InMemeorySystemTests
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-type: 'chromium'
+            headless: true
+          - test-type: SystemTests_Edge
+            artifact-name: tests_InMemeorySystemTests_Chrome
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-type: 'edge'
+            headless: true
+          - test-type: SystemTests_Firefox
+            artifact-name: tests_InMemeorySystemTests_Firefox
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-type: 'firefox'
+            headless: true
+          - test-type: SystemTests_Webkit
+            artifact-name: tests_InMemeorySystemTests_Firefox
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-type: 'webkit'
+            headless: true
     
     steps:
       - name: Checkout Repository

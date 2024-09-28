@@ -15,8 +15,7 @@ public class Tests : PageTest
 
     [Test]
     public async Task Test()
-    {
-        
+    {      
         await Page.GotoAsync(_fixture.ServerAddress);
         var title = await Page.TitleAsync();
         Assert.Equals("Catalog - Microsoft.eShopOnWeb", title);  

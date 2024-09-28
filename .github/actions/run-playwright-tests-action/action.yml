@@ -1,0 +1,70 @@
+name: Run Playwright Tests
+description: 'Runs the Playwright tests for the eShopOnWeb project'
+
+inputs:
+  dotnet-version:
+    description: 'The version of the .Net Core SDK to use'
+    required: true
+  test-artifact-name:
+    description: 'The name of the artifact to publish'
+    required: true
+  test-project-pattern:
+    description: 'The pattern to use to find the test projects'
+    required: true
+  test-filter-criteria:
+    description: 'The filter criteria to use to run the tests'
+    required: false
+  browser-type:
+    description: 'The type of browser to use for the tests'
+    required: true
+  headless:
+    description: 'Whether to run the browser in headless mode'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Download ${{ inputs.test-artifact-name }} Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.test-artifact-name }}
+        path: artifacts
+        pattern: ${{ inputs.test-project-pattern }} 
+
+    - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }} 
+        working-directory: artifacts
+
+    - name: Build & Install
+      shell: bash
+      working-directory: artifacts
+      run: dotnet build
+
+    - name: Ensure browsers are installed
+      shell: pwsh
+      working-directory: artifacts
+      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+
+    - name: Run your tests
+      shell: bash
+      working-directory: artifacts
+      run: dotnet test -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} --no-build --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
+
+    # - name: Publish Test Results
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: test_results_${{ inputs.test-type }}
+    #     path: ${{ github.workspace }}/TestResults
+    
+    # - uses: dorny/test-reporter@v1
+    #   with:
+    #     artifact: test_results_${{ inputs.test-artifact-name }}
+    #     name: test_results_${{ inputs.test-artifact-name }}
+    #     path: '*.trx'
+    #     reporter: dotnet-trx
+
+    
+
