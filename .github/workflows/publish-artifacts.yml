@@ -1,49 +1,49 @@
-name: publish-artifacts
+# name: publish-artifacts
 
-on:
-  workflow_run:
-    workflows: ["build-and-test"] 
-    types:
-      - completed 
+# on:
+#   workflow_run:
+#     workflows: ["build-and-test"] 
+#     types:
+#       - completed 
 
-env:
-  DOTNET_VERSION: '8.x'
+# env:
+#   DOTNET_VERSION: '8.x'
 
-permissions:
-  contents: read
-  actions: read
-  checks: write
+# permissions:
+#   contents: read
+#   actions: read
+#   checks: write
 
-jobs:
-  publish_service_artifacts:
-    runs-on: [ubuntu-latest]
-    timeout-minutes: 20
-    strategy:
-      matrix:
-        include:
-        - service-name: 'Web'
-          project-name: 'Web'
-          artifact-name: 'Web'
-          dockerfile: src/Web/Dockerfile
-          container-image: 'web'
-        - service-name: 'PublicApi'
-          project-name: 'PublicApi'
-          artifact-name: 'PublicApi'
-          dockerfile: src/PublicApi/Dockerfile
-          container-image: 'publicapi'
+# jobs:
+#   publish_service_artifacts:
+#     runs-on: [ubuntu-latest]
+#     timeout-minutes: 20
+#     strategy:
+#       matrix:
+#         include:
+#         - service-name: 'Web'
+#           project-name: 'Web'
+#           artifact-name: 'Web'
+#           dockerfile: src/Web/Dockerfile
+#           container-image: 'web'
+#         - service-name: 'PublicApi'
+#           project-name: 'PublicApi'
+#           artifact-name: 'PublicApi'
+#           dockerfile: src/PublicApi/Dockerfile
+#           container-image: 'publicapi'
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
 
-      - name: Publish Service Artifacts
-        uses: ./.github/actions/publish-service-artifacts-action
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          service-name: ${{ matrix.service-name }}
-          project-name: ${{ matrix.project-name }}
-          artifact-name: ${{ matrix.artifact-name }}
-          docker-file: ${{ matrix.dockerfile }}
+#       - name: Publish Service Artifacts
+#         uses: ./.github/actions/publish-service-artifacts-action
+#         with:
+#           dotnet-version: ${{ env.DOTNET_VERSION }}
+#           service-name: ${{ matrix.service-name }}
+#           project-name: ${{ matrix.project-name }}
+#           artifact-name: ${{ matrix.artifact-name }}
+#           dockerfile: ${{ matrix.dockerfile }}
 
 
     
