@@ -46,11 +46,24 @@ runs:
       run:  |
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
-    - name: Copy Playwright files
-      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
+    - name: Publish Playwright files
       shell: bash
       run:  |
-        cp -r ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/.playwright ${{ github.workspace }}/output
+        dotnet publish --property:PublishDir="${{ github.workspace }}/playwright" ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/.playwright
+
+    # - name: Copy Playwright files
+    #   if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
+    #   shell: bash
+    #   run:  |
+    #     cp -r ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/.playwright ${{ github.workspace }}/output
+
+    - name: Publish Playwright artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright_files
+        path: ${{ github.workspace }}/playwright
+        retention-days: 1
+        
 
     - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
@@ -58,4 +71,3 @@ runs:
         name: ${{ inputs.artifact-name }}
         path: ${{ github.workspace }}/output
         retention-days: 1
-        hidden-files: true

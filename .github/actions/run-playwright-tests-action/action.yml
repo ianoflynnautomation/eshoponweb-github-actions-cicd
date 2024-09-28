@@ -32,6 +32,12 @@ runs:
         path: artifacts
         pattern: ${{ inputs.test-project-pattern }} 
 
+    - name: Download Playwright Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name:  playwright_files
+        path: artifacts/playwright
+
     - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
       uses: actions/setup-dotnet@v4
       with:
@@ -51,7 +57,7 @@ runs:
     - name: Run your tests
       shell: bash
       working-directory: artifacts
-      run: PLAYWRIGHT_BROWSERS_PATH=$GITHUB_WORKSPACE/artifacts/.playwright dotnet test -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} 
+      run: PLAYWRIGHT_BROWSERS_PATH=$GITHUB_WORKSPACE/artifacts/playwright dotnet test -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} 
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
