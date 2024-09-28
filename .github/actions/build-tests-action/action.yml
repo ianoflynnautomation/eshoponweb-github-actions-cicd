@@ -47,6 +47,7 @@ runs:
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
     - name: Publish Playwright files
+      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
       shell: bash
       run:  |
         dotnet publish --property:PublishDir="${{ github.workspace }}/playwright" ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/.playwright
