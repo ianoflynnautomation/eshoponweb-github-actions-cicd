@@ -25,6 +25,12 @@ runs:
       shell: bash
       run: dotnet restore Everything.sln
 
+    - name: Ensure browsers are installed
+      if: startsWith('${{ inputs.project-pattern }}', 'SystemTests')
+      shell: pwsh
+      working-directory: tests/InMemorySystemTests
+      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+
     - name: Build Solution
       shell: bash
       run: |
