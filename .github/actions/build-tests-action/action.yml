@@ -39,13 +39,19 @@ runs:
       if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
       shell: pwsh
       run: |
-        pwsh tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install
+        pwsh tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install --with-deps
 
     - name: Publish Test project
       shell: bash
       run:  |
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
+    - name: Copy Playwright files
+      if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
+      shell: bash
+      run:  |
+        cp -r tests/InMemorySystemTests/bin/Debug/net8.0/.playwright ${{ github.workspace }}/output
+       
     - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
       with:

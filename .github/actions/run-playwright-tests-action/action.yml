@@ -38,20 +38,20 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }} 
         working-directory: artifacts
 
-    - name: Install PowerShell
-      shell: pwsh
-      run: dotnet tool update --global PowerShell
+    # - name: Install PowerShell
+    #   shell: pwsh
+    #   run: dotnet tool update --global PowerShell
 
-    - name: Install Playwright
-      shell: pwsh
-      working-directory: artifacts
-      run: |
-        pwsh playwright.ps1 install
+    # - name: Install Playwright
+    #   shell: pwsh
+    #   working-directory: artifacts
+    #   run: |
+    #     pwsh playwright.ps1 install
 
     - name: Run your tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} --no-build --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
+      run: dotnet test -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} 
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
