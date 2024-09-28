@@ -38,7 +38,7 @@ runs:
     - name: Display InMemorySystemTests directory
       shell: bash
       run: |
-        ls -R ${{ github.workspace }}/tests/InMemorySystemTests/bin/
+        ls -R ${{ github.workspace }}/tests/InMemorySystemTests/bin
 
     - name: Ensure browsers are installed
       if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
