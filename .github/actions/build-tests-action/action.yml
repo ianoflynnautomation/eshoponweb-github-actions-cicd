@@ -58,13 +58,13 @@ runs:
     #     cp -r ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/.playwright ${{ github.workspace }}/output
 
     - name: Publish Playwright artifacts
+      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
       uses: actions/upload-artifact@v4
       with:
         name: playwright_files
         path: ${{ github.workspace }}/playwright
         retention-days: 1
         
-
     - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
       with:
