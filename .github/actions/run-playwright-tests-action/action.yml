@@ -32,11 +32,11 @@ runs:
         path: artifacts
         pattern: ${{ inputs.test-project-pattern }} 
 
-    - name: Download Playwright Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name:  playwright_files
-        path: artifacts/playwright
+    # - name: Download Playwright Artifact
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name:  playwright_files
+    #     path: artifacts/playwright
 
     - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
       uses: actions/setup-dotnet@v4
