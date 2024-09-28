@@ -48,12 +48,17 @@ runs:
       shell: pwsh
       run: dotnet tool update --global PowerShell
 
-    - name: Install Playwright
+    - name: Ensure browsers are installed
       shell: pwsh
-      working-directory: artifacts
       run: |
-        dotnet tool install --global Microsoft.Playwright.CLI
-        playwright.ps1 install
+        pwsh ${{ github.workspace }}/artifacts/playwright.ps1 install --with-deps
+
+    # - name: Install Playwright
+    #   shell: pwsh
+    #   working-directory: artifacts
+    #   run: |
+    #     dotnet tool install --global Microsoft.Playwright.CLI
+    #     playwright.ps1 install
 
     - name: Run your tests
       shell: bash
