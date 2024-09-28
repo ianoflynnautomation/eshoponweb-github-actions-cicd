@@ -50,8 +50,10 @@ runs:
 
     - name: Install Playwright
       shell: pwsh
+      working-directory: artifacts
       run: |
-        pwsh ${{ github.workspace }}/artifacts/playwright.ps1 install
+        dotnet tool install --global Microsoft.Playwright.CLI
+        playwright install
 
     - name: Run your tests
       shell: bash
