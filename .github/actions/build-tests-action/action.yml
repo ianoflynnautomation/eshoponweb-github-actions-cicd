@@ -58,3 +58,4 @@ runs:
         name: ${{ inputs.artifact-name }}
         path: ${{ github.workspace }}/output
         retention-days: 1
+        hidden-files: true
