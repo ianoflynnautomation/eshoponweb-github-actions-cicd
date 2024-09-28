@@ -56,7 +56,7 @@ runs:
     - name: Run your tests
       shell: bash
       working-directory: artifacts
-      run: PLAYWRIGHT_BROWSERS_PATH=$GITHUB_WORKSPACE/artifacts dotnet test -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} 
+      run: PLAYWRIGHT_BROWSERS_PATH=$GITHUB_WORKSPACE/artifacts dotnet test *Tests.dll -- Playwright.BrowserName={{ inputs.browser-type }} Playwright.LaunchOptions.Headless={{ inputs.headless }} 
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
