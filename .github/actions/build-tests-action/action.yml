@@ -24,18 +24,7 @@ runs:
     - name: Install Dependencies
       shell: bash
       run: dotnet restore Everything.sln
-
-    - name: Install PowerShell
-      if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
-      shell: pwsh
-      run: dotnet tool update --global PowerShell
-
-    - name: Ensure browsers are installed
-      if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
-      shell: pwsh
-      run: |
-        pwsh tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install
-
+      
     - name: Build Solution
       shell: bash
       run: |
