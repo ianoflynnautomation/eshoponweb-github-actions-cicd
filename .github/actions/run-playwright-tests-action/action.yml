@@ -53,7 +53,7 @@ runs:
       working-directory: artifacts
       run: |
         dotnet tool install --global Microsoft.Playwright.CLI
-        playwright install
+        playwright.ps1 install
 
     - name: Run your tests
       shell: bash
