@@ -51,7 +51,7 @@ runs:
       shell: bash
       run:  |
         cp -r ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/.playwright ${{ github.workspace }}/output
-       
+
     - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
       with:

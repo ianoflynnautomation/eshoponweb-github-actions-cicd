@@ -136,7 +136,7 @@ jobs:
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
-            browser-type: 'edge'
+            browser-type: 'msedge'
             headless: true
           - test-type: SystemTests_Firefox
             artifact-name: tests_InMemorySystemTests
