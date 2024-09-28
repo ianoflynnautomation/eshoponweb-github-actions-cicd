@@ -26,16 +26,15 @@ runs:
       run: dotnet restore Everything.sln
 
     - name: Install PowerShell
-      if: startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests')
+      if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
       shell: pwsh
       run: dotnet tool update --global PowerShell
 
     - name: Ensure browsers are installed
-      if: startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests')
+      if: ${{ startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests') }}
       shell: pwsh
-      working-directory: tests/InMemorySystemTests
       run: |
-        pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+        pwsh tests/InMemorySystemTests/bin/Debug/net8.0/playwright.ps1 install
 
     - name: Build Solution
       shell: bash
