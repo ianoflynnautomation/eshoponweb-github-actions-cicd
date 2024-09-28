@@ -132,21 +132,21 @@ jobs:
             browser-type: 'chromium'
             headless: true
           - test-type: SystemTests_Edge
-            artifact-name: tests_InMemeorySystemTests_Chrome
+            artifact-name: tests_InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
             browser-type: 'edge'
             headless: true
           - test-type: SystemTests_Firefox
-            artifact-name: tests_InMemeorySystemTests_Firefox
+            artifact-name: tests_InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
             browser-type: 'firefox'
             headless: true
           - test-type: SystemTests_Webkit
-            artifact-name: tests_InMemeorySystemTests_Firefox
+            artifact-name: tests_InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
