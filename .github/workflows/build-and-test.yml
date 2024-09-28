@@ -60,9 +60,9 @@ jobs:
             project-pattern: |
               FunctionalTests/FunctionalTests.csproj
           - test-type: SystemTests
-            artifact-name: tests_InMemeorySystemTests
+            artifact-name: tests_InMemorySystemTests
             project-pattern: |
-              InMemeorySystemTests/InMemeorySystemTests.csproj 
+              InMemorySystemTests/InMemorySystemTests.csproj 
 
     steps:
       - name: Checkout Repository
