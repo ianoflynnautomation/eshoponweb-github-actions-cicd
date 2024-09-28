@@ -44,14 +44,14 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }} 
         working-directory: artifacts
 
-    - name: Install PowerShell
-      shell: pwsh
-      run: dotnet tool update --global PowerShell
+    # - name: Install PowerShell
+    #   shell: pwsh
+    #   run: dotnet tool update --global PowerShell
 
-    - name: Install Playwright
-      shell: pwsh
-      run: |
-        pwsh ${{ github.workspace }}/artifacts/playwright.ps1 install
+    # - name: Install Playwright
+    #   shell: pwsh
+    #   run: |
+    #     pwsh ${{ github.workspace }}/artifacts/playwright.ps1 install
 
     - name: Run your tests
       shell: bash
