@@ -125,7 +125,7 @@ jobs:
       matrix:
         include:
           - test-type: SystemTests_Chrome
-            artifact-name: tests_InMemeorySystemTests
+            artifact-name: tests_InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
