@@ -29,7 +29,9 @@ runs:
       if: startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests')
       shell: pwsh
       working-directory: tests/InMemorySystemTests
-      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+      run: |
+        dotnet tool update --global PowerShell
+        pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
     - name: Build Solution
       shell: bash
