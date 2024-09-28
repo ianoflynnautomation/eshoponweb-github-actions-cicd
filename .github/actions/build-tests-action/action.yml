@@ -28,7 +28,6 @@ runs:
     - name: Install PowerShell
       if: startsWith('${{ inputs.project-pattern }}', 'InMemorySystemTests')
       shell: pwsh
-      working-directory: tests/InMemorySystemTests
       run: dotnet tool update --global PowerShell
 
     - name: Ensure browsers are installed
