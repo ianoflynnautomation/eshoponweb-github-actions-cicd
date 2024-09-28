@@ -46,11 +46,11 @@ runs:
       run:  |
         dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
-    - name: Copy Playwright files
-      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
-      shell: bash
-      run:  |
-        cp -r tests/InMemorySystemTests/bin/Debug/net8.0/.playwright ${{ github.workspace }}/output
+    # - name: Copy Playwright files
+    #   if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
+    #   shell: bash
+    #   run:  |
+    #     cp -r tests/InMemorySystemTests/bin/Debug/net8.0/.playwright ${{ github.workspace }}/output
        
     - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
