@@ -38,11 +38,6 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }} 
         working-directory: artifacts
 
-    - name: Build & Install
-      shell: bash
-      working-directory: artifacts
-      run: dotnet build
-
     - name: Ensure browsers are installed
       shell: pwsh
       working-directory: artifacts

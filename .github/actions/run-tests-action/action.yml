@@ -31,10 +31,6 @@ runs:
       with:
         dotnet-version: ${{ inputs.dotnet-version }} 
 
-    - name: Build & Install
-      shell: bash
-      run: dotnet build
-
     - name: Run Tests
       shell: bash
       working-directory: artifacts
