@@ -38,11 +38,11 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }} 
 
     - name: Install Dependencies
-      shell: bash
+      shell: pwsh
       run: dotnet restore Everything.sln
 
     - name: Build Solution
-      shell: bash
+      shell: pwsh
       run: |
         dotnet build Everything.sln --configuration Release --no-restore
 
@@ -56,7 +56,7 @@ runs:
         pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     - name: Run your tests
-      shell: bash
+      shell: pwsh
       run: dotnet test ${{ github.workspace }}/tests/InMemorySystemTests/InMemorySystemTests.csproj 
 
     # - name: Publish Test Results
