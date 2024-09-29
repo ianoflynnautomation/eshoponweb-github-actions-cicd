@@ -32,17 +32,10 @@ runs:
     #     path: artifacts
     #     pattern: ${{ inputs.test-project-pattern }} 
 
-    # - name: Download Playwright Artifact
-    #   uses: actions/download-artifact@v4
-    #   with:
-    #     name:  playwright_files
-    #     path: artifacts/playwright
-
     - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ inputs.dotnet-version }} 
-        working-directory: artifacts
 
     - name: Install Dependencies
       shell: bash
@@ -62,16 +55,8 @@ runs:
       run: |
         pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
 
-    # - name: Install Playwright
-    #   shell: pwsh
-    #   working-directory: artifacts
-    #   run: |
-    #     dotnet tool install --global Microsoft.Playwright.CLI
-    #     playwright.ps1 install
-
     - name: Run your tests
       shell: bash
-      working-directory: artifacts
       run: dotnet test *Tests.dll -Playwright.BrowserName=${{ inputs.browser-type }} -Playwright.Headless=${{ inputs.headless }} 
 
     # - name: Publish Test Results
