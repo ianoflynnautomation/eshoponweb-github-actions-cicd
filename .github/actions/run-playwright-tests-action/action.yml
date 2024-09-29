@@ -57,7 +57,7 @@ runs:
 
     - name: Run your tests
       shell: bash
-      run: dotnet test
+      run: dotnet test **/*InMemorySystemTests.csproj 
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4

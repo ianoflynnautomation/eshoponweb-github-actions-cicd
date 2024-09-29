@@ -8,8 +8,6 @@ public class Tests : PageTest
 {
     public ServerFixture _fixture;
 
-
-
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
@@ -19,7 +17,6 @@ public class Tests : PageTest
     [Test]
     public async Task Test()
     {
-
         await Page.GotoAsync(_fixture.ServerAddress);
         var title = await Page.TitleAsync();
         title.Should().Be("Catalog - Microsoft.eShopOnWeb");
