@@ -57,7 +57,7 @@ runs:
 
     - name: Run your tests
       shell: bash
-      run: dotnet test *Tests.dll 
+      run: dotnet test
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
