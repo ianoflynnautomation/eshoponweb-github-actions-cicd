@@ -57,7 +57,7 @@ runs:
 
     - name: Run your tests
       shell: bash
-      run: dotnet test *Tests.dll -Playwright.BrowserName=${{ inputs.browser-type }} -Playwright.Headless=${{ inputs.headless }} 
+      run: dotnet test *Tests.dll 
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
