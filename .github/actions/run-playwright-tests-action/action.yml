@@ -25,12 +25,12 @@ runs:
   using: "composite"
   steps:
 
-    - name: Download ${{ inputs.test-artifact-name }} Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ inputs.test-artifact-name }}
-        path: artifacts
-        pattern: ${{ inputs.test-project-pattern }} 
+    # - name: Download ${{ inputs.test-artifact-name }} Artifact
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: ${{ inputs.test-artifact-name }}
+    #     path: artifacts
+    #     pattern: ${{ inputs.test-project-pattern }} 
 
     # - name: Download Playwright Artifact
     #   uses: actions/download-artifact@v4
@@ -44,14 +44,23 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }} 
         working-directory: artifacts
 
-    # - name: Install PowerShell
-    #   shell: pwsh
-    #   run: dotnet tool update --global PowerShell
+    - name: Install Dependencies
+      shell: bash
+      run: dotnet restore Everything.sln
 
-    # - name: Ensure browsers are installed
-    #   shell: pwsh
-    #   run: |
-    #     pwsh ${{ github.workspace }}/artifacts/playwright.ps1 install --with-deps
+    - name: Build Solution
+      shell: bash
+      run: |
+        dotnet build Everything.sln --configuration Release --no-restore
+
+    - name: Install PowerShell
+      shell: pwsh
+      run: dotnet tool update --global PowerShell
+
+    - name: Ensure browsers are installed
+      shell: pwsh
+      run: |
+        pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     # - name: Install Playwright
     #   shell: pwsh
@@ -63,7 +72,7 @@ runs:
     - name: Run your tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test *Tests.dll 
+      run: dotnet test *Tests.dll -Playwright.BrowserName=${{ inputs.browser-type }} -Playwright.Headless=${{ inputs.headless }} 
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4

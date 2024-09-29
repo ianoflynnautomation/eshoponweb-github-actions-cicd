@@ -14,15 +14,6 @@ public class Tests : PageTest
     public void OneTimeSetUp()
     {
         _fixture = new ServerFixture();
-
-        var exitCode = Microsoft.Playwright.Program.Main(new[] { "install" });
-        if (exitCode != 0)
-        {
-            Console.WriteLine("Failed to install browsers");
-            Environment.Exit(exitCode);
-        }
-
-        Console.WriteLine("Browsers installed");
     }
 
     [Test]
