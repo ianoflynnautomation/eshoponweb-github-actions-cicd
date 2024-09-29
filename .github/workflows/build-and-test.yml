@@ -118,7 +118,7 @@ jobs:
           test-filter-criteria: ${{ matrix.test-filter-criteria }}
 
   run_system_tests:
-    runs-on: [windows-latest]
+    runs-on: [ubuntu-latest]
     timeout-minutes: 20
     needs: [ build_solution, build_web_assets, build_tests ]
     strategy:
@@ -129,7 +129,8 @@ jobs:
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
-            browser-type: 'chromium'
+            browser-name: 'chromium'
+            channel: 'chrome'
             headless: true
           # - test-type: SystemTests_Edge
           #   artifact-name: tests_InMemorySystemTests
@@ -165,7 +166,8 @@ jobs:
           test-project-pattern: |
             ${{ matrix.project-pattern }}
           test-filter-criteria: ${{ matrix.test-filter-criteria }}
-          browser-type: ${{ matrix.browser-type }}
+          browser-name: ${{ matrix.browser-name }}
+          channel: ${{ matrix.channel }}
           headless: ${{ matrix.headless }}
   
   publish_service_artifacts:

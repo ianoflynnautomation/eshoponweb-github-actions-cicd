@@ -14,9 +14,11 @@ inputs:
   test-filter-criteria:
     description: 'The filter criteria to use to run the tests'
     required: false
-  browser-type:
-    description: 'The type of browser to use for the tests'
+  browser-name:
+    description: 'The name of the browser to use'
     required: true
+  channel:
+    description: 'The channel of the browser to use'
   headless:
     description: 'Whether to run the browser in headless mode'
     required: true
@@ -38,11 +40,11 @@ runs:
         dotnet-version: ${{ inputs.dotnet-version }} 
 
     - name: Install Dependencies
-      shell: pwsh
+      shell: bash
       run: dotnet restore Everything.sln
 
     - name: Build Solution
-      shell: pwsh
+      shell: bash
       run: |
         dotnet build Everything.sln --configuration Release --no-restore
 
@@ -56,8 +58,8 @@ runs:
         pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     - name: Run your tests
-      shell: pwsh
-      run: dotnet test ${{ github.workspace }}/tests/InMemorySystemTests/InMemorySystemTests.csproj
+      shell: bash
+      run: dotnet test ${{ github.workspace }}/tests/InMemorySystemTests/InMemorySystemTests.csproj -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} Playwright.LaunchOptions.Headless=${{ inputs.headless }}
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
