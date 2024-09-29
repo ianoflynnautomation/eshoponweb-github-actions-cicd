@@ -30,16 +30,16 @@ runs:
       run: |
         dotnet build Everything.sln --configuration Release --no-restore
 
-    - name: Install PowerShell
-      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
-      shell: pwsh
-      run: dotnet tool update --global PowerShell
+    # - name: Install PowerShell
+    #   if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
+    #   shell: pwsh
+    #   run: dotnet tool update --global PowerShell
 
-    - name: Ensure browsers are installed
-      if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
-      shell: pwsh
-      run: |
-        pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
+    # - name: Ensure browsers are installed
+    #   if: ${{ contains(inputs.project-pattern, 'InMemorySystemTests/InMemorySystemTests.csproj') }}
+    #   shell: pwsh
+    #   run: |
+    #     pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     - name: Publish Test project
       shell: bash
