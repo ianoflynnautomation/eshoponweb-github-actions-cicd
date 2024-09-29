@@ -140,20 +140,22 @@ jobs:
             browser-name: 'chromium'
             channel: 'msedge'
             headless: true
-          # - test-type: SystemTests_Firefox
-          #   artifact-name: tests_InMemorySystemTests
-          #   project-pattern: |
-          #     **/*InMemeorySystemTests.csproj
-          #   test-filter-criteria: ""
-          #   browser-type: 'firefox'
-          #   headless: true
-          # - test-type: SystemTests_Webkit
-          #   artifact-name: tests_InMemorySystemTests
-          #   project-pattern: |
-          #     **/*InMemeorySystemTests.csproj
-          #   test-filter-criteria: ""
-          #   browser-type: 'webkit'
-          #   headless: true
+          - test-type: SystemTests_Firefox
+            artifact-name: tests_InMemorySystemTests
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-name: 'firefox'
+            channel: ''
+            headless: true
+          - test-type: SystemTests_Webkit
+            artifact-name: tests_InMemorySystemTests
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-name: 'webkit'
+            channel: ''
+            headless: true
     
     steps:
       - name: Checkout Repository
