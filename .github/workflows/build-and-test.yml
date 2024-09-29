@@ -132,13 +132,14 @@ jobs:
             browser-name: 'chromium'
             channel: 'chrome'
             headless: true
-          # - test-type: SystemTests_Edge
-          #   artifact-name: tests_InMemorySystemTests
-          #   project-pattern: |
-          #     **/*InMemeorySystemTests.csproj
-          #   test-filter-criteria: ""
-          #   browser-type: 'msedge'
-          #   headless: true
+          - test-type: SystemTests_Edge
+            artifact-name: tests_InMemorySystemTests
+            project-pattern: |
+              **/*InMemeorySystemTests.csproj
+            test-filter-criteria: ""
+            browser-name: 'chromium'
+            channel: 'msedge'
+            headless: true
           # - test-type: SystemTests_Firefox
           #   artifact-name: tests_InMemorySystemTests
           #   project-pattern: |
