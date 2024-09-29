@@ -1,4 +1,6 @@
-namespace SystemTests;
+using FluentAssertions;
+
+namespace InMemorySystemTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
@@ -29,7 +31,7 @@ public class Tests : PageTest
 
         await Page.GotoAsync(_fixture.ServerAddress);
         var title = await Page.TitleAsync();
-        Assert.Equals("Catalog - Microsoft.eShopOnWeb", title);
+        title.Should().Be("Catalog - Microsoft.eShopOnWeb");
     }
 
     [OneTimeTearDown]

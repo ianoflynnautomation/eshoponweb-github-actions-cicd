@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 
-namespace SystemTests;
+namespace InMemorySystemTests;
 
 public class ServerFixture : WebApplicationFactory<Program>
 {

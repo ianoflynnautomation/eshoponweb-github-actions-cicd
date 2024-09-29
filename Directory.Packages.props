@@ -73,5 +73,6 @@
     <PackageVersion Include="NUnit.Analyzers" Version="4.0.1" />
     <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.42.0" />
     <PackageVersion Include="Microsoft.Playwright.TestAdapter" Version="1.42.0" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
   </ItemGroup>
 </Project>
