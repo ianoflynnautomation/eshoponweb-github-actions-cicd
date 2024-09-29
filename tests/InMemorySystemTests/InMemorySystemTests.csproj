@@ -7,12 +7,12 @@
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <!-- <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract> -->
   </PropertyGroup>
 
-  <PropertyGroup>
+  <!-- <PropertyGroup>
   <PlaywrightPlatform>all</PlaywrightPlatform>
-  </PropertyGroup>
+  </PropertyGroup> -->
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
