@@ -19,6 +19,7 @@ public class ServerFixture : WebApplicationFactory<Program>
     private const ushort MsSqlPort = 1433;
     private const string Username = "sa";
     private const string Password = "@someThingComplicated1234";
+    
     private readonly SqlEdgeContainer _dbContainer = new SqlEdgeBuilder()
         .WithImage("mcr.microsoft.com/azure-sql-edge:1.0.7")
         .WithPortBinding(MsSqlPort, true)
@@ -80,11 +81,11 @@ public class ServerFixture : WebApplicationFactory<Program>
             var host = _dbContainer.Hostname;
             var port = _dbContainer.GetMappedPublicPort(MsSqlPort);
 
-            services.AddDbContext<CatalogContext>(options =>
-                options.UseSqlServer($"Server={host},{port};Database=master;User Id={Username};Password={Password};TrustServerCertificate=True"));
+            services.AddDbContext<CatalogContext>(options
+                => options.UseSqlServer($"Server={host},{port};Database=master;User Id={Username};Password={Password};TrustServerCertificate=True"));
 
-            services.AddDbContext<AppIdentityDbContext>(options =>
-                               options.UseSqlServer($"Server={host},{port};Database=master;User Id={Username};Password={Password};TrustServerCertificate=True"));
+            services.AddDbContext<AppIdentityDbContext>(options 
+                => options.UseSqlServer($"Server={host},{port};Database=master;User Id={Username};Password={Password};TrustServerCertificate=True"));
 
             // using var scope = Services.CreateScope();
             // var dbContextCatalog = scope.ServiceProvider.GetRequiredService<CatalogContext>();
