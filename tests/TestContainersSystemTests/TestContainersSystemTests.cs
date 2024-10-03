@@ -1,24 +1,24 @@
 using FluentAssertions;
+using TestContainersSystemTests.Fixtures;
 
 namespace TestContainersSystemTests;
 
-[Parallelizable(ParallelScope.Self)]
 [TestFixture]
 public class TestContainersSystemTests : PageTest
 {
-    public ServerFixture _fixture;
+    public SystemTestFixture _fixture;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new ServerFixture();
+        _fixture = new SystemTestFixture();
 
     }
 
     [SetUp]
     public async Task SetUp()
     {
-        await _fixture.StartContainer();
+        await _fixture.SqlEdgeFixture.InitializeAsync();
     }
 
     [Test]
@@ -29,15 +29,24 @@ public class TestContainersSystemTests : PageTest
         title.Should().Be("Catalog - Microsoft.eShopOnWeb");
     }
 
+        [Test]
+    public async Task Test2()
+    {
+        await Page.GotoAsync(_fixture.ServerAddress);
+        var title = await Page.TitleAsync();
+        title.Should().Be("Catalog - Microsoft.eShopOnWeb");
+    }
+
     [TearDown]
     public async Task TearDown()
     {
-       await _fixture.StopContainer();
+       await _fixture.SqlEdgeFixture.StopContainer();
     }
 
     [OneTimeTearDown]
-    public void OneTimeTearDown()
+    public async Task OneTimeTearDown()
     {
+        //await _fixture.SqlEdgeFixture.DisposeAsync();
         _fixture.Dispose();
     }
 }

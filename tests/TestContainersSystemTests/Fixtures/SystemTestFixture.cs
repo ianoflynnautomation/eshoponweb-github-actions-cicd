@@ -5,14 +5,31 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.eShopWeb.Infrastructure.Data;
+using Microsoft.eShopWeb.Infrastructure.Identity;
 
-namespace InMemorySystemTests;
+namespace TestContainersSystemTests.Fixtures;
 
 /// <summary>
-/// Represents the server fixture.
+/// Represents the server fixture. 
 /// </summary>
-public class ServerFixture : WebApplicationFactory<Program>
+public class SystemTestFixture : WebApplicationFactory<Program>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SystemTestFixture"/> class.
+    /// </summary>
+    public SystemTestFixture()
+    {
+        SqlEdgeFixture = new SqlEdgeFixture();
+    }
+
+    /// <summary>
+    /// Gets the SQL Edge fixture.
+    /// </summary>
+    public SqlEdgeFixture SqlEdgeFixture { get; }
+
     private IHost? _host;
     private bool _disposed;
 
@@ -39,9 +56,34 @@ public class ServerFixture : WebApplicationFactory<Program>
     /// <summary>
     /// Configures the web host.
     /// </summary>
-    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    protected override void ConfigureWebHost(IWebHostBuilder builder) =>
+    builder.ConfigureTestServices(services =>
     {
         base.ConfigureWebHost(builder);
+
+
+        builder.ConfigureServices(services =>
+        {
+            // Remove the existing catalog context and app identity context
+            var catalogContextDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<CatalogContext>));
+            if (catalogContextDescriptor is not null)
+            {
+                services.Remove(catalogContextDescriptor);
+            }
+
+            var catalogContextDescriptorDscriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<CatalogContext>));
+            if (catalogContextDescriptorDscriptor is not null)
+            {
+                services.Remove(catalogContextDescriptorDscriptor);
+            }
+
+            // Add the catalog context and app identity context with the SQL Edge test container connection string
+            services.AddDbContext<CatalogContext>(options
+                => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
+
+            services.AddDbContext<AppIdentityDbContext>(options 
+                => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
+        });
 
         builder.UseKestrel(Options =>
         {
@@ -50,7 +92,8 @@ public class ServerFixture : WebApplicationFactory<Program>
 
         builder.UseStaticWebAssets();
         builder.UseUrls($"http://127.0.0.1:5000");
-    }
+    });
+
 
     /// <summary>
     /// Creates the host.
@@ -59,7 +102,7 @@ public class ServerFixture : WebApplicationFactory<Program>
     {
         var testHost = builder.Build();
 
-        builder.UseEnvironment("Development");
+        builder.UseEnvironment("Docker");
 
         builder.ConfigureHostConfiguration(config =>
           {

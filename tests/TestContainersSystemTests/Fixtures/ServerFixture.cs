@@ -12,14 +12,14 @@ using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using DotNet.Testcontainers.Builders;
 
-namespace TestContainersSystemTests;
+namespace TestContainersSystemTests.Fixtures;
 
 public class ServerFixture : WebApplicationFactory<Program>
 {
     private const ushort MsSqlPort = 1433;
     private const string Username = "sa";
     private const string Password = "@someThingComplicated1234";
-    
+
     private readonly SqlEdgeContainer _dbContainer = new SqlEdgeBuilder()
         .WithImage("mcr.microsoft.com/azure-sql-edge:1.0.7")
         .WithPortBinding(MsSqlPort, true)
@@ -36,7 +36,6 @@ public class ServerFixture : WebApplicationFactory<Program>
     public async Task StopContainer()
     {
         await _dbContainer.StopAsync();
-        await _dbContainer.DisposeAsync().AsTask();
     }
 
     private IHost? _host;
