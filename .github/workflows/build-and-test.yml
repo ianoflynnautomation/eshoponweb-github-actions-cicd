@@ -130,6 +130,7 @@ jobs:
         include:
           - test-type: SystemTests_Chrome
             artifact-name: tests_InMemorySystemTests
+            project-name: InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
@@ -138,6 +139,7 @@ jobs:
             headless: true
           - test-type: SystemTests_Edge
             artifact-name: tests_InMemorySystemTests
+            project-name: InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
@@ -146,6 +148,7 @@ jobs:
             headless: true
           - test-type: SystemTests_Firefox
             artifact-name: tests_InMemorySystemTests
+            project-name: InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
@@ -154,6 +157,7 @@ jobs:
             headless: true
           - test-type: SystemTests_Webkit
             artifact-name: tests_InMemorySystemTests
+            project-name: InMemorySystemTests
             project-pattern: |
               **/*InMemeorySystemTests.csproj
             test-filter-criteria: ""
@@ -162,6 +166,7 @@ jobs:
             headless: true
           - test-type: TestContainersSystemTests_Chrome
             artifact-name: tests_TestContainersSystemTests
+            project-name: TestContainersSystemTests
             project-pattern: |
               **/*TestContainersSystemTests.csproj
             test-filter-criteria: ""
@@ -178,6 +183,7 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           test-artifact-name: ${{ matrix.artifact-name }}
+          test-project-name: ${{ matrix.project-name }}
           test-project-pattern: |
             ${{ matrix.project-pattern }}
           test-filter-criteria: ${{ matrix.test-filter-criteria }}

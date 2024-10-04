@@ -8,6 +8,9 @@ inputs:
   test-artifact-name:
     description: 'The name of the artifact to publish'
     required: true
+  test-project-name:
+    description: 'The name of the project to run the tests for'
+    required: true
   test-project-pattern:
     description: 'The pattern to use to find the test projects'
     required: true
@@ -55,11 +58,11 @@ runs:
     - name: Ensure browsers are installed
       shell: pwsh
       run: |
-        pwsh  ${{ github.workspace }}/tests/InMemorySystemTests/bin/Release/net8.0/playwright.ps1 install --with-deps
+        pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     - name: Run your tests
       shell: bash
-      run: dotnet test ${{ github.workspace }}/tests/InMemorySystemTests/InMemorySystemTests.csproj -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} Playwright.LaunchOptions.Headless=${{ inputs.headless }}
+      run: dotnet test ${{ github.workspace }}/${{ inputs.project-pattern }} -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} Playwright.LaunchOptions.Headless=${{ inputs.headless }}
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
