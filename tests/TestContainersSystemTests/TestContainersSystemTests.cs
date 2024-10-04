@@ -29,7 +29,7 @@ public class TestContainersSystemTests : PageTest
         title.Should().Be("Catalog - Microsoft.eShopOnWeb");
     }
 
-        [Test]
+    [Test]
     public async Task Test2()
     {
         await Page.GotoAsync(_fixture.ServerAddress);
@@ -40,7 +40,7 @@ public class TestContainersSystemTests : PageTest
     [TearDown]
     public async Task TearDown()
     {
-       await _fixture.SqlEdgeFixture.StopContainer();
+        await _fixture.SqlEdgeFixture.StopContainer();
     }
 
     [OneTimeTearDown]

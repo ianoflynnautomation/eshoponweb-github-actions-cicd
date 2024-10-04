@@ -1,4 +1,9 @@
 ﻿namespace TestContainersSystemTests.Fixtures;
+
+/// <summary>
+/// Represents the database fixture.
+/// </summary>
+/// <typeparam name="TDockerContainer"></typeparam>
 public abstract class DataBaseFixture<TDockerContainer>
 {
     /// <summary>

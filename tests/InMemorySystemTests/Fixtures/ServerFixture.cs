@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 
-namespace InMemorySystemTests;
+namespace InMemorySystemTests.Fixtures;
 
 /// <summary>
 /// Represents the server fixture.

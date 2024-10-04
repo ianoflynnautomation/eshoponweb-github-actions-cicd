@@ -1,3 +1,4 @@
+using InMemorySystemTests.Fixtures;
 using FluentAssertions;
 
 namespace InMemorySystemTests;
