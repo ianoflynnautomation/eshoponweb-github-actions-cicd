@@ -62,7 +62,7 @@ runs:
 
     - name: Run your tests
       shell: bash
-      run: dotnet test ${{ github.workspace }}/${{ inputs.project-pattern }} -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} Playwright.LaunchOptions.Headless=${{ inputs.headless }}
+      run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} Playwright.LaunchOptions.Headless=${{ inputs.headless }}
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
