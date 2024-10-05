@@ -46,7 +46,7 @@ public class TestContainersSystemTests : PageTest
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
-        //await _fixture.SqlEdgeFixture.DisposeAsync();
+        await _fixture.SqlEdgeFixture.DisposeAsync();
         _fixture.Dispose();
     }
 }

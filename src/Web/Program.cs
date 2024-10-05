@@ -85,8 +85,8 @@ builder.Services.AddRazorPages(options =>
 builder.Services.AddHttpContextAccessor();
 builder.Services
     .AddHealthChecks()
-    .AddCheck<ApiHealthCheck>("api_health_check", tags: new[] { "apiHealthCheck" })
-    .AddCheck<HomePageHealthCheck>("home_page_health_check", tags: new[] { "homePageHealthCheck" });
+    .AddCheck<ApiHealthCheck>("api_health_check", tags: ["apiHealthCheck"])
+    .AddCheck<HomePageHealthCheck>("home_page_health_check", tags: ["homePageHealthCheck"]);
 builder.Services.Configure<ServiceConfig>(config =>
 {
     config.Services = new List<ServiceDescriptor>(builder.Services);

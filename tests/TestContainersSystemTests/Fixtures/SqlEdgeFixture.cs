@@ -18,8 +18,8 @@ public sealed class SqlEdgeFixture : DataBaseFixture<SqlEdgeContainer>
         .WithImage("mcr.microsoft.com/azure-sql-edge:latest")
         .WithPortBinding(1433, true)
         .WithEnvironment("ACCEPT_EULA", "Y")
-        //.WithEnvironment("SA_PASSWORD", "yourStrong(!)Password") //deprecated
-        .WithEnvironment("MSSQL_SA_PASSWORD", "yourStrong(!)Password")
+        .WithEnvironment("SA_PASSWORD", "yourStrong(!)Password") //deprecated
+        //.WithEnvironment("MSSQL_SA_PASSWORD", "yourStrong(!)Password")
         .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(1433))
         .Build();
     }

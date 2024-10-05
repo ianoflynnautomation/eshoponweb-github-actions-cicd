@@ -1,17 +1,19 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace TestContainersSystemTests;
 
-public class TestHost : ITestHost
+public sealed class TestHost : ITestHost, IDisposable
 {
     protected readonly IHost host = Host
      .CreateDefaultBuilder()
      .ConfigureServices(serviceCollection =>
      {
-         // serviceCollection.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-         // serviceCollection.AddSingleton<ILogger>(serviceProvider => serviceProvider.GetRequiredService<ILogger<Initialized>>());
-         // serviceCollection.AddHostedService<Initialization>();
+         //serviceCollection.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+         //serviceCollection.AddSingleton<ILogger>(serviceProvider => serviceProvider.GetRequiredService<ILogger<TestHost>>());
+         //serviceCollection.AddHostedService<Initialization>();
      })
      .Build();
 

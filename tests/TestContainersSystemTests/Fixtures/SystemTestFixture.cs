@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace TestContainersSystemTests.Fixtures;
 
@@ -59,19 +61,31 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder) =>
     builder.ConfigureTestServices(services =>
     {
+        //services.AddSingleton<ILoggerFactory, NullLoggerFactory>();
+        services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+        services.AddSingleton<ILogger>(serviceProvider => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
+
         base.ConfigureWebHost(builder);
+
+    
 
 
         builder.ConfigureServices(services =>
         {
             // Remove the existing catalog context and app identity context
-            var catalogContextDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<CatalogContext>));
+            var catalogContextDescriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<CatalogContext>));
+
             if (catalogContextDescriptor is not null)
             {
                 services.Remove(catalogContextDescriptor);
             }
 
-            var catalogContextDescriptorDscriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<CatalogContext>));
+            var catalogContextDescriptorDscriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<CatalogContext>));
+
             if (catalogContextDescriptorDscriptor is not null)
             {
                 services.Remove(catalogContextDescriptorDscriptor);
@@ -81,7 +95,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
             services.AddDbContext<CatalogContext>(options
                 => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
 
-            services.AddDbContext<AppIdentityDbContext>(options 
+            services.AddDbContext<AppIdentityDbContext>(options
                 => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
         });
 
