@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
+using Serilog;
 
 namespace TestContainersSystemTests.Fixtures;
 
@@ -39,6 +39,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     {
         if (_host is null)
         {
+            Log.Information("Ensuring server is created");
             using var _ = CreateDefaultClient();
         }
     }
@@ -51,6 +52,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
         get
         {
             EnsureServer();
+            Log.Information("Server address retrieved: {ServerAddress}", ClientOptions.BaseAddress);
             return ClientOptions.BaseAddress.ToString();
         }
     }
@@ -61,17 +63,17 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder) =>
     builder.ConfigureTestServices(services =>
     {
+        Log.Information("Configuring WebHost");
         //services.AddSingleton<ILoggerFactory, NullLoggerFactory>();
         services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-        services.AddSingleton<ILogger>(serviceProvider => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
+        services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+        => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
 
         base.ConfigureWebHost(builder);
 
-    
-
-
         builder.ConfigureServices(services =>
         {
+            Log.Information("Configuring services");
             // Remove the existing catalog context and app identity context
             var catalogContextDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
@@ -79,6 +81,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
 
             if (catalogContextDescriptor is not null)
             {
+                 Log.Information("Removing existing CatalogContext DbContextOptions");
                 services.Remove(catalogContextDescriptor);
             }
 
@@ -86,6 +89,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
                 d => d.ServiceType ==
                     typeof(DbContextOptions<CatalogContext>));
 
+                Log.Information("Removing existing AppIdentityDbContext DbContextOptions");
             if (catalogContextDescriptorDscriptor is not null)
             {
                 services.Remove(catalogContextDescriptorDscriptor);
@@ -114,12 +118,14 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     /// </summary>
     protected override IHost CreateHost(IHostBuilder builder)
     {
+        Log.Information("Creating host...");
         var testHost = builder.Build();
 
         builder.UseEnvironment("Docker");
 
         builder.ConfigureHostConfiguration(config =>
           {
+             Log.Information("Loading host configuration");
               config.AddJsonFile("appsettings.test.json");
           });
 
@@ -133,6 +139,8 @@ public class SystemTestFixture : WebApplicationFactory<Program>
 
         ClientOptions.BaseAddress = addresses!.Addresses.Select(x => new Uri(x)).Last();
         testHost.Start();
+
+        Log.Information("Host created and started at {BaseAddress}", ClientOptions.BaseAddress);
 
         return testHost;
     }
@@ -149,10 +157,12 @@ public class SystemTestFixture : WebApplicationFactory<Program>
         {
             if (disposing)
             {
+                Log.Information("Disposing host");
                 _host?.Dispose();
             }
 
             _disposed = true;
         }
+        Log.Information("ServerFixture disposed");
     }
 }
