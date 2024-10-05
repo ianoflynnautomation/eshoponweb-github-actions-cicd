@@ -63,12 +63,6 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder) =>
     builder.ConfigureTestServices(services =>
     {
-        Log.Information("Configuring WebHost");
-        //services.AddSingleton<ILoggerFactory, NullLoggerFactory>();
-        services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-        services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-        => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
-
         base.ConfigureWebHost(builder);
 
         builder.ConfigureServices(services =>
@@ -128,6 +122,15 @@ public class SystemTestFixture : WebApplicationFactory<Program>
              Log.Information("Loading host configuration");
               config.AddJsonFile("appsettings.test.json");
           });
+
+        builder.ConfigureServices(serviceCollection =>
+   {
+        Log.Information("Configuring WebHost");
+        //services.AddSingleton<ILoggerFactory, NullLoggerFactory>();
+        serviceCollection.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+        serviceCollection.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+        => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
+   });
 
         builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
 
