@@ -62,6 +62,15 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     /// </summary>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.ConfigureLogging(c =>
+        {
+            c.ClearProviders();
+            //c.AddSerilog();
+            //     c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+            //     c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+            //    => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
+        });
+
         builder.ConfigureTestServices(services =>
        {
            Log.Logger.Information("Configuring services");
@@ -112,8 +121,6 @@ public class SystemTestFixture : WebApplicationFactory<Program>
         Log.Logger.Information("Creating host...");
         var testHost = builder.Build();
 
-        builder.UseEnvironment("Docker");
-
         builder.ConfigureHostConfiguration(config =>
           {
               Log.Logger.Information("Loading host configuration");
@@ -121,11 +128,13 @@ public class SystemTestFixture : WebApplicationFactory<Program>
           });
 
         builder.ConfigureServices(serviceCollection =>
-   {
-       serviceCollection.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-       serviceCollection.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-           => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
-   });
+        {
+            serviceCollection.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+            serviceCollection.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+                => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
+        });
+
+        builder.UseEnvironment("Docker");
 
         builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
 
@@ -162,5 +171,6 @@ public class SystemTestFixture : WebApplicationFactory<Program>
             _disposed = true;
         }
         Log.Logger.Information("ServerFixture disposed");
+        Log.CloseAndFlush();
     }
 }
