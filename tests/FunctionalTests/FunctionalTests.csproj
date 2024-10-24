@@ -1,23 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>  
-    <RootNamespace>Microsoft.eShopWeb.FunctionalTests</RootNamespace>
-    <IsPackable>false</IsPackable>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-  </PropertyGroup>
+  <Import Project="..\..\EShopOnWeb.Default.Test.ProjectSettings" />
 
   <PropertyGroup>
-    <IsPublishable>True</IsPublishable>
-    <PublishTo>output</PublishTo>
+    <AssemblyName>EShopOnWeb.FunctionalTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.FunctionalTests</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="WebRazorPages\**" />
-    <EmbeddedResource Remove="WebRazorPages\**" />
-    <None Remove="WebRazorPages\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
@@ -32,6 +20,12 @@
     <ProjectReference Include="..\..\src\ApplicationCore\ApplicationCore.csproj" />
     <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\..\src\Web\Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="WebRazorPages\**" />
+    <EmbeddedResource Remove="WebRazorPages\**" />
+    <None Remove="WebRazorPages\**" />
   </ItemGroup>
 
   <ItemGroup>

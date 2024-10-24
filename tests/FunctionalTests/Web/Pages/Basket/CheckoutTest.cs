@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
-namespace Microsoft.eShopWeb.FunctionalTests.Web.Pages.Basket;
+namespace EShopOnWeb.FunctionalTests.Web.Pages.Basket;
 
 [Collection("Sequential")]
 public class CheckoutTest : IClassFixture<TestApplication>

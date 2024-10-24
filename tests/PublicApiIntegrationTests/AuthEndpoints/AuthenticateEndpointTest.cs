@@ -1,13 +1,11 @@
-﻿using System.Net.Http;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.eShopWeb;
 using Microsoft.eShopWeb.ApplicationCore.Constants;
 using Microsoft.eShopWeb.PublicApi.AuthEndpoints;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PublicApiIntegrationTests.AuthEndpoints;
+namespace EShopOnWeb.PublicApiIntegrationTests.AuthEndpoints;
 
 [TestClass]
 public class AuthenticateEndpoint

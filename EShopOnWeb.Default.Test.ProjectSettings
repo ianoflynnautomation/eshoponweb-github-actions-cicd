@@ -1,0 +1,33 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<!-- Prevent dotnet template engine to parse this file -->
+<!--/-:cnd:noEmit-->
+<PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+</PropertyGroup>
+
+<PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+</PropertyGroup>
+
+<PropertyGroup>
+    <IsPackable>false</IsPackable>
+</PropertyGroup>
+
+<PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>True</IsPublishable>
+    <PublishTo>output</PublishTo>
+</PropertyGroup>
+
+<!--/+:cnd:noEmit-->
+</Project>

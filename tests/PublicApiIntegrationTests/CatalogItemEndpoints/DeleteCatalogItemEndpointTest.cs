@@ -3,9 +3,8 @@ using Microsoft.eShopWeb;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
-namespace PublicApiIntegrationTests.CatalogItemEndpoints;
+namespace EShopOnWeb.PublicApiIntegrationTests.CatalogItemEndpoints;
 
 [TestClass]
 public class DeleteCatalogItemEndpointTest

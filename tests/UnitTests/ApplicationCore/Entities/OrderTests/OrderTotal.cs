@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
+﻿using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
 using Microsoft.eShopWeb.UnitTests.Builders;
 using Xunit;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Entities.OrderTests;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Entities.OrderTests;
 
 public class OrderTotal
 {

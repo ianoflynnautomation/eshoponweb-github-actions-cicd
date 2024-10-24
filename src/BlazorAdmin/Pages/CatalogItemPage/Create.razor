@@ -12,8 +12,8 @@
             <EditForm Model="_item" OnValidSubmit="@CreateClick">
                 <DataAnnotationsValidator />
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
+                    <h5 class="modal-title" id="exampleModalLabel" data-testid="modal-title">Create</h5>
+                    <button type="button" data-testid="close-button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -32,24 +32,24 @@
                                 }
                                 <div class="col-md-@(HasPicture?"6":"12")">
                                     <div class="form-group">
-                                        <label class="control-label col-md-6">Name</label>
+                                        <label class="control-label col-md-6" data-testid="catalog-item-name-label">Name</label>
                                         <div class="col-md-12">
-                                            <InputText class="form-control" @bind-Value="_item.Name" />
+                                            <InputText class="form-control" data-testid="catalog-item-name-input" @bind-Value="_item.Name" />
                                             <ValidationMessage For="(() => _item.Name)" />
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-6">Description</label>
+                                        <label class="control-label col-md-6" data-testid="catalog-item-description-label">Description</label>
                                         <div class="col-md-12">
-                                            <InputText class="form-control" @bind-Value="_item.Description" />
+                                            <InputText class="form-control" data-testid="catalog-item-description-input" @bind-Value="_item.Description" />
                                             <ValidationMessage For="(() => _item.Description)" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label col-md-6">Brand</label>
+                                        <label class="control-label col-md-6" data-testid="catalog-item-brand-label">Brand</label>
                                         <div class="col-md-12">
                                             <InputSelect @bind-Value="_item.CatalogBrandId" class="form-control">
                                                 @foreach (var brand in Brands)
@@ -62,7 +62,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-6">Type</label>
+                                        <label class="control-label col-md-6" data-testid="catalog-item-type-label">Type</label>
                                         <div class="col-md-12">
                                             <InputSelect @bind-Value="_item.CatalogTypeId" class="form-control">
                                                 @foreach (var type in Types)
@@ -75,9 +75,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-6">Price</label>
+                                        <label class="control-label col-md-6" data-testid="catalog-item-price-label">Price</label>
                                         <div class="col-md-12">
-                                            <InputNumber @bind-Value="_item.Price" class="form-control" />
+                                            <InputNumber data-testid="catalog-item-price-input" @bind-Value="_item.Price" class="form-control" />
                                             <ValidationMessage For="(() => _item.Price)" />
                                         </div>
                                     </div>                                   
@@ -87,8 +87,8 @@
                     }
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-testid="cancel-button" @onclick="Close">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-testid="submit-button">
                         Create
                     </button>
                 </div>
@@ -110,7 +110,6 @@
         public IEnumerable<CatalogBrand> Brands { get; set; }
         [Parameter]
         public IEnumerable<CatalogType> Types { get; set; }
-
         [Parameter]
         public EventCallback<string> OnSaveClick { get; set; }
 

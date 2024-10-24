@@ -1,4 +1,5 @@
-﻿namespace TestContainersSystemTests;
+﻿
+namespace EShopOnWeb.TestContainersSystemTests;
 
 /// <summary>
 /// Represents the test host.

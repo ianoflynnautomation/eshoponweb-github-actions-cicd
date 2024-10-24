@@ -5,8 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
+using Microsoft.eShopWeb.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.eShopWeb.Infrastructure.Identity;
+using System;
+using Microsoft.Extensions.Logging;
 
-namespace InMemorySystemTests.Fixtures;
+namespace EShopOnWeb.InMemorySystemTests.Fixtures;
 
 /// <summary>
 /// Represents the server fixture.
@@ -15,6 +21,13 @@ public class ServerFixture : WebApplicationFactory<Program>
 {
     private IHost? _host;
     private bool _disposed;
+
+    protected ILogger<ServerFixture> Logger { get; }
+
+    public ServerFixture()
+    {
+        Logger = new LoggerFactory().CreateLogger<ServerFixture>();
+    }
 
     private void EnsureServer()
     {
@@ -42,6 +55,44 @@ public class ServerFixture : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         base.ConfigureWebHost(builder);
+
+        builder.ConfigureServices(services =>
+       {
+           var descriptors = services.Where(d =>
+                                       d.ServiceType == typeof(DbContextOptions<CatalogContext>) ||
+                                       d.ServiceType == typeof(DbContextOptions<AppIdentityDbContext>))
+                                   .ToList();
+
+           foreach (var descriptor in descriptors)
+           {
+               services.Remove(descriptor);
+           }
+
+           services.AddScoped(sp =>
+           {
+               // Replace SQLite with in-memory database for tests        
+               var options = new DbContextOptionsBuilder<CatalogContext>()
+               .UseInMemoryDatabase("TestCatalog")
+               .UseApplicationServiceProvider(sp)
+               .Options;
+
+               return options;
+
+           });
+
+           services.AddScoped(sp =>
+           {
+               // Replace SQLite with in-memory database for tests
+               var options = new DbContextOptionsBuilder<AppIdentityDbContext>()
+               .UseInMemoryDatabase("TestIdentity")
+               .UseApplicationServiceProvider(sp)
+               .Options;
+
+               return options;
+           });
+
+       });
+
 
         builder.UseKestrel(Options =>
         {

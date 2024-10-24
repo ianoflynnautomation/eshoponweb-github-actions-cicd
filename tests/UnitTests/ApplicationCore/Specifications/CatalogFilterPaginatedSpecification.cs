@@ -1,14 +1,14 @@
 ﻿using Microsoft.eShopWeb.ApplicationCore.Entities;
 using Xunit;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Specifications;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Specifications;
 
 public class CatalogFilterPaginatedSpecification
 {
     [Fact]
     public void ReturnsAllCatalogItems()
     {
-        var spec = new eShopWeb.ApplicationCore.Specifications.CatalogFilterPaginatedSpecification(0, 10, null, null);
+        var spec = new  Microsoft.eShopWeb.ApplicationCore.Specifications.CatalogFilterPaginatedSpecification(0, 10, null, null);
 
         var result = spec.Evaluate(GetTestCollection());
 
@@ -19,7 +19,7 @@ public class CatalogFilterPaginatedSpecification
     [Fact]
     public void Returns2CatalogItemsWithSameBrandAndTypeId()
     {
-        var spec = new eShopWeb.ApplicationCore.Specifications.CatalogFilterPaginatedSpecification(0, 10, 1, 1);
+        var spec = new  Microsoft.eShopWeb.ApplicationCore.Specifications.CatalogFilterPaginatedSpecification(0, 10, 1, 1);
 
         var result = spec.Evaluate(GetTestCollection()).ToList();
 

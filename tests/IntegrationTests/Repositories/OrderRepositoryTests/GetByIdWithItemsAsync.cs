@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
 using Microsoft.eShopWeb.ApplicationCore.Specifications;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.UnitTests.Builders;
 using Xunit;
 
-namespace Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests;
+namespace EShopOnWeb.IntegrationTests.Repositories.OrderRepositoryTests;
 
 public class GetByIdWithItemsAsync
 {
@@ -38,9 +35,11 @@ public class GetByIdWithItemsAsync
         _catalogContext.Orders.Add(firstOrder);
         int firstOrderId = firstOrder.Id;
 
-        var secondOrderItems = new List<OrderItem>();
-        secondOrderItems.Add(new OrderItem(OrderBuilder.TestCatalogItemOrdered, itemOneUnitPrice, itemOneUnits));
-        secondOrderItems.Add(new OrderItem(OrderBuilder.TestCatalogItemOrdered, itemTwoUnitPrice, itemTwoUnits));
+        var secondOrderItems = new List<OrderItem>
+        {
+            new(OrderBuilder.TestCatalogItemOrdered, itemOneUnitPrice, itemOneUnits),
+            new(OrderBuilder.TestCatalogItemOrdered, itemTwoUnitPrice, itemTwoUnits)
+        };
         var secondOrder = OrderBuilder.WithItems(secondOrderItems);
         _catalogContext.Orders.Add(secondOrder);
         int secondOrderId = secondOrder.Id;

@@ -2,13 +2,9 @@
 using Microsoft.eShopWeb.PublicApi.CatalogItemEndpoints;
 using Microsoft.eShopWeb.Web.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace PublicApiIntegrationTests.CatalogItemEndpoints;
+namespace EShopOnWeb.PublicApiIntegrationTests.CatalogItemEndpoints;
 
 [TestClass]
 public class CatalogItemListPagedEndpoint

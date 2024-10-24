@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Extensions;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Extensions;
 
 public class TestParent : IEquatable<TestParent>
 {
@@ -23,5 +23,10 @@ public class TestParent : IEquatable<TestParent>
         }
 
         return false;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return Equals(obj as TestParent);
     }
 }

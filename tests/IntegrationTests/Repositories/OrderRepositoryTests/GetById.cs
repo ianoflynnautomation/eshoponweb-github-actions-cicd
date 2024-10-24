@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.UnitTests.Builders;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.eShopWeb.IntegrationTests.Repositories.OrderRepositoryTests;
+namespace EShopOnWeb.IntegrationTests.Repositories.OrderRepositoryTests;
 
 public class GetById
 {

@@ -3,7 +3,7 @@ using Serilog;
 using Serilog.Extensions.Logging;
 
 
-namespace TestContainersSystemTests;
+namespace EShopOnWeb.TestContainersSystemTests;
 
 /// <summary>
 /// Represents the custom Serilog logger factory.

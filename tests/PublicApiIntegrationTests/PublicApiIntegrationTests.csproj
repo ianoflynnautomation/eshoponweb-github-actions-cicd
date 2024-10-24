@@ -1,27 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>    
-    <Nullable>enable</Nullable>
-    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-    <IsPackable>false</IsPackable>
+  <Import Project="..\..\EShopOnWeb.Default.Test.ProjectSettings" />
+
+  <PropertyGroup>
+    <AssemblyName>EShopOnWeb.PublicApiIntegrationTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.PublicApiIntegrationTests</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="appsettings.test.json" />
-  </ItemGroup>
-
-    <PropertyGroup>
-    <IsPublishable>True</IsPublishable>
-    <PublishTo>output</PublishTo>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="appsettings.test.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
@@ -37,6 +21,18 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\..\src\Web\Web.csproj" />
+  </ItemGroup>
+
+    <ItemGroup>
+    <None Remove="appsettings.test.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

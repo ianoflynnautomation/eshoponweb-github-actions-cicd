@@ -1,21 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- <Import Project="..\..\EShopOnWeb.Default.SystemTests.ProjectSettings" /> -->
+
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
+    <AssemblyName>EShopOnWeb.TestContainersSystemTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.TestContainersSystemTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.Playwright.NUnit" />
-    <PackageVersion Include="Microsoft.VisualStudio.Services.WebApi" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit"/>
     <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="FluentAssertions" />
@@ -29,15 +26,10 @@
     <!-- <PackageReference Include="Serilog" /> -->
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\..\src\Web\Web.csproj" />
-  </ItemGroup>
-
-    <ItemGroup>
-    <Content Include="appsettings.test.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>  
+    <ProjectReference Include="..\..\test\Playwright.DotNet\Playwright.DotNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +37,16 @@
     <Using Include="NUnit.Framework" />
     <Using Include="System.Text.RegularExpressions" />
     <Using Include="System.Threading.Tasks" />
-  </ItemGroup>
+</ItemGroup>
 
   <ItemGroup>
     <Folder Include="Fixtures/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
   </ItemGroup>
 
 </Project>

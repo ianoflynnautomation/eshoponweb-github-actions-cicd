@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.eShopWeb.ApplicationCore.Entities;
+﻿using Microsoft.eShopWeb.ApplicationCore.Entities;
 using NSubstitute;
 using Xunit;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Specifications;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Specifications;
 
 public class CatalogItemsSpecification
 {
@@ -12,7 +10,7 @@ public class CatalogItemsSpecification
     public void MatchesSpecificCatalogItem()
     {
         var catalogItemIds = new int[] { 1 };
-        var spec = new eShopWeb.ApplicationCore.Specifications.CatalogItemsSpecification(catalogItemIds);
+        var spec = new Microsoft.eShopWeb.ApplicationCore.Specifications.CatalogItemsSpecification(catalogItemIds);
 
         var result = spec.Evaluate(GetTestCollection()).ToList();
 
@@ -24,7 +22,7 @@ public class CatalogItemsSpecification
     public void MatchesAllCatalogItems()
     {
         var catalogItemIds = new int[] { 1, 3 };
-        var spec = new eShopWeb.ApplicationCore.Specifications.CatalogItemsSpecification(catalogItemIds);
+        var spec = new Microsoft.eShopWeb.ApplicationCore.Specifications.CatalogItemsSpecification(catalogItemIds);
 
         var result = spec.Evaluate(GetTestCollection()).ToList();
 

@@ -2,7 +2,7 @@
 using DotNet.Testcontainers.Builders;
 using Testcontainers.SqlEdge;
 
-namespace TestContainersSystemTests.Fixtures;
+namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
 
 /// <summary>
 /// Represents the SQL Edge fixture.

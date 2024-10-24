@@ -1,14 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>  
-    <RootNamespace>Microsoft.eShopWeb.IntegrationTests</RootNamespace>
-    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+  <Import Project="..\..\EShopOnWeb.Default.Test.ProjectSettings" />
 
   <PropertyGroup>
-    <IsPublishable>True</IsPublishable>
-    <PublishTo>output</PublishTo>
+    <AssemblyName>EShopOnWeb.IntegrationTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.IntegrationTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

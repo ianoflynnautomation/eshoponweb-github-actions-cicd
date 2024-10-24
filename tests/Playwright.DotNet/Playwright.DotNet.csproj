@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\EShopOnWeb.Default.Test.ProjectSettings" />
+
+  <PropertyGroup>
+    <AssemblyName>Playwright.DotNet</AssemblyName>
+    <RootNamespace>Playwright.DotNet</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" />
+    <PackageReference Include="Microsoft.Playwright" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Gallery.WebApi" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Autofac" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />  
+  </ItemGroup>
+
+</Project>
+

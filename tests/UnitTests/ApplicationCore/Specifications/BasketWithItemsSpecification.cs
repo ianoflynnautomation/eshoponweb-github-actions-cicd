@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate;
+﻿using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate;
 using Microsoft.eShopWeb.ApplicationCore.Specifications;
 using NSubstitute;
 using Xunit;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Specifications;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Specifications;
 
 public class BasketWithItems
 {
@@ -65,11 +63,11 @@ public class BasketWithItems
         var basket3Mock = Substitute.For<Basket>(_buyerId);
         basket3Mock.Id.Returns(_testBasketId);
 
-        return new List<Basket>()
-            {
+        return
+            [
                 basket1Mock,
                 basket2Mock,
                 basket3Mock
-            };
+            ];
     }
 }

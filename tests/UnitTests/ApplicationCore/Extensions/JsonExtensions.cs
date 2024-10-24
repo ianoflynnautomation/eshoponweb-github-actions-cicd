@@ -1,6 +1,7 @@
-﻿using Xunit;
+﻿using Microsoft.eShopWeb;
+using Xunit;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Extensions;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Extensions;
 
 public class JsonExtensions
 {
@@ -11,12 +12,12 @@ public class JsonExtensions
         {
             Id = 7,
             Name = "Test name",
-            Children = new[]
-            {
+            Children =
+            [
                     new TestChild(),
                     new TestChild(),
                     new TestChild()
-                }
+                ]
         };
 
         var json = testParent.ToJson();

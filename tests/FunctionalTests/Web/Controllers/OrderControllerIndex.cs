@@ -1,10 +1,8 @@
 ﻿using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
-namespace Microsoft.eShopWeb.FunctionalTests.Web.Controllers;
+namespace EShopOnWeb.FunctionalTests.Web.Controllers;
 
 [Collection("Sequential")]
 public class OrderIndexOnGet : IClassFixture<TestApplication>

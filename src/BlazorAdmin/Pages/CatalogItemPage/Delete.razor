@@ -10,8 +10,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete @_item.Name</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
+                <h5 class="modal-title" id="exampleModalLabel" data-testid="modal-title">Delete @_item.Name</h5>
+                <button type="button" data-testid="close-button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -30,7 +30,7 @@
                             }
                             <dl class="col-md-@(HasPicture ? "6" : "12") dl-horizontal">
                                 <dt>
-                                    Name
+                                    Name 
                                 </dt>
 
                                 <dd>
@@ -75,8 +75,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Cancel</button>
-                <button class="btn btn-danger" @onclick="() => DeleteClick(_item.Id)">
+                <button type="button" class="btn btn-secondary" data-testid="cancel-button" data-dismiss="modal" @onclick="Close">Cancel</button>
+                <button class="btn btn-danger" data-testid="delete-button" @onclick="() => DeleteClick(_item.Id)">
                     Delete
                 </button>
             </div>

@@ -1,0 +1,47 @@
+{
+    "troubleshootingSettings": {
+      "debugInformationEnabled": "true"
+    },
+    "WebSettings": {
+      "isParallelExecutionEnabled": "false",
+      "artificialDelayBeforeAction": "0",
+      "automaticallyScrollToVisible": "false",
+      "waitUntilReadyOnElementFound": "false",
+      "waitForAngular": "false",
+      "shouldHighlightElements": "true",
+      "shouldCaptureHttpTraffic": "false",
+      "pathToSslCertificate": "path",
+      "shouldCheckForJavaScriptErrors": "false",
+      "timeoutSettings": {
+        "elementWaitTimeout": "30",
+        "pageLoadTimeout": "30",
+        "scriptTimeout": "1",
+        "waitForAjaxTimeout": "30",
+        "sleepInterval": "1",
+        "waitUntilReadyTimeout": "30",
+        "waitForJavaScriptAnimationsTimeout": "30",
+        "waitForAngularTimeout": "30",
+        "waitForPartialUrl": "30",
+        "validationsTimeout": "30",
+        "elementToBeVisibleTimeout": "30",
+        "elementToExistTimeout": "30",
+        "elementToNotExistTimeout": "30",
+        "elementToBeClickableTimeout": "30",
+        "elementNotToBeVisibleTimeout": "30",
+        "elementToHaveContentTimeout": "15"
+      },
+      "ExecutionSettings": {
+        "executionType": "regular",
+        "defaultBrowser": "chrome",
+        "defaultLifeCycle": "restart every time",
+        "resolution": "",
+        "browserVersion": "",
+        "isCloudRun": "false",
+        "url": "http://127.0.0.1:4444/wd/hub",
+        "arguments": [
+          {
+          }
+        ]
+      }
+    }
+}

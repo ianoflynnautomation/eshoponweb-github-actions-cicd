@@ -1,4 +1,4 @@
-﻿namespace TestContainersSystemTests.Fixtures;
+﻿namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
 
 /// <summary>
 /// Represents the database fixture.

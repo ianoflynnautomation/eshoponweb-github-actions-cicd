@@ -11,8 +11,10 @@ using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Linq;
+using System;
 
-namespace TestContainersSystemTests.Fixtures;
+namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
 
 /// <summary>
 /// Represents the server fixture. 
@@ -64,6 +66,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     {
         builder.ConfigureLogging(c =>
         {
+            // remove the default logging providers
             c.ClearProviders();
             //c.AddSerilog();
             //     c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
@@ -73,26 +76,15 @@ public class SystemTestFixture : WebApplicationFactory<Program>
 
         builder.ConfigureTestServices(services =>
        {
-           Log.Logger.Information("Configuring services");
-           // Remove the existing catalog context and app identity context
-           var catalogContextDescriptor = services.SingleOrDefault(
-               d => d.ServiceType ==
-                   typeof(DbContextOptions<CatalogContext>));
+           // Add mock/test services to the builder here
+           var descriptors = services.Where(d =>
+                                               d.ServiceType == typeof(DbContextOptions<CatalogContext>) ||
+                                               d.ServiceType == typeof(DbContextOptions<AppIdentityDbContext>))
+                                           .ToList();
 
-           if (catalogContextDescriptor is not null)
+           foreach (var descriptor in descriptors)
            {
-               Log.Logger.Information("Removing existing CatalogContext DbContextOptions");
-               services.Remove(catalogContextDescriptor);
-           }
-
-           var catalogContextDescriptorDscriptor = services.SingleOrDefault(
-               d => d.ServiceType ==
-                   typeof(DbContextOptions<CatalogContext>));
-
-           Log.Logger.Information("Removing existing AppIdentityDbContext DbContextOptions");
-           if (catalogContextDescriptorDscriptor is not null)
-           {
-               services.Remove(catalogContextDescriptorDscriptor);
+               services.Remove(descriptor);
            }
 
            // Add the catalog context and app identity context with the SQL Edge test container connection string
@@ -102,7 +94,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
            services.AddDbContext<AppIdentityDbContext>(options
                => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
        });
-
+       
         builder.UseKestrel(Options =>
         {
             Options.AddServerHeader = false;

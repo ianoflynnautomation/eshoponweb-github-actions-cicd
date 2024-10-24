@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net.Http;
 
-namespace PublicApiIntegrationTests;
+namespace EShopOnWeb.PublicApiIntegrationTests;
 
 [TestClass]
 public class ProgramTest

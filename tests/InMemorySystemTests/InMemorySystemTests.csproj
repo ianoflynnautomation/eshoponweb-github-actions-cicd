@@ -1,18 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-    <!-- <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract> -->
-  </PropertyGroup>
+  <!-- <Import Project="..\..\EShopOnWeb.Default.SystemTests.ProjectSettings" /> -->
 
-  <!-- <PropertyGroup>
-  <PlaywrightPlatform>all</PlaywrightPlatform>
-  </PropertyGroup> -->
+  <PropertyGroup>
+    <AssemblyName>EShopOnWeb.InMemorySystemTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.InMemorySystemTests</RootNamespace>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
@@ -25,9 +18,10 @@
     <PackageReference Include="FluentAssertions" />
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\..\src\Web\Web.csproj" />
+    <ProjectReference Include="..\..\tests\Playwright.DotNet\Playwright.DotNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,12 +29,19 @@
     <Using Include="NUnit.Framework" />
     <Using Include="System.Text.RegularExpressions" />
     <Using Include="System.Threading.Tasks" />
-  </ItemGroup>
+</ItemGroup>
+
 
   <ItemGroup>
     <Content Include="appsettings.test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>  
+  </ItemGroup>
+
+    <ItemGroup>
+    <Content Include="testsettings.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>  
   </ItemGroup>
 

@@ -1,17 +1,11 @@
-﻿using Microsoft.eShopWeb.FunctionalTests.Web;
-using Xunit;
+﻿using Xunit;
 
-namespace Microsoft.eShopWeb.FunctionalTests.WebRazorPages;
+namespace EShopOnWeb.FunctionalTests.Web.Pages;
 
 [Collection("Sequential")]
-public class HomePageOnGet : IClassFixture<TestApplication>
+public class HomePageOnGet(TestApplication factory) : IClassFixture<TestApplication>
 {
-    public HomePageOnGet(TestApplication factory)
-    {
-        Client = factory.CreateClient();
-    }
-
-    public HttpClient Client { get; }
+    public HttpClient Client { get; } = factory.CreateClient();
 
     [Fact]
     public async Task ReturnsHomePageWithProductListing()

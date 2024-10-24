@@ -1,7 +1,7 @@
+using EShopOnWeb.TestContainersSystemTests.Fixtures;
 using FluentAssertions;
-using TestContainersSystemTests.Fixtures;
 
-namespace TestContainersSystemTests;
+namespace EShopOnWeb.TestContainersSystemTests;
 
 [TestFixture]
 public class TestContainersSystemTests : PageTest

@@ -1,18 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>   
-    <Nullable>enable</Nullable>
-    <RootNamespace>Microsoft.eShopWeb.UnitTests</RootNamespace>
-    <IsPackable>false</IsPackable>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+  <Import Project="..\..\EShopOnWeb.Default.Test.ProjectSettings" />
 
   <PropertyGroup>
-    <IsPublishable>True</IsPublishable>
-    <PublishTo>output</PublishTo>
+    <AssemblyName>EShopOnWeb.UnitTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.UnitTests</RootNamespace>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NSubstitute" />

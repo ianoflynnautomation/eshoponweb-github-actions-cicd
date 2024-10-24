@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
+﻿using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
 using Xunit;
 
-namespace Microsoft.eShopWeb.UnitTests.ApplicationCore.Specifications;
+namespace EShopOnWeb.UnitTests.ApplicationCore.Specifications;
 
 public class CustomerOrdersWithItemsSpecification
 {
@@ -13,7 +11,7 @@ public class CustomerOrdersWithItemsSpecification
     [Fact]
     public void ReturnsOrderWithOrderedItem()
     {
-        var spec = new eShopWeb.ApplicationCore.Specifications.CustomerOrdersWithItemsSpecification(_buyerId);
+        var spec = new Microsoft.eShopWeb.ApplicationCore.Specifications.CustomerOrdersWithItemsSpecification(_buyerId);
 
         var result = spec.Evaluate(GetTestCollection()).FirstOrDefault();
 
@@ -26,7 +24,7 @@ public class CustomerOrdersWithItemsSpecification
     [Fact]
     public void ReturnsAllOrderWithAllOrderedItem()
     {
-        var spec = new eShopWeb.ApplicationCore.Specifications.CustomerOrdersWithItemsSpecification(_buyerId);
+        var spec = new Microsoft.eShopWeb.ApplicationCore.Specifications.CustomerOrdersWithItemsSpecification(_buyerId);
 
         var result = spec.Evaluate(GetTestCollection()).ToList();
 

@@ -1,9 +1,8 @@
 ﻿
-using Microsoft.Extensions.DependencyInjection;
+using System;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace TestContainersSystemTests;
+namespace EShopOnWeb.TestContainersSystemTests;
 
 public sealed class TestHost : ITestHost, IDisposable
 {
