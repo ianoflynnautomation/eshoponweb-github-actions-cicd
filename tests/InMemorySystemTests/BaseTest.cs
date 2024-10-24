@@ -13,7 +13,7 @@ public class BaseTest
     protected ServerFixture _fixture;
     protected App _app;
     protected TestExecutionEngine _testExecutionEngine;
-    protected EShopOnWebApp EShopOnWebSite;
+    protected EShopOnWebApp EShopOnWebApp;
     protected ContainerBuilder _builder; 
     protected IContainer _container;
 
@@ -44,7 +44,7 @@ public class BaseTest
         _container = _builder.Build();
         ServiceLocator.SetContainer(_container);
 
-        EShopOnWebSite = new EShopOnWebApp(_container);
+        EShopOnWebApp = new EShopOnWebApp(_container);
         _app.Navigation.Navigate(_fixture.ServerAddress);
     }
 

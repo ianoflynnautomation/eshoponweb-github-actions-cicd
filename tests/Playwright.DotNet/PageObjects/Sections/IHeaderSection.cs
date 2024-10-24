@@ -14,7 +14,7 @@ public interface IHeaderSection
     /// <summary>
     /// Opens the login page by clicking the login icon.
     /// </summary>
-    IHeaderSection Login();
+    IHeaderSection OpenLogin();
 
     /// <summary>
     /// Asserts that the user email is displayed in the header.

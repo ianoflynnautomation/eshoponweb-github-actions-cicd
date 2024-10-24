@@ -26,7 +26,7 @@ public class HeaderSection : WebPage, IHeaderSection
     }
 
     // <inheritdoc/>
-    public IHeaderSection Login()
+    public IHeaderSection OpenLogin()
     {
         LoginButton.Click();
 

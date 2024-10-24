@@ -7,6 +7,10 @@
     <RootNamespace>EShopOnWeb.InMemorySystemTests</RootNamespace>
   </PropertyGroup>
 
+    <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
