@@ -11,9 +11,9 @@ namespace EShopOnWeb.InMemorySystemTests;
 public class BaseTest
 {
     protected ServerFixture _fixture;
-    protected EShopWebApp _app;
+    protected App _app;
     protected TestExecutionEngine _testExecutionEngine;
-    protected EShopOnWebSite EShopOnWebSite;
+    protected EShopOnWebApp EShopOnWebSite;
     protected ContainerBuilder _builder; 
     protected IContainer _container;
 
@@ -28,7 +28,7 @@ public class BaseTest
     [SetUp]
     public void SetUp()
     {  
-        _app = new EShopWebApp();
+        _app = new App();
  
         _builder = new ContainerBuilder();
 
@@ -44,7 +44,7 @@ public class BaseTest
         _container = _builder.Build();
         ServiceLocator.SetContainer(_container);
 
-        EShopOnWebSite = new EShopOnWebSite(_container);
+        EShopOnWebSite = new EShopOnWebApp(_container);
         _app.Navigation.Navigate(_fixture.ServerAddress);
     }
 

@@ -260,3 +260,5 @@ pub/
 .devcontainer
 
 .azure
+
+.DS_Store

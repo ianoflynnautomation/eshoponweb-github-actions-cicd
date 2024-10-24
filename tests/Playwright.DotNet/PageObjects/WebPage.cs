@@ -8,7 +8,7 @@ namespace Playwright.DotNet.PageObjects;
 /// </summary>
 public abstract class WebPage
 {
-    protected EShopWebApp App => new();
+    protected App App => new();
 
     public abstract string Url { get; }
 

@@ -8,12 +8,12 @@ namespace Playwright.DotNet.Infra;
 /// <summary>
 /// Represents the eShopOnWeb application.
 /// </summary>
-public class EShopWebApp : IDisposable
+public class App : IDisposable
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EShopWebApp"/> class.
+    /// Initializes a new instance of the <see cref="App"/> class.
     /// </summary>
-    public EShopWebApp()
+    public App()
     {
     }
 

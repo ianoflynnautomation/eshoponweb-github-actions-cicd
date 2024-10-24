@@ -8,7 +8,7 @@ using Autofac;
 
 namespace EShopOnWeb.InMemorySystemTests.DI;
 
-public class EShopOnWebSite(IContainer container)
+public class EShopOnWebApp(IContainer container)
 {
     private IContainer _container = container;
 
