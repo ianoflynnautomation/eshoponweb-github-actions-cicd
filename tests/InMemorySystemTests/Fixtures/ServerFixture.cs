@@ -56,6 +56,12 @@ public class ServerFixture : WebApplicationFactory<Program>
     {
         base.ConfigureWebHost(builder);
 
+          builder.ConfigureLogging(c =>
+        {
+            c.ClearProviders();
+        
+        });
+
         builder.ConfigureServices(services =>
        {
            var descriptors = services.Where(d =>

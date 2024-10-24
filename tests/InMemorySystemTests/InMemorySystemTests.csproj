@@ -43,7 +43,7 @@
     </Content>  
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <Content Include="testsettings.json">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>  

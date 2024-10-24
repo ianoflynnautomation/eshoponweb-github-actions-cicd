@@ -60,9 +60,16 @@ runs:
       run: |
         pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
 
+    - name: Replace Variables
+      uses: microsoft/variable-substitution@v1 
+      with:
+        files: 'testsettings.json'
+      env:
+        WebSettings.ExecutionSettings.DefaultBrowser: ${{ inputs.browser-name }}
+
     - name: Run your tests
       shell: bash
-      run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} Playwright.LaunchOptions.Headless=${{ inputs.headless }}
+      run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4

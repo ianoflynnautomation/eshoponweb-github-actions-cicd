@@ -6,7 +6,7 @@ using Playwright.DotNet.PageObjects.Sections;
 using Playwright.Dotnet.PageObjects.LoginPage;
 using Autofac;
 
-namespace EShopOnWeb.InMemorySystemTests.DI;
+namespace Playwright.DotNet.DI;
 
 public class EShopOnWebApp(IContainer container)
 {

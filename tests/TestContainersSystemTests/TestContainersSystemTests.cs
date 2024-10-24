@@ -1,52 +1,18 @@
-using EShopOnWeb.TestContainersSystemTests.Fixtures;
-using FluentAssertions;
-
 namespace EShopOnWeb.TestContainersSystemTests;
 
 [TestFixture]
-public class TestContainersSystemTests : PageTest
+public class TestContainersSystemTests : BaseTest
 {
-    public SystemTestFixture _fixture;
-
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
-    {
-        _fixture = new SystemTestFixture();
-
-    }
-
-    [SetUp]
-    public async Task SetUp()
-    {
-        await _fixture.SqlEdgeFixture.InitializeAsync();
-    }
-
     [Test]
-    public async Task Test()
+    public void Customer_Order_UserJourney()
     {
-        await Page.GotoAsync(_fixture.ServerAddress);
-        var title = await Page.TitleAsync();
-        title.Should().Be("Catalog - Microsoft.eShopOnWeb");
+        EShopOnWebApp.HeaderSection.OpenLogin();
+        EShopOnWebApp.LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
+        EShopOnWebApp.HomePage.AddItemToBasket(".NET Black & White Mug");
+        EShopOnWebApp.BasketPage.Checkout();
+        EShopOnWebApp.CheckoutPage.PayNow();
+        EShopOnWebApp.SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 
-    [Test]
-    public async Task Test2()
-    {
-        await Page.GotoAsync(_fixture.ServerAddress);
-        var title = await Page.TitleAsync();
-        title.Should().Be("Catalog - Microsoft.eShopOnWeb");
-    }
-
-    [TearDown]
-    public async Task TearDown()
-    {
-        await _fixture.SqlEdgeFixture.StopContainer();
-    }
-
-    [OneTimeTearDown]
-    public async Task OneTimeTearDown()
-    {
-        await _fixture.SqlEdgeFixture.DisposeAsync();
-        _fixture.Dispose();
-    }
 }
+

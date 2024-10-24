@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
 
@@ -28,6 +29,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     {
         SqlEdgeFixture = new SqlEdgeFixture();
     }
+
 
     /// <summary>
     /// Gets the SQL Edge fixture.
@@ -74,7 +76,7 @@ public class SystemTestFixture : WebApplicationFactory<Program>
             //    => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
         });
 
-        builder.ConfigureTestServices(services =>
+        builder.ConfigureTestServices(async services =>
        {
            // Add mock/test services to the builder here
            var descriptors = services.Where(d =>
@@ -93,8 +95,27 @@ public class SystemTestFixture : WebApplicationFactory<Program>
 
            services.AddDbContext<AppIdentityDbContext>(options
                => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
+
+        //    using var scope = Services.CreateScope();
+        //    var scopedProvider = scope.ServiceProvider;
+        //    try
+        //    {
+        //        var catalogContext = scopedProvider.GetRequiredService<CatalogContext>();
+        //        await CatalogContextSeed.SeedAsync(catalogContext,Logger);
+
+        //        var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        //        var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //        var identityContext = scopedProvider.GetRequiredService<AppIdentityDbContext>();
+        //        await AppIdentityDbContextSeed.SeedAsync(identityContext, userManager, roleManager);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Logger.Error(ex, "An error occurred seeding the DB.");
+        //    }
+
+
        });
-       
+
         builder.UseKestrel(Options =>
         {
             Options.AddServerHeader = false;

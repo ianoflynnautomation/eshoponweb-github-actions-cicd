@@ -2,7 +2,6 @@
 using Playwright.DotNet.Infra;
 using Playwright.DotNet.Services;
 using Autofac;
-using EShopOnWeb.InMemorySystemTests.DI;
 using EShopOnWeb.InMemorySystemTests.Fixtures;
 using Playwright.DotNet.DI;
 

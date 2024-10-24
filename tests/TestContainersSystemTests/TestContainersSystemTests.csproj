@@ -33,7 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\..\src\Web\Web.csproj" />
-    <ProjectReference Include="..\..\test\Playwright.DotNet\Playwright.DotNet.csproj" />
+    <ProjectReference Include="..\..\tests\Playwright.DotNet\Playwright.DotNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +50,12 @@
   <ItemGroup>
     <Content Include="appsettings.test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="testsettings.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>  
   </ItemGroup>
 

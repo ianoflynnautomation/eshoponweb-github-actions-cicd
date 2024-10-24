@@ -8,7 +8,7 @@ using Playwright.DotNet.Services;
 using Playwright.DotNet.Services.Contracts;
 using Autofac;
 
-namespace EShopOnWeb.InMemorySystemTests.DI;
+namespace Playwright.DotNet.DI;
 
 public static class DISetup
 {
