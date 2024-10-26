@@ -5,37 +5,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
+using Playwright.DotNet.Logging;
 using Serilog;
-using System.Linq;
-using System;
-using Microsoft.AspNetCore.Identity;
 
-namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
+
+namespace Playwright.DotNet.Fixtures;
 
 /// <summary>
-/// Represents the server fixture. 
+/// Represents the server fixture.
 /// </summary>
-public class SystemTestFixture : WebApplicationFactory<Program>
+public class ServerTestFixture : WebApplicationFactory<Program>
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SystemTestFixture"/> class.
-    /// </summary>
-    public SystemTestFixture()
-    {
-        SqlEdgeFixture = new SqlEdgeFixture();
-    }
-
-
-    /// <summary>
-    /// Gets the SQL Edge fixture.
-    /// </summary>
-    public SqlEdgeFixture SqlEdgeFixture { get; }
-
     private IHost? _host;
     private bool _disposed;
 
@@ -66,55 +50,54 @@ public class SystemTestFixture : WebApplicationFactory<Program>
     /// </summary>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        base.ConfigureWebHost(builder);
+
         builder.ConfigureLogging(c =>
         {
             // remove the default logging providers
             c.ClearProviders();
-            //c.AddSerilog();
-            //     c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-            //     c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-            //    => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
+            c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+            c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+                => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
         });
 
-        builder.ConfigureTestServices(async services =>
+        builder.ConfigureServices(services =>
        {
-           // Add mock/test services to the builder here
            var descriptors = services.Where(d =>
-                                               d.ServiceType == typeof(DbContextOptions<CatalogContext>) ||
-                                               d.ServiceType == typeof(DbContextOptions<AppIdentityDbContext>))
-                                           .ToList();
+                                       d.ServiceType == typeof(DbContextOptions<CatalogContext>) ||
+                                       d.ServiceType == typeof(DbContextOptions<AppIdentityDbContext>))
+                                   .ToList();
 
            foreach (var descriptor in descriptors)
            {
                services.Remove(descriptor);
            }
 
-           // Add the catalog context and app identity context with the SQL Edge test container connection string
-           services.AddDbContext<CatalogContext>(options
-               => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
+           services.AddScoped(sp =>
+           {
+               Log.Logger.Information("Creating in-memory database for CatalogContext");
+               var options = new DbContextOptionsBuilder<CatalogContext>()
+               .UseInMemoryDatabase("TestCatalog")
+               .UseApplicationServiceProvider(sp)
+               .Options;
 
-           services.AddDbContext<AppIdentityDbContext>(options
-               => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
+               return options;
 
-        //    using var scope = Services.CreateScope();
-        //    var scopedProvider = scope.ServiceProvider;
-        //    try
-        //    {
-        //        var catalogContext = scopedProvider.GetRequiredService<CatalogContext>();
-        //        await CatalogContextSeed.SeedAsync(catalogContext,Logger);
+           });
 
-        //        var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        //        var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        //        var identityContext = scopedProvider.GetRequiredService<AppIdentityDbContext>();
-        //        await AppIdentityDbContextSeed.SeedAsync(identityContext, userManager, roleManager);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Logger.Error(ex, "An error occurred seeding the DB.");
-        //    }
+           services.AddScoped(sp =>
+           {
+               Log.Logger.Information("Creating in-memory database for CatalogContext");
+               var options = new DbContextOptionsBuilder<AppIdentityDbContext>()
+               .UseInMemoryDatabase("TestIdentity")
+               .UseApplicationServiceProvider(sp)
+               .Options;
 
+               return options;
+           });
 
        });
+
 
         builder.UseKestrel(Options =>
         {
@@ -125,7 +108,6 @@ public class SystemTestFixture : WebApplicationFactory<Program>
         builder.UseUrls($"http://127.0.0.1:5000");
     }
 
-
     /// <summary>
     /// Creates the host.
     /// </summary>
@@ -134,20 +116,13 @@ public class SystemTestFixture : WebApplicationFactory<Program>
         Log.Logger.Information("Creating host...");
         var testHost = builder.Build();
 
+        builder.UseEnvironment("Development");
+
         builder.ConfigureHostConfiguration(config =>
           {
               Log.Logger.Information("Loading host configuration");
               config.AddJsonFile("appsettings.test.json");
           });
-
-        builder.ConfigureServices(serviceCollection =>
-        {
-            serviceCollection.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-            serviceCollection.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-                => serviceProvider.GetRequiredService<ILogger<SystemTestFixture>>());
-        });
-
-        builder.UseEnvironment("Docker");
 
         builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
 
@@ -178,12 +153,11 @@ public class SystemTestFixture : WebApplicationFactory<Program>
             if (disposing)
             {
                 Log.Logger.Information("Disposing host");
+                _host?.StopAsync();
                 _host?.Dispose();
             }
 
             _disposed = true;
         }
-        Log.Logger.Information("ServerFixture disposed");
-        Log.CloseAndFlush();
     }
 }

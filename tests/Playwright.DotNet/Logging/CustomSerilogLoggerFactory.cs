@@ -2,8 +2,7 @@
 using Serilog;
 using Serilog.Extensions.Logging;
 
-
-namespace EShopOnWeb.TestContainersSystemTests;
+namespace Playwright.DotNet.Logging;
 
 /// <summary>
 /// Represents the custom Serilog logger factory.

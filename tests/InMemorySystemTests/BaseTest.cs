@@ -2,14 +2,15 @@
 using Playwright.DotNet.Infra;
 using Playwright.DotNet.Services;
 using Autofac;
-using EShopOnWeb.InMemorySystemTests.Fixtures;
 using Playwright.DotNet.DI;
+using Microsoft.Extensions.Logging;
+using Playwright.DotNet.Fixtures;
 
 namespace EShopOnWeb.InMemorySystemTests;
 
 public class BaseTest
 {
-    protected ServerFixture _fixture;
+    protected SystemTestFixture _fixture;
     protected App _app;
     protected TestExecutionEngine _testExecutionEngine;
     protected EShopOnWebApp EShopOnWebApp;
@@ -21,7 +22,7 @@ public class BaseTest
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new ServerFixture();
+        _fixture = new SystemTestFixture();
     }
 
     [SetUp]
@@ -30,11 +31,12 @@ public class BaseTest
         _app = new App();
  
         _builder = new ContainerBuilder();
-
+        //_fixture.Logger.LogInformation("Setting up test");
          var config = new BrowserConfiguration();
         _builder.RegisterInstance(config).As<BrowserConfiguration>().SingleInstance();
         _testExecutionEngine = new TestExecutionEngine();
         _builder.RegisterInstance(_testExecutionEngine).AsSelf();
+         //_fixture.Logger.LogInformation("Starting browser");
         _testExecutionEngine.StartBrowser(config, _builder);
         
         DISetup.RegisterPageObjects(_builder);
@@ -44,12 +46,14 @@ public class BaseTest
         ServiceLocator.SetContainer(_container);
 
         EShopOnWebApp = new EShopOnWebApp(_container);
-        _app.Navigation.Navigate(_fixture.ServerAddress);
+          //_fixture.Logger.LogInformation("Navigating to server address");
+        _app.Navigation.Navigate(_fixture.SystemTestHost.WebServerUrl);
     }
 
     [TearDown]
     public void TearDown()
     {
+        //_fixture.Logger.LogInformation("Tearing down test");
         _testExecutionEngine.Dispose(_container);
         _app.Dispose();
         _container.Dispose();

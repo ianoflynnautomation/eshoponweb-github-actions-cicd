@@ -1,9 +1,9 @@
-﻿using EShopOnWeb.TestContainersSystemTests.Fixtures;
-using Playwright.DotNet.Configuration;
+﻿using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Infra;
 using Playwright.DotNet.Services;
 using Autofac;
 using Playwright.DotNet.DI;
+using Playwright.DotNet.Fixtures;
 
 namespace EShopOnWeb.TestContainersSystemTests;
 
@@ -14,12 +14,12 @@ public class BaseTest
     protected EShopOnWebApp EShopOnWebApp;
     protected ContainerBuilder _builder;
     protected IContainer _container;
-    public SystemTestFixture _fixture;
+    public SystemTestContainersFixture _fixture;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new SystemTestFixture();
+        _fixture = new SystemTestContainersFixture();
 
     }
 

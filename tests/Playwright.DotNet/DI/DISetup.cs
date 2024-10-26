@@ -30,5 +30,4 @@ public static class DISetup
         builder.RegisterType<JavaScriptService>().As<IJavaScriptService>();
         builder.RegisterType<ComponentWaitService>().As<IComponentWaitService>();
     }
-
 }

@@ -21,5 +21,10 @@ public static class ServiceLocator
         return _container.Resolve<T>();
     }
 
+    public static IContainer BuildContainer(ContainerBuilder builder)
+    {
+        return builder.Build();
+    }
+
 
 }

@@ -20,19 +20,9 @@
     <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="FluentAssertions" />
-    <PackageReference Include="Testcontainers.SqlEdge" />
-    <PackageReference Include="Testcontainers" />
-    <PackageReference Include="Serilog.Extensions.Logging" />
-    <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="Serilog.Settings.Configuration" />
-    <PackageReference Include="Serilog.Sinks.Console" />
-    <PackageReference Include="Serilog.Sinks.File" />
-    <!-- <PackageReference Include="Serilog" /> -->
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
-    <ProjectReference Include="..\..\src\Web\Web.csproj" />
     <ProjectReference Include="..\..\tests\Playwright.DotNet\Playwright.DotNet.csproj" />
   </ItemGroup>
 

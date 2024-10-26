@@ -1,8 +1,7 @@
-﻿
-using DotNet.Testcontainers.Builders;
+﻿using DotNet.Testcontainers.Builders;
 using Testcontainers.SqlEdge;
 
-namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
+namespace Playwright.DotNet.Fixtures.DataBase;
 
 /// <summary>
 /// Represents the SQL Edge fixture.

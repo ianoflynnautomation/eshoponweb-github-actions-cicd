@@ -1,4 +1,4 @@
-﻿namespace EShopOnWeb.TestContainersSystemTests.Fixtures;
+﻿namespace Playwright.DotNet.Fixtures.DataBase;
 
 /// <summary>
 /// Represents the database fixture.

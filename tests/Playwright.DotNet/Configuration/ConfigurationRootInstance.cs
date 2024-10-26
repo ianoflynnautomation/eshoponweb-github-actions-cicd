@@ -9,7 +9,7 @@ public static class ConfigurationRootInstance
 {
     private static readonly Lazy<IConfigurationRoot> _configurationValue = new(GetTestConfiguration());
 
-    private static IConfigurationRoot TestConfiguration => _configurationValue.Value;
+    public static IConfigurationRoot TestConfiguration => _configurationValue.Value;
 
     /// <summary>
     /// Gets a section from the configuration.

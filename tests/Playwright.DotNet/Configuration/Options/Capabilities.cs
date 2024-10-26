@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-
-namespace Playwright.DotNet.Configuration;
+namespace Playwright.DotNet.Configuration.Options;
 
 // The reason for the Grid options (this class) to be a class, not a Dictionary<string, object>
 // Is because Microsoft.Extensions.Configuration, when reading testFrameworkSettings, when it encounters a Dictionary,
