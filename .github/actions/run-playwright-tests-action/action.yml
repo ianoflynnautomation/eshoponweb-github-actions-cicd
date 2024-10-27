@@ -60,12 +60,12 @@ runs:
       run: |
         pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
 
-    - name: Replace Variables
-      uses: microsoft/variable-substitution@v1 
-      with:
-        files: '${{ github.workspace }}/tests/${{ inputs.test-project-name }}/testsettings.json'
-      env:
-        WebSettings.ExecutionSettings.DefaultBrowser: ${{ inputs.browser-name }}
+    # - name: Replace Variables
+    #   uses: microsoft/variable-substitution@v1 
+    #   with:
+    #     files: '${{ github.workspace }}/tests/${{ inputs.test-project-name }}/testsettings.json'
+    #   env:
+    #     WebSettings.ExecutionSettings.DefaultBrowser: ${{ inputs.browser-name }}
 
     - name: Run your tests
       shell: bash
