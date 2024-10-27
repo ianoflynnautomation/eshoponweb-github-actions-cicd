@@ -33,7 +33,7 @@ public class BaseTest
         //_fixture.Logger.LogInformation("Setting up test");
         var config = new BrowserConfiguration()
         {
-            BrowserType = BrowserTypes.Chromium,
+            BrowserType = BrowserTypes.ChromiumHeadless,
         };
 
 
