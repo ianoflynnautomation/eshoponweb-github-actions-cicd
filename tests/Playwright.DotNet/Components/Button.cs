@@ -12,12 +12,12 @@ public class Button : Component
     public override Type ComponentType => GetType();
 
  
-    public virtual void Click(LocatorClickOptions options = null)
+    public virtual void Click(LocatorClickOptions? options = null)
     {
         DefaultClick(options);
     }
 
-    public virtual void Hover()
+    public new virtual void Hover()
     {
         Hover();
     }

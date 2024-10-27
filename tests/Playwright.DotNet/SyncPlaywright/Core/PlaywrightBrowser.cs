@@ -37,7 +37,7 @@ public class PlaywrightBrowser
 
     public IBrowser WrappedBrowser { get; internal init; }
 
-    public BrowserType BrowserType { get; internal init; }
+    public BrowserType? BrowserType { get; internal init; }
 
     internal List<BrowserContext> BrowserContexts { get; private init; } = new List<BrowserContext>();
 
@@ -53,7 +53,7 @@ public class PlaywrightBrowser
         remove => WrappedBrowser.Disconnected -= value;
     }
 
-    public void Close(BrowserCloseOptions options = null)
+    public void Close(BrowserCloseOptions? options = null)
     {
         WrappedBrowser.CloseAsync(options).SyncResult();
     }
@@ -68,7 +68,7 @@ public class PlaywrightBrowser
         return WrappedBrowser.NewBrowserCDPSessionAsync().SyncResult();
     }
 
-    public BrowserContext NewContext(BrowserNewContextOptions options = null)
+    public BrowserContext NewContext(BrowserNewContextOptions? options = null)
     {
         var newContext = new BrowserContext(this, WrappedBrowser.NewContextAsync(options).Result);
         BrowserContexts.Add(newContext);
@@ -76,7 +76,7 @@ public class PlaywrightBrowser
         return newContext;
     }
 
-    public BrowserPage NewPage(BrowserNewPageOptions options = null)
+    public BrowserPage NewPage(BrowserNewPageOptions? options = null)
     {
         var newPage = WrappedBrowser.NewPageAsync(options).Result;
         var browserContext = BrowserContexts.Find(x => x.WrappedBrowserContext.Equals(newPage.Context));

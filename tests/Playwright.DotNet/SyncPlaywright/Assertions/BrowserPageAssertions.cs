@@ -43,7 +43,7 @@ public class BrowserPageAssertions
     /// </summary>
     /// <param name="title"></param>
     /// <param name="options"></param>
-    public void ToHaveTitle(string title, PageAssertionsToHaveTitleOptions options = null)
+    public void ToHaveTitle(string title, PageAssertionsToHaveTitleOptions? options = null)
     {
         NativeAssertions.ToHaveTitleAsync(title, options);
     }
@@ -53,7 +53,7 @@ public class BrowserPageAssertions
     /// </summary>
     /// <param name="regExp"></param>
     /// <param name="options"></param>
-    public void ToHaveTitle(Regex regExp, PageAssertionsToHaveTitleOptions options = null)
+    public void ToHaveTitle(Regex regExp, PageAssertionsToHaveTitleOptions? options = null)
     {
         NativeAssertions.ToHaveTitleAsync(regExp, options);
     }
@@ -63,7 +63,7 @@ public class BrowserPageAssertions
     /// </summary>
     /// <param name="url"></param>
     /// <param name="options"></param>
-    public void ToHaveURL(string url, PageAssertionsToHaveURLOptions options = null)
+    public void ToHaveURL(string url, PageAssertionsToHaveURLOptions? options = null)
     {
         NativeAssertions.ToHaveURLAsync(url, options);
     }
@@ -73,7 +73,7 @@ public class BrowserPageAssertions
     /// </summary>
     /// <param name="regExp"></param>
     /// <param name="options"></param>
-    public void ToHaveURL(Regex regExp, PageAssertionsToHaveURLOptions options = null)
+    public void ToHaveURL(Regex regExp, PageAssertionsToHaveURLOptions? options = null)
     {
         NativeAssertions.ToHaveURLAsync(regExp, options);
     }

@@ -15,7 +15,7 @@ public class TextInput : Component
         DefaultSetText(value);
     }
 
-    public virtual void Hover()
+    public new virtual void Hover()
     {
         Hover();
     }
@@ -34,12 +34,12 @@ public class TextInput : Component
 
     public virtual bool IsRequired => GetRequiredAttribute();
 
-    public virtual string Placeholder => GetPlaceholderAttribute();
+    public virtual string? Placeholder => GetPlaceholderAttribute();
 
     public virtual int? MaxLength => DefaultGetMaxLength();
 
     public virtual int? MinLength => DefaultGetMinLength();
 
-    public new virtual int? Size => GetSizeAttribute();
+    public virtual int? Size => GetSizeAttribute();
 
 }

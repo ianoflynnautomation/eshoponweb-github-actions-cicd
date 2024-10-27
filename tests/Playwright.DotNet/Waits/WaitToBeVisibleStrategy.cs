@@ -14,7 +14,7 @@ public class WaitToBeVisibleStrategy : WaitStrategy
     public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
         : base(timeoutInterval, sleepInterval)
     {
-        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.InMilliseconds().ElementToBeVisibleTimeout;
+        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToBeVisibleTimeout;
     }
 
     public override void WaitUntil<TComponent>(TComponent component)

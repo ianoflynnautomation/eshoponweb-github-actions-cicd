@@ -14,5 +14,5 @@ public class Label : Component, IComponentInnerText
 
     public virtual string InnerHtml => GetInnerHtmlAttribute();
 
-    public virtual string For => GetForAttribute();
+    public virtual string? For => GetForAttribute();
 }

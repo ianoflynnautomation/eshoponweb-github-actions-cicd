@@ -25,7 +25,7 @@ public class TextArea : Component, IComponentText, IComponentInnerText
 
     public virtual void SetText(string value) => DefaultSetText(value);
 
-    public virtual void Hover() => Hover();
+    public new virtual void Hover() => Hover();
 
     public virtual string InnerText => GetInnerText();
 
@@ -37,7 +37,7 @@ public class TextArea : Component, IComponentText, IComponentInnerText
 
     public virtual bool IsRequired => GetRequiredAttribute();
 
-    public virtual string Placeholder => GetPlaceholderAttribute();
+    public virtual string? Placeholder => GetPlaceholderAttribute();
 
     public virtual int? MaxLength => DefaultGetMaxLength();
 
@@ -47,7 +47,7 @@ public class TextArea : Component, IComponentText, IComponentInnerText
 
     public virtual int? Cols => string.IsNullOrEmpty(GetAttribute("cols")) ? null : (int?)int.Parse(GetAttribute("cols"));
 
-    public virtual string SpellCheck => string.IsNullOrEmpty(GetAttribute("spellcheck")) ? null : GetAttribute("spellcheck");
+    public virtual string? SpellCheck => string.IsNullOrEmpty(GetAttribute("spellcheck")) ? null : GetAttribute("spellcheck");
 
-    public virtual string Wrap => string.IsNullOrEmpty(GetAttribute("wrap")) ? null : GetAttribute("wrap");
+    public virtual string? Wrap => string.IsNullOrEmpty(GetAttribute("wrap")) ? null : GetAttribute("wrap");
 }

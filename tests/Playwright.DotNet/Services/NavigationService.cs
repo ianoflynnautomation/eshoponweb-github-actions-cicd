@@ -41,7 +41,7 @@ public class NavigationService(WrappedBrowser wrappedBrowser) : WebService(wrapp
     {
         try
         {
-            CurrentPage.Expect().ToHaveURL(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.InMilliseconds().WaitForPartialUrl });
+            CurrentPage.Expect().ToHaveURL(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().WaitForPartialUrl });
         }
         catch (Exception ex)
         {

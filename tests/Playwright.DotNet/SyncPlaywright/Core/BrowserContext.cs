@@ -25,9 +25,9 @@ public partial class BrowserContext
 
     public IBrowserContext WrappedBrowserContext { get; internal init; }
 
-    public PlaywrightBrowser Browser { get; internal init; }
+    public PlaywrightBrowser? Browser { get; internal init; }
 
-    internal List<BrowserPage> BrowserPages { get; private init; } = new List<BrowserPage>();
+    internal List<BrowserPage> BrowserPages { get; private init; } = [];
 
     public IReadOnlyList<BrowserPage> Pages => BrowserPages.AsReadOnly();
 
@@ -40,7 +40,7 @@ public partial class BrowserContext
         WrappedBrowserContext.AddCookiesAsync(cookies).SyncResult();
     }
 
-    public void AddInitScript(string script = null, string scriptPath = null)
+    public void AddInitScript(string? script = null, string? scriptPath = null)
     {
         WrappedBrowserContext.AddInitScriptAsync(script, scriptPath).SyncResult();
     }
@@ -55,12 +55,12 @@ public partial class BrowserContext
         WrappedBrowserContext.ClearPermissionsAsync().SyncResult();
     }
 
-    public void Close(BrowserContextCloseOptions options = null)
+    public void Close(BrowserContextCloseOptions? options = null)
     {
         WrappedBrowserContext.CloseAsync(options).SyncResult();
     }
 
-    public IReadOnlyList<BrowserContextCookiesResult> Cookies(IEnumerable<string> urls = null)
+    public IReadOnlyList<BrowserContextCookiesResult> Cookies(IEnumerable<string>? urls = null)
     {
         return WrappedBrowserContext.CookiesAsync(urls).SyncResult();
     }
@@ -70,7 +70,7 @@ public partial class BrowserContext
         WrappedBrowserContext.DisposeAsync().GetAwaiter().GetResult();
     }
 
-    public void ExposeBinding(string name, Action callback, BrowserContextExposeBindingOptions options = null)
+    public void ExposeBinding(string name, Action callback, BrowserContextExposeBindingOptions? options = null)
     {
         WrappedBrowserContext.ExposeBindingAsync(name, callback, options).SyncResult();
     }
@@ -150,7 +150,7 @@ public partial class BrowserContext
         WrappedBrowserContext.ExposeFunctionAsync(name, callback).SyncResult();
     }
 
-    public void GrantPermissions(IEnumerable<string> permissions, BrowserContextGrantPermissionsOptions options = null)
+    public void GrantPermissions(IEnumerable<string> permissions, BrowserContextGrantPermissionsOptions? options = null)
     {
         WrappedBrowserContext.GrantPermissionsAsync(permissions, options).SyncResult();
     }
@@ -173,47 +173,47 @@ public partial class BrowserContext
         return newPage;
     }
 
-    public void Route(string url, Action<IRoute> handler, BrowserContextRouteOptions options = null)
+    public void Route(string url, Action<IRoute> handler, BrowserContextRouteOptions? options = null)
     {
         WrappedBrowserContext.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Regex url, Action<IRoute> handler, BrowserContextRouteOptions options = null)
+    public void Route(Regex url, Action<IRoute> handler, BrowserContextRouteOptions? options = null)
     {
         WrappedBrowserContext.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Func<string, bool> url, Action<IRoute> handler, BrowserContextRouteOptions options = null)
+    public void Route(Func<string, bool> url, Action<IRoute> handler, BrowserContextRouteOptions? options = null)
     {
         WrappedBrowserContext.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(string url, Func<IRoute, Task> handler, BrowserContextRouteOptions options = null)
+    public void Route(string url, Func<IRoute, Task> handler, BrowserContextRouteOptions? options = null)
     {
         WrappedBrowserContext.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Regex url, Func<IRoute, Task> handler, BrowserContextRouteOptions options = null)
+    public void Route(Regex url, Func<IRoute, Task> handler, BrowserContextRouteOptions? options = null)
     {
         WrappedBrowserContext.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Func<string, bool> url, Func<IRoute, Task> handler, BrowserContextRouteOptions options = null)
+    public void Route(Func<string, bool> url, Func<IRoute, Task> handler, BrowserContextRouteOptions? options = null)
     {
         WrappedBrowserContext.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void RouteFromHAR(string har, BrowserContextRouteFromHAROptions options = null)
+    public void RouteFromHAR(string har, BrowserContextRouteFromHAROptions? options = null)
     {
         WrappedBrowserContext.RouteFromHARAsync(har, options).SyncResult();
     }
 
-    public IConsoleMessage RunAndWaitForConsoleMessage(Func<Task> action, BrowserContextRunAndWaitForConsoleMessageOptions options = null)
+    public IConsoleMessage RunAndWaitForConsoleMessage(Func<Task> action, BrowserContextRunAndWaitForConsoleMessageOptions? options = null)
     {
         return WrappedBrowserContext.RunAndWaitForConsoleMessageAsync(action, options).SyncResult();
     }
 
-    public BrowserPage RunAndWaitForPage(Func<Task> action, BrowserContextRunAndWaitForPageOptions options = null)
+    public BrowserPage RunAndWaitForPage(Func<Task> action, BrowserContextRunAndWaitForPageOptions? options = null)
     {
         var page = new BrowserPage(this, WrappedBrowserContext.RunAndWaitForPageAsync(action, options).SyncResult());
         BrowserPages.Add(page);
@@ -246,22 +246,22 @@ public partial class BrowserContext
         WrappedBrowserContext.SetOfflineAsync(offline).SyncResult();
     }
 
-    public string StorageState(BrowserContextStorageStateOptions options = null)
+    public string StorageState(BrowserContextStorageStateOptions? options = null)
     {
         return WrappedBrowserContext.StorageStateAsync(options).SyncResult();
     }
 
-    public void Unroute(string url, Action<IRoute> handler = null)
+    public void Unroute(string url, Action<IRoute>? handler = null)
     {
         WrappedBrowserContext.UnrouteAsync(url, handler).SyncResult();
     }
 
-    public void Unroute(Regex url, Action<IRoute> handler = null)
+    public void Unroute(Regex url, Action<IRoute>? handler = null)
     {
         WrappedBrowserContext.UnrouteAsync(url, handler).SyncResult();
     }
 
-    public void Unroute(Func<string, bool> url, Action<IRoute> handler = null)
+    public void Unroute(Func<string, bool> url, Action<IRoute>? handler = null)
     {
         WrappedBrowserContext.UnrouteAsync(url, handler).SyncResult();
     }
@@ -281,12 +281,12 @@ public partial class BrowserContext
         WrappedBrowserContext.UnrouteAsync(url, handler).SyncResult();
     }
 
-    public IConsoleMessage WaitForConsoleMessage(BrowserContextWaitForConsoleMessageOptions options = null)
+    public IConsoleMessage WaitForConsoleMessage(BrowserContextWaitForConsoleMessageOptions? options = null)
     {
         return WrappedBrowserContext.WaitForConsoleMessageAsync(options).SyncResult();
     }
 
-    public BrowserPage WaitForPage(BrowserContextWaitForPageOptions options = null)
+    public BrowserPage WaitForPage(BrowserContextWaitForPageOptions? options = null)
     {
         var page = new BrowserPage(this, WrappedBrowserContext.WaitForPageAsync(options).SyncResult());
         BrowserPages.Add(page);

@@ -10,7 +10,9 @@ namespace Playwright.DotNet.Services;
 /// </remarks>
 public class WrappedBrowser
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public WrappedBrowser()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     {
     }
 
@@ -39,16 +41,9 @@ public class WrappedBrowser
         try
         {
             CurrentPage?.Close();
-            CurrentPage = null;
-
             CurrentContext?.Close();
-            CurrentContext = null;
-
             Browser?.Close();
-            Browser = null;
-
             Playwright?.Dispose();
-            Playwright = null;
         }
         catch
         {

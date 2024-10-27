@@ -19,7 +19,7 @@ public class WaitToBeClickableStrategy : WaitStrategy
     public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
         : base(timeoutInterval, sleepInterval)
     {
-        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.InMilliseconds().ElementToBeClickableTimeout;
+        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToBeClickableTimeout;
     }
 
     /// <summary>

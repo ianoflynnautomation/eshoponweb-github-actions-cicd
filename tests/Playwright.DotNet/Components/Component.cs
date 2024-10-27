@@ -16,15 +16,17 @@ namespace Playwright.DotNet.Components;
 /// </summary>
 public class Component : IComponent
 {
-    protected WebElement _wrappedElement;
+    protected  WebElement _wrappedElement;
     private readonly IComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public Component()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     {
         _elementWaiter = ServiceLocator.Resolve<IComponentWaitService>();
         WrappedBrowser = ServiceLocator.Resolve<WrappedBrowser>();
-        _untils = new List<WaitStrategy>();
+        _untils = [];
         BrowserService  = ServiceLocator.Resolve<IBrowserService>();
         ComponentCreateService = ServiceLocator.Resolve<IComponentCreateService>();
     }
@@ -83,7 +85,7 @@ public class Component : IComponent
     {
         if (_untils.Count == 0 || _untils[0] == null)
         {
-            _wrappedElement.WaitFor(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.InMilliseconds().ElementToExistTimeout });
+            _wrappedElement.WaitFor(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToExistTimeout });
             return;
         }
 
@@ -151,10 +153,10 @@ public class Component : IComponent
     public string LocatorValue => By.Value;
 
 
-    public string GetTitle() => string.IsNullOrEmpty(GetAttribute("title")) ? null : GetAttribute("title");
+    public string? GetTitle() => string.IsNullOrEmpty(GetAttribute("title")) ? null : GetAttribute("title");
     
 
-    internal void DefaultClick(LocatorClickOptions options = null)
+    internal void DefaultClick(LocatorClickOptions? options = null)
     {
         if (options != null)
         {
@@ -167,14 +169,14 @@ public class Component : IComponent
 
     private void PerformJsClick() => WrappedElement.Evaluate("el => el.click()");
 
-    internal void DefaultCheck(LocatorCheckOptions options = default)
+    internal void DefaultCheck(LocatorCheckOptions? options = default)
     {
 
         WrappedElement.Check(options);
 
     }
 
-    internal void DefaultUncheck(LocatorUncheckOptions options = default)
+    internal void DefaultUncheck(LocatorUncheckOptions? options = default)
     {
 
         WrappedElement.Uncheck(options);
@@ -239,7 +241,7 @@ public class Component : IComponent
         return WrappedElement.InnerHTML();
     }
 
-    internal string GetForAttribute()
+    internal string? GetForAttribute()
     {
         return string.IsNullOrEmpty(GetAttribute("for")) ? null : GetAttribute("for");
     }
@@ -254,7 +256,7 @@ public class Component : IComponent
         return WrappedElement.InnerText();
     }
 
-    internal string GetPlaceholderAttribute()
+    internal string? GetPlaceholderAttribute()
     {
         return string.IsNullOrEmpty(GetAttribute("placeholder")) ? null : GetAttribute("placeholder");
     }
@@ -274,7 +276,7 @@ public class Component : IComponent
         return !string.IsNullOrEmpty(GetAttribute("required"));
     }
 
-    internal void DefaultSetText(string value, LocatorFillOptions options = default)
+    internal void DefaultSetText(string value, LocatorFillOptions? options = default)
     {
 
         WrappedElement.Fill(value, options);

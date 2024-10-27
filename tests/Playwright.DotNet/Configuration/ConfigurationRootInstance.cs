@@ -19,7 +19,7 @@ public static class ConfigurationRootInstance
     /// <returns>The sections of the configuration</returns>
     public static TSection GetSection<TSection>(string sectionName) where TSection : class
     {
-        return TestConfiguration.GetSection(sectionName).Get<TSection>();
+        return TestConfiguration.GetSection(sectionName).Get<TSection>() ?? throw new InvalidOperationException($"Section {sectionName} not found in configuration.");
     }
 
     private static IConfigurationRoot GetTestConfiguration()

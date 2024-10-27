@@ -12,11 +12,11 @@ public static class Assertions
     /// Asserts the element.
     /// </summary>
     /// <param name="element">The element to assert</param>
-    public static WebElementAssertions Expect(this WebElement element) => new WebElementAssertions(element);
+    public static WebElementAssertions Expect(this WebElement element) => new(element);
 
     /// <summary>
     /// Asserts the page.
     /// </summary>
     /// <param name="page">Page to assert</param>
-    public static BrowserPageAssertions Expect(this BrowserPage page) => new BrowserPageAssertions(page);
+    public static BrowserPageAssertions Expect(this BrowserPage page) => new(page);
 }

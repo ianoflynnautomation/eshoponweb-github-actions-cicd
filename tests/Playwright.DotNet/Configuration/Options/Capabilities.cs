@@ -10,35 +10,35 @@ namespace Playwright.DotNet.Configuration.Options;
 // Dictionary inside Dictionary happens when running tests in LambdaTest, because of the LT:Options
 public class Capabilities
 {
-    public string BrowserName { get; set; }
+    public string? BrowserName { get; set; }
 
-    public string BrowserVersion { get; set; }
+    public string? BrowserVersion { get; set; }
 
-    public string PlatformName { get; set; }
+    public string? PlatformName { get; set; }
 
-    public string AcceptInsecureCerts { get; set; }
+    public string? AcceptInsecureCerts { get; set; }
 
-    public string PageLoadStrategy { get; set; }
+    public string? PageLoadStrategy { get; set; }
 
-    public string SetWindowRect { get; set; }
+    public string? SetWindowRect { get; set; }
 
-    public string UnhandledPromptBehaviour { get; set; }
+    public string? UnhandledPromptBehaviour { get; set; }
 
 
     [ConfigurationKeyName("LT:Options")]
-    public Dictionary<string, object> LtOptions { get; set; }
+    public Dictionary<string, object>? LtOptions { get; set; }
 
 
     [ConfigurationKeyName("browserstack.username")]
-    public string BrowserStackUsername { get; set; }
+    public string? BrowserStackUsername { get; set; }
 
 
     [ConfigurationKeyName("browserstack.accessKey")]
-    public string BrowserStackAccessKey { get; set; }
+    public string? BrowserStackAccessKey { get; set; }
 
     [ConfigurationKeyName("cloud.grid.user")]
-    public string CloudGridUser { get; set; }
+    public string? CloudGridUser { get; set; }
 
     [ConfigurationKeyName("cloud.grid.key")]
-    public string CloudGridKey { get; set;}
+    public string? CloudGridKey { get; set;}
 }

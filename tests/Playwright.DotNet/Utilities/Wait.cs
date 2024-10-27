@@ -6,9 +6,9 @@ public sealed class Wait
 {
     public static void Until(
         Func<bool> condition,
-        int timeoutInSeconds = 10,
+        int? timeoutInSeconds = 10,
         string exceptionMessage = "Timeout exceeded.",
-        int retryRateDelay = 50)
+        int? retryRateDelay = 50)
     {
         var start = DateTime.Now;
         while (!condition())
@@ -20,14 +20,14 @@ public sealed class Wait
                 throw new TimeoutException(exceptionMessage + $" Elapsed time: {totalSeconds} s.");
             }
 
-            Thread.Sleep(retryRateDelay);
+            Thread.Sleep(retryRateDelay ?? 50);
         }
     }
 
     public static void ForConditionUntilTimeout(
         Func<bool> condition,
         int totalRunTimeoutMilliseconds = 5000,
-        Action onTimeout = null,
+        Action? onTimeout = null,
         int sleepTimeMilliseconds = 2000)
     {
         var startTime = DateTime.UtcNow;

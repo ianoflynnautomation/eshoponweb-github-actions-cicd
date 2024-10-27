@@ -10,13 +10,16 @@ namespace Playwright.DotNet.Services;
 public static class ComponentRepository
 {
     private static WrappedBrowser WrappedBrowser => ServiceLocator.Resolve<WrappedBrowser>();
+
     public static dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
-        dynamic element = Activator.CreateInstance(newElementType);
+        dynamic? element = Activator.CreateInstance(newElementType);
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         element.By = by;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         element.ParentComponent = parenTComponent;
         ResolveRelativeWebElement(element);
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
@@ -112,6 +115,7 @@ public static class ComponentRepository
             foreach (var frame in callStackTrace.GetFrames())
             {
                 var frameMethodInfo = frame.GetMethod() as MethodInfo;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
                     !frameMethodInfo.IsStatic &&
                     frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component)))
@@ -120,6 +124,7 @@ public static class ComponentRepository
 
                     break;
                 }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
         }
         catch (Exception ex)

@@ -14,7 +14,7 @@ public class TestExecutionEngine
             var wrappedBrowser = WrappedBrowserCreateService.Create(browserConfiguration);
 
             builder.RegisterInstance(wrappedBrowser).AsSelf().SingleInstance();
-            builder.Register(c => (ILocator)null).As<ILocator>().InstancePerDependency();
+            //builder.Register(c => (ILocator)null).As<ILocator>().InstancePerDependency();
 
             IsBrowserStartedCorrectly = true;
         }

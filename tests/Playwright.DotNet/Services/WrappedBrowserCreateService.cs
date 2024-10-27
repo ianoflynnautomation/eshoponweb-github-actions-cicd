@@ -33,7 +33,7 @@ public static class WrappedBrowserCreateService
             //InitializeWrappedBrowserGridMode(executionConfiguration, wrappedBrowser);
         }
 
-        var pageLoadTimeout = WebSettings.TimeoutSettings.InMilliseconds().PageLoadTimeout;
+        var pageLoadTimeout = WebSettings.TimeoutSettings?.InMilliseconds().PageLoadTimeout ?? 30000;
 
         wrappedBrowser.CurrentPage.SetDefaultNavigationTimeout(pageLoadTimeout);
 

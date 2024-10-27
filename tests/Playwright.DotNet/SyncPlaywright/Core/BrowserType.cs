@@ -38,7 +38,7 @@ public class BrowserType
     /// <param name="wsEndpoint"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public PlaywrightBrowser Connect(string wsEndpoint, BrowserTypeConnectOptions options = null)
+    public PlaywrightBrowser Connect(string wsEndpoint, BrowserTypeConnectOptions? options = null)
     {
         return new PlaywrightBrowser(this, WrappedBrowserType.ConnectAsync(wsEndpoint, options).Result);
     }
@@ -49,7 +49,7 @@ public class BrowserType
     /// <param name="endpointURL"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public PlaywrightBrowser ConnectOverCDP(string endpointURL, BrowserTypeConnectOverCDPOptions options = null)
+    public PlaywrightBrowser ConnectOverCDP(string endpointURL, BrowserTypeConnectOverCDPOptions? options = null)
     {
         return new PlaywrightBrowser(this, WrappedBrowserType.ConnectOverCDPAsync(endpointURL, options).Result);
     }
@@ -59,7 +59,7 @@ public class BrowserType
     /// </summary>
     /// <param name="options"></param>
     /// <returns></returns>
-    public PlaywrightBrowser Launch(BrowserTypeLaunchOptions options = null)
+    public PlaywrightBrowser Launch(BrowserTypeLaunchOptions? options = null)
     {
         return new PlaywrightBrowser(this, WrappedBrowserType.LaunchAsync(options).Result);
     }
@@ -70,7 +70,7 @@ public class BrowserType
     /// <param name="userDataDir"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public BrowserContext LaunchPersistentContext(string userDataDir, BrowserTypeLaunchPersistentContextOptions options = null)
+    public BrowserContext LaunchPersistentContext(string userDataDir, BrowserTypeLaunchPersistentContextOptions? options = null)
     {
         var persistentContext = WrappedBrowserType.LaunchPersistentContextAsync(userDataDir, options).Result;
 

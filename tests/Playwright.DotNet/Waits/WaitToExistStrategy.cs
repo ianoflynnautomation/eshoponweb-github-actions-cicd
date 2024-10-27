@@ -14,7 +14,7 @@ public class WaitToExistStrategy : WaitStrategy
     public WaitToExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
         : base(timeoutInterval, sleepInterval)
     {
-        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.InMilliseconds().ElementToExistTimeout;
+        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToExistTimeout;
     }
 
     public override void WaitUntil<TComponent>(TComponent component)

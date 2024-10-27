@@ -12,7 +12,7 @@ public class CheckBox : Component
     /// Automatically performs a validation if the component is already checked.
     /// </summary>
     /// <param name="options"></param>
-    public virtual void Check(LocatorCheckOptions options = default)
+    public virtual void Check(LocatorCheckOptions? options = default)
     {
         DefaultCheck(options);
     }
@@ -21,12 +21,12 @@ public class CheckBox : Component
     /// Automatically performs a validation if the component is already unchecked.
     /// </summary>
     /// <param name="options"></param>
-    public virtual void Uncheck(LocatorUncheckOptions options = default)
+    public virtual void Uncheck(LocatorUncheckOptions? options = default)
     {
         DefaultUncheck(options);
     }
 
-    public virtual void Hover()
+    public new virtual void Hover()
     {
         Hover();
     }

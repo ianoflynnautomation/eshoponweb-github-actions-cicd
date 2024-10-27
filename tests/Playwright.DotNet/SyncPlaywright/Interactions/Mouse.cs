@@ -24,7 +24,7 @@ public class Mouse(IMouse mouse)
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="options"></param>
-    public void Click(float x, float y, MouseClickOptions options = null)
+    public void Click(float x, float y, MouseClickOptions? options = null)
     {
         WrappedMouse.ClickAsync(x, y, options).SyncResult();
     }
@@ -35,7 +35,7 @@ public class Mouse(IMouse mouse)
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="options"></param>
-    public void DblClick(float x, float y, MouseDblClickOptions options = null)
+    public void DblClick(float x, float y, MouseDblClickOptions? options = null)
     {
         WrappedMouse.DblClickAsync(x, y, options).SyncResult();
     }
@@ -44,7 +44,7 @@ public class Mouse(IMouse mouse)
     /// Down the mouse.
     /// </summary>
     /// <param name="options"></param>
-    public void Down(MouseDownOptions options = null)
+    public void Down(MouseDownOptions? options = null)
     {
         WrappedMouse.DownAsync(options).SyncResult();
     }
@@ -55,7 +55,7 @@ public class Mouse(IMouse mouse)
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="options"></param>
-    public void Move(float x, float y, MouseMoveOptions options = null)
+    public void Move(float x, float y, MouseMoveOptions? options = null)
     {
         WrappedMouse.MoveAsync(x, y, options).SyncResult();
     }
@@ -64,7 +64,7 @@ public class Mouse(IMouse mouse)
     /// Up the mouse.
     /// </summary>
     /// <param name="options"></param>
-    public void Up(MouseUpOptions options = null)
+    public void Up(MouseUpOptions? options = null)
     {
         WrappedMouse.UpAsync(options).SyncResult();
     }

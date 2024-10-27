@@ -6,21 +6,17 @@ namespace Playwright.DotNet.SyncPlaywright.Interactions;
 /// <summary>
 /// Options for keyboard press.
 /// </summary>
-public class Keyboard
+/// <remarks>
+/// Initializes a new instance of the <see cref="Keyboard"/> class.
+/// </remarks>
+/// <param name="keyboard"></param>
+public class Keyboard(IKeyboard keyboard)
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Keyboard"/> class.
-    /// </summary>
-    /// <param name="keyboard"></param>
-    public Keyboard(IKeyboard keyboard)
-    {
-        WrappedKeyboard = keyboard;
-    }
 
     /// <summary>
     /// Gets the wrapped keyboard.
     /// </summary>
-    public IKeyboard WrappedKeyboard { get; internal set; }
+    public IKeyboard WrappedKeyboard { get; internal set; } = keyboard;
 
     /// <summary>
     /// Down the key.
@@ -45,7 +41,7 @@ public class Keyboard
     /// </summary>
     /// <param name="key"></param>
     /// <param name="options"></param>
-    public void Press(string key, KeyboardPressOptions options = null)
+    public void Press(string key, KeyboardPressOptions? options = null)
     {
         WrappedKeyboard.PressAsync(key, options).SyncResult();
     }
@@ -55,7 +51,7 @@ public class Keyboard
     /// </summary>
     /// <param name="text"></param>
     /// <param name="options"></param>
-    public void Type(string text, KeyboardTypeOptions options = null)
+    public void Type(string text, KeyboardTypeOptions? options = null)
     {
         WrappedKeyboard.TypeAsync(text, options).SyncResult();
     }

@@ -13,7 +13,7 @@ public static class ServiceLocator
 
     public static T Resolve<T>()
     {
-        if (_container == null)
+        if (_container is null)
         {
             throw new InvalidOperationException("Service locator is not initialized.");
         }

@@ -1,5 +1,4 @@
 ﻿
-using Playwright.DotNet.SyncPlaywright.Core;
 using Playwright.DotNet.SyncPlaywright.GetByOptions;
 using Microsoft.Playwright;
 using System.Text.RegularExpressions;
@@ -111,34 +110,34 @@ public class WebElement
         return new WebElement(Page, WrappedLocator.And(element.WrappedLocator));
     }
 
-    public JsonElement? Evaluate(string expression, object arg = null, LocatorEvaluateOptions options = null)
+    public JsonElement? Evaluate(string expression, object? arg = null, LocatorEvaluateOptions? options = null)
     {
         return WrappedLocator.EvaluateAsync(expression, arg, options).Result;
     }
 
 
 
-    public void Blur(LocatorBlurOptions options = null)
+    public void Blur(LocatorBlurOptions? options = null)
     {
         WrappedLocator.BlurAsync(options).SyncResult();
     }
 
-    public LocatorBoundingBoxResult BoundingBox(LocatorBoundingBoxOptions options = null)
+    public LocatorBoundingBoxResult BoundingBox(LocatorBoundingBoxOptions? options = null)
     {
-        return WrappedLocator.BoundingBoxAsync().Result;
+        return WrappedLocator.BoundingBoxAsync().Result ?? new LocatorBoundingBoxResult();
     }
 
-    public void Check(LocatorCheckOptions options = null)
+    public void Check(LocatorCheckOptions? options = null)
     {
         WrappedLocator.CheckAsync(options).SyncResult();
     }
 
-    public void Clear(LocatorClearOptions options = null)
+    public void Clear(LocatorClearOptions? options = null)
     {
         WrappedLocator.ClearAsync(options).SyncResult();
     }
 
-    public void Click(LocatorClickOptions options = null)
+    public void Click(LocatorClickOptions? options = null)
     {
         WrappedLocator.ClickAsync(options).SyncResult();
     }
@@ -148,22 +147,22 @@ public class WebElement
         return WrappedLocator.CountAsync().Result;
     }
 
-    public void DblClick(LocatorDblClickOptions options = null)
+    public void DblClick(LocatorDblClickOptions? options = null)
     {
         WrappedLocator.DblClickAsync(options).SyncResult();
     }
 
-    public void DispatchEvent(string type, object eventInit = null, LocatorDispatchEventOptions options = null)
+    public void DispatchEvent(string type, object? eventInit = null, LocatorDispatchEventOptions? options = null)
     {
         WrappedLocator.DispatchEventAsync(type, eventInit, options).SyncResult();
     }
 
-    public void DragTo(WebElement target, LocatorDragToOptions options = null)
+    public void DragTo(WebElement target, LocatorDragToOptions? options = null)
     {
         WrappedLocator.DragToAsync(target.WrappedLocator, options).SyncResult();
     }
 
-    public IElementHandle ElementHandle(LocatorElementHandleOptions options = null)
+    public IElementHandle ElementHandle(LocatorElementHandleOptions? options = null)
     {
         return WrappedLocator.ElementHandleAsync(options).Result;
     }
@@ -173,32 +172,32 @@ public class WebElement
         return WrappedLocator.ElementHandlesAsync().Result;
     }
 
-    public T Evaluate<T>(string expression, object arg = null, LocatorEvaluateOptions options = null)
+    public T Evaluate<T>(string expression, object? arg = null, LocatorEvaluateOptions? options = null)
     {
         return WrappedLocator.EvaluateAsync<T>(expression, arg, options).Result;
     }
 
-    public T EvaluateAll<T>(string expression, object arg = null)
+    public T EvaluateAll<T>(string expression, object? arg = null)
     {
         return WrappedLocator.EvaluateAllAsync<T>(expression, arg).Result;
     }
 
-    public IJSHandle EvaluateHandle(string expression, object arg = null, LocatorEvaluateHandleOptions options = null)
+    public IJSHandle EvaluateHandle(string expression, object? arg = null, LocatorEvaluateHandleOptions? options = null)
     {
         return WrappedLocator.EvaluateHandleAsync(expression, arg, options).Result;
     }
 
-    public void Fill(string value, LocatorFillOptions options = null)
+    public void Fill(string value, LocatorFillOptions? options = null)
     {
         WrappedLocator.FillAsync(value, options).SyncResult();
     }
 
-    public virtual WebElement Filter(LocatorFilterOptions options = null)
+    public virtual WebElement Filter(LocatorFilterOptions? options = null)
     {
         return new WebElement(Page, WrappedLocator.Filter(options));
     }
 
-    public void Focus(LocatorFocusOptions options = null)
+    public void Focus(LocatorFocusOptions? options = null)
     {
         WrappedLocator.FocusAsync(options).SyncResult();
     }
@@ -208,52 +207,52 @@ public class WebElement
         WrappedLocator.HighlightAsync().SyncResult();
     }
 
-    public void Hover(LocatorHoverOptions options = null)
+    public void Hover(LocatorHoverOptions? options = null)
     {
         WrappedLocator.HoverAsync(options).SyncResult();
     }
 
-    public string InnerHTML(LocatorInnerHTMLOptions options = null)
+    public string InnerHTML(LocatorInnerHTMLOptions? options = null)
     {
         return WrappedLocator.InnerHTMLAsync(options).Result;
     }
 
-    public string InnerText(LocatorInnerTextOptions options = null)
+    public string InnerText(LocatorInnerTextOptions? options = null)
     {
         return WrappedLocator.InnerTextAsync(options).Result;
     }
 
-    public string InputValue(LocatorInputValueOptions options = null)
+    public string InputValue(LocatorInputValueOptions? options = null)
     {
         return WrappedLocator.InputValueAsync(options).Result;
     }
 
-    public bool IsChecked(LocatorIsCheckedOptions options = null)
+    public bool IsChecked(LocatorIsCheckedOptions? options = null)
     {
         return WrappedLocator.IsCheckedAsync(options).Result;
     }
 
-    public bool IsDisabled(LocatorIsDisabledOptions options = null)
+    public bool IsDisabled(LocatorIsDisabledOptions? options = null)
     {
         return WrappedLocator.IsDisabledAsync(options).Result;
     }
 
-    public bool IsEditable(LocatorIsEditableOptions options = null)
+    public bool IsEditable(LocatorIsEditableOptions? options = null)
     {
         return WrappedLocator.IsEditableAsync(options).Result;
     }
 
-    public bool IsEnabled(LocatorIsEnabledOptions options = null)
+    public bool IsEnabled(LocatorIsEnabledOptions? options = null)
     {
         return WrappedLocator.IsEnabledAsync(options).Result;
     }
 
-    public bool IsHidden(LocatorIsHiddenOptions options = null)
+    public bool IsHidden(LocatorIsHiddenOptions? options = null)
     {
         return WrappedLocator.IsHiddenAsync(options).Result;
     }
 
-    public bool IsVisible(LocatorIsVisibleOptions options = null)
+    public bool IsVisible(LocatorIsVisibleOptions? options = null)
     {
         return WrappedLocator.IsVisibleAsync(options).Result;
     }
@@ -268,108 +267,108 @@ public class WebElement
         return new WebElement(Page, WrappedLocator.Or(element.WrappedLocator));
     }
 
-    public void Press(string key, LocatorPressOptions options = null)
+    public void Press(string key, LocatorPressOptions? options = null)
     {
         WrappedLocator.PressAsync(key, options).SyncResult();
     }
 
-    public void PressSequentially(string text, LocatorPressSequentiallyOptions options = null)
+    public void PressSequentially(string text, LocatorPressSequentiallyOptions? options = null)
     {
         WrappedLocator.PressSequentiallyAsync(text, options).SyncResult();
     }
 
-    public byte[] Screenshot(LocatorScreenshotOptions options = null)
+    public byte[] Screenshot(LocatorScreenshotOptions? options = null)
     {
         return WrappedLocator.ScreenshotAsync(options).Result;
     }
 
-    public void ScrollIntoViewIfNeeded(LocatorScrollIntoViewIfNeededOptions options = null)
+    public void ScrollIntoViewIfNeeded(LocatorScrollIntoViewIfNeededOptions? options = null)
     {
         WrappedLocator.ScrollIntoViewIfNeededAsync(options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string values, LocatorSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string values, LocatorSelectOptionOptions? options = null)
     {
         return WrappedLocator.SelectOptionAsync(values, options).Result;
     }
 
-    public IReadOnlyList<string> SelectOption(IElementHandle values, LocatorSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(IElementHandle values, LocatorSelectOptionOptions? options = null)
     {
         return WrappedLocator.SelectOptionAsync(values, options).Result;
     }
 
-    public IReadOnlyList<string> SelectOption(IEnumerable<string> values, LocatorSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(IEnumerable<string> values, LocatorSelectOptionOptions? options = null)
     {
         return WrappedLocator.SelectOptionAsync(values, options).Result;
     }
 
-    public IReadOnlyList<string> SelectOption(SelectOptionValue values, LocatorSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(SelectOptionValue values, LocatorSelectOptionOptions? options = null)
     {
         return WrappedLocator.SelectOptionAsync(values, options).Result;
     }
 
-    public IReadOnlyList<string> SelectOption(IEnumerable<IElementHandle> values, LocatorSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(IEnumerable<IElementHandle> values, LocatorSelectOptionOptions? options = null)
     {
         return WrappedLocator.SelectOptionAsync(values, options).Result;
     }
 
-    public IReadOnlyList<string> SelectOption(IEnumerable<SelectOptionValue> values, LocatorSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(IEnumerable<SelectOptionValue> values, LocatorSelectOptionOptions? options = null)
     {
         return WrappedLocator.SelectOptionAsync(values, options).Result;
     }
 
-    public void SelectText(LocatorSelectTextOptions options = null)
+    public void SelectText(LocatorSelectTextOptions? options = null)
     {
         WrappedLocator.SelectTextAsync(options).SyncResult();
     }
 
-    public void SetChecked(bool checkedState, LocatorSetCheckedOptions options = null)
+    public void SetChecked(bool checkedState, LocatorSetCheckedOptions? options = null)
     {
         WrappedLocator.SetCheckedAsync(checkedState, options).SyncResult();
     }
 
-    public void SetInputFiles(string files, LocatorSetInputFilesOptions options = null)
+    public void SetInputFiles(string files, LocatorSetInputFilesOptions? options = null)
     {
         WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
     }
 
-    public void SetInputFiles(IEnumerable<string> files, LocatorSetInputFilesOptions options = null)
+    public void SetInputFiles(IEnumerable<string> files, LocatorSetInputFilesOptions? options = null)
     {
         WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
     }
 
-    public void SetInputFiles(FilePayload files, LocatorSetInputFilesOptions options = null)
+    public void SetInputFiles(FilePayload files, LocatorSetInputFilesOptions? options = null)
     {
         WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
     }
 
-    public void SetInputFiles(IEnumerable<FilePayload> files, LocatorSetInputFilesOptions options = null)
+    public void SetInputFiles(IEnumerable<FilePayload> files, LocatorSetInputFilesOptions? options = null)
     {
         WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
     }
 
-    public void Tap(LocatorTapOptions options = null)
+    public void Tap(LocatorTapOptions? options = null)
     {
         WrappedLocator.TapAsync(options).SyncResult();
     }
 
-    public string TextContent(LocatorTextContentOptions options = null)
+    public string TextContent(LocatorTextContentOptions? options = null)
     {
-        return WrappedLocator.TextContentAsync(options).Result;
+        return WrappedLocator.TextContentAsync(options).Result ?? string.Empty;
     }
 
     [Obsolete]
-    public void Type(string text, LocatorTypeOptions options = null)
+    public void Type(string text, LocatorTypeOptions? options = null)
     {
         WrappedLocator.TypeAsync(text, options).SyncResult();
     }
 
-    public void Uncheck(LocatorUncheckOptions options = null)
+    public void Uncheck(LocatorUncheckOptions? options = null)
     {
         WrappedLocator.UncheckAsync(options).SyncResult();
     }
 
-    public void WaitFor(LocatorWaitForOptions options = null)
+    public void WaitFor(LocatorWaitForOptions? options = null)
     {
         WrappedLocator.WaitForAsync(options).SyncResult();
     }
@@ -380,46 +379,46 @@ public class WebElement
     // }
 
 
-    public string GetAttribute(string name, LocatorGetAttributeOptions options = null)
+    public string GetAttribute(string name, LocatorGetAttributeOptions? options = null)
     {
-        return WrappedLocator.GetAttributeAsync(name, options).Result;
+        return WrappedLocator.GetAttributeAsync(name, options).Result ?? string.Empty;
     }
 
 
 
-    public virtual WebElement GetByAltText(string text, GetByAltTextOptions options = null)
+    public virtual WebElement GetByAltText(string text, GetByAltTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByAltText(text, options.ConvertTo<LocatorGetByAltTextOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByAltText(text, options?.ConvertTo<LocatorGetByAltTextOptions>()));
     }
 
-    public virtual WebElement GetByAltText(Regex text, GetByAltTextOptions options = null)
+    public virtual WebElement GetByAltText(Regex text, GetByAltTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByAltText(text, options.ConvertTo<LocatorGetByAltTextOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByAltText(text, options?.ConvertTo<LocatorGetByAltTextOptions>()));
     }
 
-    public virtual WebElement GetByLabel(string text, GetByLabelOptions options = null)
+    public virtual WebElement GetByLabel(string text, GetByLabelOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByLabel(text, options.ConvertTo<LocatorGetByLabelOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByLabel(text, options?.ConvertTo<LocatorGetByLabelOptions>()));
     }
 
-    public virtual WebElement GetByLabel(Regex text, GetByLabelOptions options = null)
+    public virtual WebElement GetByLabel(Regex text, GetByLabelOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByLabel(text, options.ConvertTo<LocatorGetByLabelOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByLabel(text, options?.ConvertTo<LocatorGetByLabelOptions>()));
     }
 
-    public virtual WebElement GetByPlaceholder(string text, GetByPlaceholderOptions options = null)
+    public virtual WebElement GetByPlaceholder(string text, GetByPlaceholderOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options.ConvertTo<LocatorGetByPlaceholderOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options?.ConvertTo<LocatorGetByPlaceholderOptions>()));
     }
 
-    public virtual WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions options = null)
+    public virtual WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options.ConvertTo<LocatorGetByPlaceholderOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options?.ConvertTo<LocatorGetByPlaceholderOptions>()));
     }
 
-    public virtual WebElement GetByRole(AriaRole role, GetByRoleOptions options = null)
+    public virtual WebElement GetByRole(AriaRole role, GetByRoleOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByRole(role, options.ConvertTo<LocatorGetByRoleOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByRole(role, options?.ConvertTo<LocatorGetByRoleOptions>()));
     }
 
     public virtual WebElement GetByTestId(string testId)
@@ -432,24 +431,24 @@ public class WebElement
         return new WebElement(Page, WrappedLocator.GetByTestId(testId));
     }
 
-    public virtual WebElement GetByText(string text, GetByTextOptions options = null)
+    public virtual WebElement GetByText(string text, GetByTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByText(text, options.ConvertTo<LocatorGetByTextOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByText(text, options?.ConvertTo<LocatorGetByTextOptions>()));
     }
 
-    public virtual WebElement GetByText(Regex text, GetByTextOptions options = null)
+    public virtual WebElement GetByText(Regex text, GetByTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByText(text, options.ConvertTo<LocatorGetByTextOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByText(text, options?.ConvertTo<LocatorGetByTextOptions>()));
     }
 
-    public virtual WebElement GetByTitle(string text, GetByTitleOptions options = null)
+    public virtual WebElement GetByTitle(string text, GetByTitleOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByTitle(text, options.ConvertTo<LocatorGetByTitleOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByTitle(text, options?.ConvertTo<LocatorGetByTitleOptions>()));
     }
 
-    public virtual WebElement GetByTitle(Regex text, GetByTitleOptions options = null)
+    public virtual WebElement GetByTitle(Regex text, GetByTitleOptions? options = null)
     {
-        return new WebElement(Page, WrappedLocator.GetByTitle(text, options.ConvertTo<LocatorGetByTitleOptions>()));
+        return new WebElement(Page, WrappedLocator.GetByTitle(text, options?.ConvertTo<LocatorGetByTitleOptions>()));
     }
 
     public virtual WebElement Locate(string selectorOrElement)

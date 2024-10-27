@@ -16,12 +16,12 @@ public static partial class ValidateControlExtensions
 {
     private static void WaitUntil(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
     {
-        var localTimeout = timeoutInSeconds ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.ValidationsTimeout;
-        var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.SleepInterval;
+        var localTimeout = timeoutInSeconds ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ValidationsTimeout;
+        var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.SleepInterval;
         var wrappedBrowser = ServiceLocator.Resolve<WrappedBrowser>();
         try
         {
-            Wait.Until(waitCondition, localTimeout, String.Empty, localSleepInterval);
+            Wait.Until(waitCondition, localTimeout, exceptionMessage, localSleepInterval);
         }
         catch (TimeoutException)
         {

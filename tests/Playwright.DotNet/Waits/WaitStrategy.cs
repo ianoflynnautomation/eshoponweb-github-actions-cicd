@@ -19,7 +19,7 @@ public abstract class WaitStrategy(int? timeoutInterval = null, int? sleepInterv
 
     protected int? TimeoutInterval { get; set; } = timeoutInterval;
 
-    protected int? SleepInterval { get; } = sleepInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings.InMilliseconds().SleepInterval;
+    protected int? SleepInterval { get; } = sleepInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().SleepInterval;
 
     public abstract void WaitUntil<TComponent>(TComponent by)
         where TComponent : Component;

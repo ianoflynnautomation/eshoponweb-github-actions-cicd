@@ -22,12 +22,12 @@ public class PlaywrightSync(IPlaywright playwright)
     /// <param name="browserType">Type of browser</param>
     /// <returns></returns>
 
-    public BrowserType this[string browserType] => new BrowserType(WrappedPlaywright[browserType]);
+    public BrowserType this[string browserType] => new(WrappedPlaywright[browserType]);
 
     /// <summary>
     /// Gets the chromium browser.
     /// </summary>
-    public BrowserType Chromium => new BrowserType(WrappedPlaywright.Chromium);
+    public BrowserType Chromium => new(WrappedPlaywright.Chromium);
 
     /// <summary>
     /// Gets the devices.
@@ -52,7 +52,7 @@ public class PlaywrightSync(IPlaywright playwright)
     /// <summary>
     ///  Gets the webkit browser.
     /// </summary>
-    public BrowserType Webkit => new BrowserType(WrappedPlaywright.Webkit);
+    public BrowserType Webkit => new(WrappedPlaywright.Webkit);
 
     /// <summary>
     /// Diposes all browsers.

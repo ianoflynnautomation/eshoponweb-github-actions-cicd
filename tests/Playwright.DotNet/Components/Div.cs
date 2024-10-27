@@ -12,7 +12,7 @@ public class Div : Component, IComponentInnerText
 {
     public override Type ComponentType => GetType();
 
-    public virtual void Hover()
+    public new virtual void Hover()
     {
         Hover();
     }

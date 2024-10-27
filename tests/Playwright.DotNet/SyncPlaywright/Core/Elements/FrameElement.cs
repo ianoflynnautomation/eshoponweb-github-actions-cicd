@@ -24,39 +24,39 @@ public class FrameElement : WebElement
 
     public IFrameLocator WrappedFrameLocator { get; set; }
 
-    public override WebElement GetByAltText(string text, GetByAltTextOptions options = null)
+    public override WebElement GetByAltText(string text, GetByAltTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByAltText(text, options.ConvertTo<FrameLocatorGetByAltTextOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByAltText(text, options?.ConvertTo<FrameLocatorGetByAltTextOptions>()));
     }
 
-    public override WebElement GetByAltText(Regex text, GetByAltTextOptions options = null)
+    public override WebElement GetByAltText(Regex text, GetByAltTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByAltText(text, options.ConvertTo<FrameLocatorGetByAltTextOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByAltText(text, options?.ConvertTo<FrameLocatorGetByAltTextOptions>()));
     }
 
-    public override WebElement GetByLabel(string text, GetByLabelOptions options = null)
+    public override WebElement GetByLabel(string text, GetByLabelOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByLabel(text, options.ConvertTo<FrameLocatorGetByLabelOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByLabel(text, options?.ConvertTo<FrameLocatorGetByLabelOptions>()));
     }
 
-    public override WebElement GetByLabel(Regex text, GetByLabelOptions options = null)
+    public override WebElement GetByLabel(Regex text, GetByLabelOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByLabel(text, options.ConvertTo<FrameLocatorGetByLabelOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByLabel(text, options?.ConvertTo<FrameLocatorGetByLabelOptions>()));
     }
 
-    public override WebElement GetByPlaceholder(string text, GetByPlaceholderOptions options = null)
+    public override WebElement GetByPlaceholder(string text, GetByPlaceholderOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByPlaceholder(text, options.ConvertTo<FrameLocatorGetByPlaceholderOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByPlaceholder(text, options?.ConvertTo<FrameLocatorGetByPlaceholderOptions>()));
     }
 
-    public override WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions options = null)
+    public override WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByPlaceholder(text, options.ConvertTo<FrameLocatorGetByPlaceholderOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByPlaceholder(text, options?.ConvertTo<FrameLocatorGetByPlaceholderOptions>()));
     }
 
-    public override WebElement GetByRole(AriaRole role, GetByRoleOptions options = null)
+    public override WebElement GetByRole(AriaRole role, GetByRoleOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByRole(role, options.ConvertTo<FrameLocatorGetByRoleOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByRole(role, options?.ConvertTo<FrameLocatorGetByRoleOptions>()));
     }
 
     public override WebElement GetByTestId(string testId)
@@ -69,24 +69,24 @@ public class FrameElement : WebElement
         return new WebElement(Page, WrappedFrameLocator.GetByTestId(testId));
     }
 
-    public override WebElement GetByText(string text, GetByTextOptions options = null)
+    public override WebElement GetByText(string text, GetByTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByText(text, options.ConvertTo<FrameLocatorGetByTextOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByText(text, options?.ConvertTo<FrameLocatorGetByTextOptions>()));
     }
 
-    public override WebElement GetByText(Regex text, GetByTextOptions options = null)
+    public override WebElement GetByText(Regex text, GetByTextOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByText(text, options.ConvertTo<FrameLocatorGetByTextOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByText(text, options?.ConvertTo<FrameLocatorGetByTextOptions>()));
     }
 
-    public override WebElement GetByTitle(string text, GetByTitleOptions options = null)
+    public override WebElement GetByTitle(string text, GetByTitleOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByTitle(text, options.ConvertTo<FrameLocatorGetByTitleOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByTitle(text, options?.ConvertTo<FrameLocatorGetByTitleOptions>()));
     }
 
-    public override WebElement GetByTitle(Regex text, GetByTitleOptions options = null)
+    public override WebElement GetByTitle(Regex text, GetByTitleOptions? options = null)
     {
-        return new WebElement(Page, WrappedFrameLocator.GetByTitle(text, options.ConvertTo<FrameLocatorGetByTitleOptions>()));
+        return new WebElement(Page, WrappedFrameLocator.GetByTitle(text, options?.ConvertTo<FrameLocatorGetByTitleOptions>()));
     }
 
     public override WebElement Locate(string selectorOrElement)

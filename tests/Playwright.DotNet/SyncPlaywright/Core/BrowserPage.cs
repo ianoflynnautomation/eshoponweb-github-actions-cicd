@@ -41,7 +41,7 @@ public partial class BrowserPage
     /// <summary>
     /// Gets the context.
     /// </summary>
-    public BrowserContext Context { get; internal init; }
+    public BrowserContext? Context { get; internal init; }
 
     /// <summary>
     /// Gets the url.
@@ -71,7 +71,7 @@ public partial class BrowserPage
     /// <summary>
     /// Gets the mouse.
     /// </summary>
-    public Mouse Mouse => new Mouse(WrappedPage.Mouse);
+    public Mouse Mouse => new(WrappedPage.Mouse);
 
     /// <summary>
     /// Gets the api request.
@@ -86,23 +86,23 @@ public partial class BrowserPage
     /// <summary>
     /// Gets the video.
     /// </summary>
-    public IVideo Video => WrappedPage.Video;
+    public IVideo? Video => WrappedPage.Video;
 
-    public PageViewportSizeResult ViewportSize => WrappedPage.ViewportSize;
+    public PageViewportSizeResult? ViewportSize => WrappedPage.ViewportSize;
 
     public IReadOnlyList<IWorker> Workers => WrappedPage.Workers;
 
-    public void AddInitScript(string script = null, string scriptPath = null)
+    public void AddInitScript(string? script = null, string? scriptPath = null)
     {
         WrappedPage.AddInitScriptAsync(script, scriptPath);
     }
 
-    public IElementHandle AddScriptTag(PageAddScriptTagOptions options = null)
+    public IElementHandle AddScriptTag(PageAddScriptTagOptions? options = null)
     {
         return WrappedPage.AddScriptTagAsync(options).Result;
     }
 
-    public IElementHandle AddStyleTag(PageAddStyleTagOptions options = null)
+    public IElementHandle AddStyleTag(PageAddStyleTagOptions? options = null)
     {
         return WrappedPage.AddStyleTagAsync(options).Result;
     }
@@ -112,20 +112,20 @@ public partial class BrowserPage
         WrappedPage.BringToFrontAsync().SyncResult();
     }
 
-    public void Check(string selector, PageCheckOptions options = null)
+    public void Check(string selector, PageCheckOptions? options = null)
     {
         WrappedPage.CheckAsync(selector, options).SyncResult();
     }
 
-    public void Click(string selector, PageClickOptions options = null)
+    public void Click(string selector, PageClickOptions? options = null)
     {
         WrappedPage.ClickAsync(selector, options).SyncResult();
     }
 
-    public void Close(PageCloseOptions options = null)
+    public void Close(PageCloseOptions? options = null)
     {
         WrappedPage.CloseAsync(options).SyncResult();
-        Context.BrowserPages.Remove(this);
+        Context?.BrowserPages.Remove(this);
     }
 
     public string Content()
@@ -133,62 +133,62 @@ public partial class BrowserPage
         return WrappedPage.ContentAsync().Result;
     }
 
-    public void DblClick(string selector, PageDblClickOptions options = null)
+    public void DblClick(string selector, PageDblClickOptions? options = null)
     {
         WrappedPage.DblClickAsync(selector, options).SyncResult();
     }
 
-    public void DispatchEvent(string selector, string type, object eventInit = null, PageDispatchEventOptions options = null)
+    public void DispatchEvent(string selector, string type, object? eventInit = null, PageDispatchEventOptions? options = null)
     {
         WrappedPage.DispatchEventAsync(selector, type, eventInit, options).SyncResult();
     }
 
-    public void DragAndDrop(string source, string target, PageDragAndDropOptions options = null)
+    public void DragAndDrop(string source, string target, PageDragAndDropOptions? options = null)
     {
         WrappedPage.DragAndDropAsync(source, target, options).SyncResult();
     }
 
-    public void EmulateMedia(PageEmulateMediaOptions options = null)
+    public void EmulateMedia(PageEmulateMediaOptions? options = null)
     {
         WrappedPage.EmulateMediaAsync(options).SyncResult();
     }
 
-    public T EvalOnSelectorAll<T>(string selector, string expression, object arg = null)
+    public T EvalOnSelectorAll<T>(string selector, string expression, object? arg = null)
     {
         return WrappedPage.EvalOnSelectorAllAsync<T>(selector, expression, arg).SyncResult();
     }
 
-    public JsonElement? EvalOnSelectorAll(string selector, string expression, object arg = null)
+    public JsonElement? EvalOnSelectorAll(string selector, string expression, object? arg = null)
     {
         return WrappedPage.EvalOnSelectorAllAsync(selector, expression, arg).SyncResult();
     }
 
-    public T EvalOnSelector<T>(string selector, string expression, object arg = null, PageEvalOnSelectorOptions options = null)
+    public T EvalOnSelector<T>(string selector, string expression, object? arg = null, PageEvalOnSelectorOptions? options = null)
     {
         return WrappedPage.EvalOnSelectorAsync<T>(selector, expression, arg, options).SyncResult();
     }
 
-    public JsonElement? EvalOnSelector(string selector, string expression, object arg = null)
+    public JsonElement? EvalOnSelector(string selector, string expression, object? arg = null)
     {
         return WrappedPage.EvalOnSelectorAsync(selector, expression, arg).SyncResult();
     }
 
-    public T Evaluate<T>(string expression, object arg = null)
+    public T Evaluate<T>(string expression, object? arg = null)
     {
         return WrappedPage.EvaluateAsync<T>(expression, arg).SyncResult();
     }
 
-    public JsonElement? Evaluate(string expression, object arg = null)
+    public JsonElement? Evaluate(string expression, object? arg = null)
     {
         return WrappedPage.EvaluateAsync(expression, arg).SyncResult();
     }
 
-    public IJSHandle EvaluateHandle(string expression, object arg = null)
+    public IJSHandle EvaluateHandle(string expression, object? arg = null)
     {
         return WrappedPage.EvaluateHandleAsync(expression, arg).SyncResult();
     }
 
-    public void ExposeBinding(string name, Action callback, PageExposeBindingOptions options = null)
+    public void ExposeBinding(string name, Action callback, PageExposeBindingOptions? options = null)
     {
         WrappedPage.ExposeBindingAsync(name, callback, options).SyncResult();
     }
@@ -268,34 +268,34 @@ public partial class BrowserPage
         WrappedPage.ExposeFunctionAsync(name, callback).SyncResult();
     }
 
-    public void Fill(string selector, string value, PageFillOptions options = null)
+    public void Fill(string selector, string value, PageFillOptions? options = null)
     {
         WrappedPage.FillAsync(selector, value, options).SyncResult();
     }
 
-    public void Focus(string selector, PageFocusOptions options = null)
+    public void Focus(string selector, PageFocusOptions? options = null)
     {
         WrappedPage.FocusAsync(selector, options).SyncResult();
     }
 
     public IFrame Frame(string name)
     {
-        return WrappedPage.Frame(name);
+        return WrappedPage.Frame(name) ?? throw new InvalidOperationException("No frame returned");
     }
 
     public IFrame FrameByUrl(string url)
     {
-        return WrappedPage.FrameByUrl(url);
+        return WrappedPage.FrameByUrl(url) ?? throw new InvalidOperationException("No frame returned");
     }
 
     public IFrame FrameByUrl(Regex url)
     {
-        return WrappedPage.FrameByUrl(url);
+        return WrappedPage.FrameByUrl(url) ?? throw new InvalidOperationException("No frame returned");
     }
 
     public IFrame FrameByUrl(Func<string, bool> url)
     {
-        return WrappedPage.FrameByUrl(url);
+        return WrappedPage.FrameByUrl(url) ?? throw new InvalidOperationException("No frame returned");
     }
 
     public WebElement Locate(string selector)
@@ -303,44 +303,44 @@ public partial class BrowserPage
         return new WebElement(this, WrappedPage.Locator(selector));
     }
 
-    public string GetAttribute(string selector, string name, PageGetAttributeOptions options = null)
+    public string GetAttribute(string selector, string name, PageGetAttributeOptions? options = null)
     {
-        return WrappedPage.GetAttributeAsync(selector, name, options).SyncResult();
+        return WrappedPage.GetAttributeAsync(selector, name, options).SyncResult() ?? throw new InvalidOperationException("No attribute returned");
     }
 
-    public WebElement GetByAltText(string text, GetByAltTextOptions options = null)
+    public WebElement GetByAltText(string text, GetByAltTextOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByAltText(text, options.ConvertTo<PageGetByAltTextOptions>()));
+        return new WebElement(this, WrappedPage.GetByAltText(text, options?.ConvertTo<PageGetByAltTextOptions>()));
     }
 
-    public WebElement GetByAltText(Regex text, GetByAltTextOptions options = null)
+    public WebElement GetByAltText(Regex text, GetByAltTextOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByAltText(text, options.ConvertTo<PageGetByAltTextOptions>()));
+        return new WebElement(this, WrappedPage.GetByAltText(text, options?.ConvertTo<PageGetByAltTextOptions>()));
     }
 
-    public WebElement GetByLabel(string text, GetByLabelOptions options = null)
+    public WebElement GetByLabel(string text, GetByLabelOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByLabel(text, options.ConvertTo<PageGetByLabelOptions>()));
+        return new WebElement(this, WrappedPage.GetByLabel(text, options?.ConvertTo<PageGetByLabelOptions>()));
     }
 
-    public WebElement GetByLabel(Regex text, GetByLabelOptions options = null)
+    public WebElement GetByLabel(Regex text, GetByLabelOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByLabel(text, options.ConvertTo<PageGetByLabelOptions>()));
+        return new WebElement(this, WrappedPage.GetByLabel(text, options?.ConvertTo<PageGetByLabelOptions>()));
     }
 
-    public WebElement GetByPlaceholder(string text, GetByPlaceholderOptions options = null)
+    public WebElement GetByPlaceholder(string text, GetByPlaceholderOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByPlaceholder(text, options.ConvertTo<PageGetByPlaceholderOptions>()));
+        return new WebElement(this, WrappedPage.GetByPlaceholder(text, options?.ConvertTo<PageGetByPlaceholderOptions>()));
     }
 
-    public WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions options = null)
+    public WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByPlaceholder(text, options.ConvertTo<PageGetByPlaceholderOptions>()));
+        return new WebElement(this, WrappedPage.GetByPlaceholder(text, options?.ConvertTo<PageGetByPlaceholderOptions>()));
     }
 
-    public WebElement GetByRole(AriaRole role, GetByRoleOptions options = null)
+    public WebElement GetByRole(AriaRole role, GetByRoleOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByRole(role, options.ConvertTo<PageGetByRoleOptions>()));
+        return new WebElement(this, WrappedPage.GetByRole(role, options?.ConvertTo<PageGetByRoleOptions>()));
     }
 
     public WebElement GetByTestId(string testId)
@@ -353,94 +353,94 @@ public partial class BrowserPage
         return new WebElement(this, WrappedPage.GetByTestId(testId));
     }
 
-    public WebElement GetByText(string text, GetByTextOptions options = null)
+    public WebElement GetByText(string text, GetByTextOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByText(text, options.ConvertTo<PageGetByTextOptions>()));
+        return new WebElement(this, WrappedPage.GetByText(text, options?.ConvertTo<PageGetByTextOptions>()));
     }
 
-    public WebElement GetByText(Regex text, GetByTextOptions options = null)
+    public WebElement GetByText(Regex text, GetByTextOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByText(text, options.ConvertTo<PageGetByTextOptions>()));
+        return new WebElement(this, WrappedPage.GetByText(text, options?.ConvertTo<PageGetByTextOptions>()));
     }
 
-    public WebElement GetByTitle(string text, GetByTitleOptions options = null)
+    public WebElement GetByTitle(string text, GetByTitleOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByTitle(text, options.ConvertTo<PageGetByTitleOptions>()));
+        return new WebElement(this, WrappedPage.GetByTitle(text, options?.ConvertTo<PageGetByTitleOptions>()));
     }
 
-    public WebElement GetByTitle(Regex text, GetByTitleOptions options = null)
+    public WebElement GetByTitle(Regex text, GetByTitleOptions? options = null)
     {
-        return new WebElement(this, WrappedPage.GetByTitle(text, options.ConvertTo<PageGetByTitleOptions>()));
+        return new WebElement(this, WrappedPage.GetByTitle(text, options?.ConvertTo<PageGetByTitleOptions>()));
     }
 
-    public IResponse GoBack(PageGoBackOptions options = null)
+    public IResponse GoBack(PageGoBackOptions? options = null)
     {
-        return WrappedPage.GoBackAsync(options).SyncResult();
+        return WrappedPage.GoBackAsync(options).SyncResult() ?? throw new InvalidOperationException("No response returned");
     }
 
-    public IResponse GoForward(PageGoForwardOptions options = null)
+    public IResponse GoForward(PageGoForwardOptions? options = null)
     {
-        return WrappedPage.GoForwardAsync(options).SyncResult();
+        return WrappedPage.GoForwardAsync(options).SyncResult() ?? throw new InvalidOperationException("No response returned");
     }
 
-    public IResponse GoTo(string url, PageGotoOptions options = null)
+    public IResponse GoTo(string url, PageGotoOptions? options = null)
     {
-        return WrappedPage.GotoAsync(url, options).SyncResult();
+        return WrappedPage.GotoAsync(url, options).SyncResult() ?? throw new InvalidOperationException("No response returned");
     }
 
-    public void Hover(string selector, PageHoverOptions options = null)
+    public void Hover(string selector, PageHoverOptions? options = null)
     {
         WrappedPage.HoverAsync(selector, options).SyncResult();
     }
 
-    public string InnerHTML(string selector, PageInnerHTMLOptions options = null)
+    public string InnerHTML(string selector, PageInnerHTMLOptions? options = null)
     {
         return WrappedPage.InnerHTMLAsync(selector, options).SyncResult();
     }
 
-    public string InnerText(string selector, PageInnerTextOptions options = null)
+    public string InnerText(string selector, PageInnerTextOptions? options = null)
     {
         return WrappedPage.InnerTextAsync(selector, options).SyncResult();
     }
 
-    public string InputValue(string selector, PageInputValueOptions options = null)
+    public string InputValue(string selector, PageInputValueOptions? options = null)
     {
         return WrappedPage.InputValueAsync(selector, options).SyncResult();
     }
 
-    public bool IsChecked(string selector, PageIsCheckedOptions options = null)
+    public bool IsChecked(string selector, PageIsCheckedOptions? options = null)
     {
         return WrappedPage.IsCheckedAsync(selector, options).SyncResult();
     }
 
-    public bool IsDisabled(string selector, PageIsDisabledOptions options = null)
+    public bool IsDisabled(string selector, PageIsDisabledOptions? options = null)
     {
         return WrappedPage.IsDisabledAsync(selector, options).SyncResult();
     }
 
-    public bool IsEditable(string selector, PageIsEditableOptions options = null)
+    public bool IsEditable(string selector, PageIsEditableOptions? options = null)
     {
         return WrappedPage.IsEditableAsync(selector, options).SyncResult();
     }
 
-    public bool IsEnabled(string selector, PageIsEnabledOptions options = null)
+    public bool IsEnabled(string selector, PageIsEnabledOptions? options = null)
     {
         return WrappedPage.IsEnabledAsync(selector, options).SyncResult();
     }
 
-    public bool IsHidden(string selector, PageIsHiddenOptions options = null)
+    public bool IsHidden(string selector, PageIsHiddenOptions? options = null)
     {
         return WrappedPage.IsHiddenAsync(selector, options).SyncResult();
     }
 
-    public bool IsVisible(string selector, PageIsVisibleOptions options = null)
+    public bool IsVisible(string selector, PageIsVisibleOptions? options = null)
     {
         return WrappedPage.IsVisibleAsync(selector, options).SyncResult();
     }
 
     public BrowserPage Opener()
     {
-        return new BrowserPage(WrappedPage.OpenerAsync().SyncResult());
+        return new BrowserPage(WrappedPage.OpenerAsync().SyncResult() ?? throw new InvalidOperationException("No page returned"));
     }
 
     public void Pause()
@@ -448,12 +448,12 @@ public partial class BrowserPage
         WrappedPage.PauseAsync().SyncResult();
     }
 
-    public byte[] Pdf(PagePdfOptions options = null)
+    public byte[] Pdf(PagePdfOptions? options = null)
     {
         return WrappedPage.PdfAsync(options).SyncResult();
     }
 
-    public void Press(string selector, string key, PagePressOptions options = null)
+    public void Press(string selector, string key, PagePressOptions? options = null)
     {
         WrappedPage.PressAsync(selector, key, options).SyncResult();
     }
@@ -463,163 +463,163 @@ public partial class BrowserPage
         return WrappedPage.QuerySelectorAllAsync(selector).SyncResult();
     }
 
-    public IElementHandle QuerySelector(string selector, PageQuerySelectorOptions options = null)
+    public IElementHandle QuerySelector(string selector, PageQuerySelectorOptions? options = null)
     {
-        return WrappedPage.QuerySelectorAsync(selector, options).SyncResult();
+        return WrappedPage.QuerySelectorAsync(selector, options).SyncResult() ?? throw new InvalidOperationException("No element returned");
     }
 
-    public IResponse Reload(PageReloadOptions options = null)
+    public IResponse Reload(PageReloadOptions? options = null)
     {
-        return WrappedPage.ReloadAsync(options).SyncResult();
+        return WrappedPage.ReloadAsync(options).SyncResult() ?? throw new InvalidOperationException("No response returned");
     }
 
-    public void Route(string url, Action<IRoute> handler, PageRouteOptions options = null)
-    {
-        WrappedPage.RouteAsync(url, handler, options).SyncResult();
-    }
-
-    public void Route(Regex url, Action<IRoute> handler, PageRouteOptions options = null)
+    public void Route(string url, Action<IRoute> handler, PageRouteOptions? options = null)
     {
         WrappedPage.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Func<string, bool> url, Action<IRoute> handler, PageRouteOptions options = null)
+    public void Route(Regex url, Action<IRoute> handler, PageRouteOptions? options = null)
     {
         WrappedPage.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(string url, Func<IRoute, Task> handler, PageRouteOptions options = null)
+    public void Route(Func<string, bool> url, Action<IRoute> handler, PageRouteOptions? options = null)
     {
         WrappedPage.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Regex url, Func<IRoute, Task> handler, PageRouteOptions options = null)
+    public void Route(string url, Func<IRoute, Task> handler, PageRouteOptions? options = null)
     {
         WrappedPage.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void Route(Func<string, bool> url, Func<IRoute, Task> handler, PageRouteOptions options = null)
+    public void Route(Regex url, Func<IRoute, Task> handler, PageRouteOptions? options = null)
     {
         WrappedPage.RouteAsync(url, handler, options).SyncResult();
     }
 
-    public void RouteFromHAR(string har, PageRouteFromHAROptions options = null)
+    public void Route(Func<string, bool> url, Func<IRoute, Task> handler, PageRouteOptions? options = null)
+    {
+        WrappedPage.RouteAsync(url, handler, options).SyncResult();
+    }
+
+    public void RouteFromHAR(string har, PageRouteFromHAROptions? options = null)
     {
         WrappedPage.RouteFromHARAsync(har, options).SyncResult();
     }
 
-    public IConsoleMessage RunAndWaitForConsoleMessage(Func<Task> action, PageRunAndWaitForConsoleMessageOptions options = null)
+    public IConsoleMessage RunAndWaitForConsoleMessage(Func<Task> action, PageRunAndWaitForConsoleMessageOptions? options = null)
     {
         return WrappedPage.RunAndWaitForConsoleMessageAsync(action, options).SyncResult();
     }
 
-    public IDownload RunAndWaitForDownload(Func<Task> action, PageRunAndWaitForDownloadOptions options = null)
+    public IDownload RunAndWaitForDownload(Func<Task> action, PageRunAndWaitForDownloadOptions? options = null)
     {
         return WrappedPage.RunAndWaitForDownloadAsync(action, options).SyncResult();
     }
 
-    public IFileChooser RunAndWaitForFileChooser(Func<Task> action, PageRunAndWaitForFileChooserOptions options = null)
+    public IFileChooser RunAndWaitForFileChooser(Func<Task> action, PageRunAndWaitForFileChooserOptions? options = null)
     {
         return WrappedPage.RunAndWaitForFileChooserAsync(action, options).SyncResult();
     }
 
     [Obsolete]
-    public IResponse RunAndWaitForNavigation(Func<Task> action, PageRunAndWaitForNavigationOptions options = null)
+    public IResponse RunAndWaitForNavigation(Func<Task> action, PageRunAndWaitForNavigationOptions? options = null)
     {
-        return WrappedPage.RunAndWaitForNavigationAsync(action, options).SyncResult();
+        return WrappedPage.RunAndWaitForNavigationAsync(action, options).SyncResult() ?? throw new InvalidOperationException("No response returned");
     }
 
-    public IPage RunAndWaitForPopup(Func<Task> action, PageRunAndWaitForPopupOptions options = null)
+    public IPage RunAndWaitForPopup(Func<Task> action, PageRunAndWaitForPopupOptions? options = null)
     {
         return WrappedPage.RunAndWaitForPopupAsync(action, options).SyncResult();
     }
 
-    public IRequest RunAndWaitForRequest(Func<Task> action, string urlOrPredicate, PageRunAndWaitForRequestOptions options = null)
+    public IRequest RunAndWaitForRequest(Func<Task> action, string urlOrPredicate, PageRunAndWaitForRequestOptions? options = null)
     {
         return WrappedPage.RunAndWaitForRequestAsync(action, urlOrPredicate, options).SyncResult();
     }
 
-    public IRequest RunAndWaitForRequest(Func<Task> action, Regex urlOrPredicate, PageRunAndWaitForRequestOptions options = null)
+    public IRequest RunAndWaitForRequest(Func<Task> action, Regex urlOrPredicate, PageRunAndWaitForRequestOptions? options = null)
     {
         return WrappedPage.RunAndWaitForRequestAsync(action, urlOrPredicate, options).SyncResult();
     }
 
-    public IRequest RunAndWaitForRequest(Func<Task> action, Func<IRequest, bool> urlOrPredicate, PageRunAndWaitForRequestOptions options = null)
+    public IRequest RunAndWaitForRequest(Func<Task> action, Func<IRequest, bool> urlOrPredicate, PageRunAndWaitForRequestOptions? options = null)
     {
         return WrappedPage.RunAndWaitForRequestAsync(action, urlOrPredicate, options).SyncResult();
     }
 
-    public IRequest RunAndWaitForRequestFinished(Func<Task> action, PageRunAndWaitForRequestFinishedOptions options = null)
+    public IRequest RunAndWaitForRequestFinished(Func<Task> action, PageRunAndWaitForRequestFinishedOptions? options = null)
     {
         return WrappedPage.RunAndWaitForRequestFinishedAsync(action, options).SyncResult();
     }
 
-    public IResponse RunAndWaitForResponse(Func<Task> action, string urlOrPredicate, PageRunAndWaitForResponseOptions options = null)
+    public IResponse RunAndWaitForResponse(Func<Task> action, string urlOrPredicate, PageRunAndWaitForResponseOptions? options = null)
     {
         return WrappedPage.RunAndWaitForResponseAsync(action, urlOrPredicate, options).SyncResult();
     }
 
-    public IResponse RunAndWaitForResponse(Func<Task> action, Regex urlOrPredicate, PageRunAndWaitForResponseOptions options = null)
+    public IResponse RunAndWaitForResponse(Func<Task> action, Regex urlOrPredicate, PageRunAndWaitForResponseOptions? options = null)
     {
         return WrappedPage.RunAndWaitForResponseAsync(action, urlOrPredicate, options).SyncResult();
     }
 
-    public IResponse RunAndWaitForResponse(Func<Task> action, Func<IResponse, bool> urlOrPredicate, PageRunAndWaitForResponseOptions options = null)
+    public IResponse RunAndWaitForResponse(Func<Task> action, Func<IResponse, bool> urlOrPredicate, PageRunAndWaitForResponseOptions? options = null)
     {
         return WrappedPage.RunAndWaitForResponseAsync(action, urlOrPredicate, options).SyncResult();
     }
 
-    public IWebSocket RunAndWaitForWebSocket(Func<Task> action, PageRunAndWaitForWebSocketOptions options = null)
+    public IWebSocket RunAndWaitForWebSocket(Func<Task> action, PageRunAndWaitForWebSocketOptions? options = null)
     {
         return WrappedPage.RunAndWaitForWebSocketAsync(action, options).SyncResult();
     }
 
-    public IWorker RunAndWaitForWorker(Func<Task> action, PageRunAndWaitForWorkerOptions options = null)
+    public IWorker RunAndWaitForWorker(Func<Task> action, PageRunAndWaitForWorkerOptions? options = null)
     {
         return WrappedPage.RunAndWaitForWorkerAsync(action, options).SyncResult();
     }
 
-    public byte[] Screenshot(PageScreenshotOptions options = null)
+    public byte[] Screenshot(PageScreenshotOptions? options = null)
     {
         return WrappedPage.ScreenshotAsync(options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string selector, string values, PageSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string selector, string values, PageSelectOptionOptions? options = null)
     {
         return WrappedPage.SelectOptionAsync(selector, values, options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string selector, IElementHandle values, PageSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string selector, IElementHandle values, PageSelectOptionOptions? options = null)
     {
         return WrappedPage.SelectOptionAsync(selector, values, options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string selector, IEnumerable<string> values, PageSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string selector, IEnumerable<string> values, PageSelectOptionOptions? options = null)
     {
         return WrappedPage.SelectOptionAsync(selector, values, options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string selector, SelectOptionValue values, PageSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string selector, SelectOptionValue values, PageSelectOptionOptions? options = null)
     {
         return WrappedPage.SelectOptionAsync(selector, values, options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string selector, IEnumerable<IElementHandle> values, PageSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string selector, IEnumerable<IElementHandle> values, PageSelectOptionOptions? options = null)
     {
         return WrappedPage.SelectOptionAsync(selector, values, options).SyncResult();
     }
 
-    public IReadOnlyList<string> SelectOption(string selector, IEnumerable<SelectOptionValue> values, PageSelectOptionOptions options = null)
+    public IReadOnlyList<string> SelectOption(string selector, IEnumerable<SelectOptionValue> values, PageSelectOptionOptions? options = null)
     {
         return WrappedPage.SelectOptionAsync(selector, values, options).SyncResult();
     }
 
-    public void SetChecked(string selector, bool checkedState, PageSetCheckedOptions options = null)
+    public void SetChecked(string selector, bool checkedState, PageSetCheckedOptions? options = null)
     {
         WrappedPage.SetCheckedAsync(selector, checkedState, options).SyncResult();
     }
 
-    public void SetContent(string html, PageSetContentOptions options = null)
+    public void SetContent(string html, PageSetContentOptions? options = null)
     {
         WrappedPage.SetContentAsync(html, options).SyncResult();
     }
@@ -639,22 +639,22 @@ public partial class BrowserPage
         WrappedPage.SetExtraHTTPHeadersAsync(headers).SyncResult();
     }
 
-    public void SetInputFiles(string selector, string files, PageSetInputFilesOptions options = null)
+    public void SetInputFiles(string selector, string files, PageSetInputFilesOptions? options = null)
     {
         WrappedPage.SetInputFilesAsync(selector, files, options).SyncResult();
     }
 
-    public void SetInputFiles(string selector, IEnumerable<string> files, PageSetInputFilesOptions options = null)
+    public void SetInputFiles(string selector, IEnumerable<string> files, PageSetInputFilesOptions? options = null)
     {
         WrappedPage.SetInputFilesAsync(selector, files, options).SyncResult();
     }
 
-    public void SetInputFiles(string selector, FilePayload files, PageSetInputFilesOptions options = null)
+    public void SetInputFiles(string selector, FilePayload files, PageSetInputFilesOptions? options = null)
     {
         WrappedPage.SetInputFilesAsync(selector, files, options).SyncResult();
     }
 
-    public void SetInputFiles(string selector, IEnumerable<FilePayload> files, PageSetInputFilesOptions options = null)
+    public void SetInputFiles(string selector, IEnumerable<FilePayload> files, PageSetInputFilesOptions? options = null)
     {
         WrappedPage.SetInputFilesAsync(selector, files, options).SyncResult();
     }
@@ -664,14 +664,14 @@ public partial class BrowserPage
         WrappedPage.SetViewportSizeAsync(width, height).SyncResult();
     }
 
-    public void Tap(string selector, PageTapOptions options = null)
+    public void Tap(string selector, PageTapOptions? options = null)
     {
         WrappedPage.TapAsync(selector, options).SyncResult();
     }
 
-    public string TextContent(string selector, PageTextContentOptions options = null)
+    public string TextContent(string selector, PageTextContentOptions? options = null)
     {
-        return WrappedPage.TextContentAsync(selector, options).SyncResult();
+        return WrappedPage.TextContentAsync(selector, options).SyncResult() ?? throw new InvalidOperationException("No text content returned");
     }
 
     public string Title()
@@ -680,22 +680,22 @@ public partial class BrowserPage
     }
 
 
-    public void Uncheck(string selector, PageUncheckOptions options = null)
+    public void Uncheck(string selector, PageUncheckOptions? options = null)
     {
         WrappedPage.UncheckAsync(selector, options).SyncResult();
     }
 
-    public void Unroute(string url, Action<IRoute> handler = null)
+    public void Unroute(string url, Action<IRoute>? handler = null)
     {
         WrappedPage.UnrouteAsync(url, handler).SyncResult();
     }
 
-    public void Unroute(Regex url, Action<IRoute> handler = null)
+    public void Unroute(Regex url, Action<IRoute>? handler = null)
     {
         WrappedPage.UnrouteAsync(url, handler).SyncResult();
     }
 
-    public void Unroute(Func<string, bool> url, Action<IRoute> handler = null)
+    public void Unroute(Func<string, bool> url, Action<IRoute>? handler = null)
     {
         WrappedPage.UnrouteAsync(url, handler).SyncResult();
     }
@@ -715,75 +715,75 @@ public partial class BrowserPage
         WrappedPage.UnrouteAsync(url, handler).SyncResult();
     }
 
-    public IConsoleMessage WaitForConsoleMessage(PageWaitForConsoleMessageOptions options = null)
+    public IConsoleMessage WaitForConsoleMessage(PageWaitForConsoleMessageOptions? options = null)
     {
         return WrappedPage.WaitForConsoleMessageAsync(options).SyncResult();
     }
 
-    public IDownload WaitForDownload(PageWaitForDownloadOptions options = null)
+    public IDownload WaitForDownload(PageWaitForDownloadOptions? options = null)
     {
         return WrappedPage.WaitForDownloadAsync(options).SyncResult();
     }
 
-    public IFileChooser WaitForFileChooser(PageWaitForFileChooserOptions options = null)
+    public IFileChooser WaitForFileChooser(PageWaitForFileChooserOptions? options = null)
     {
         return WrappedPage.WaitForFileChooserAsync(options).SyncResult();
     }
 
-    public IJSHandle WaitForFunction(string expression, object arg = null, PageWaitForFunctionOptions options = null)
+    public IJSHandle WaitForFunction(string expression, object? arg = null, PageWaitForFunctionOptions? options = null)
     {
         return WrappedPage.WaitForFunctionAsync(expression, arg, options).SyncResult();
     }
 
-    public void WaitForLoadState(LoadState? state = null, PageWaitForLoadStateOptions options = null)
+    public void WaitForLoadState(LoadState? state = null, PageWaitForLoadStateOptions? options = null)
     {
         WrappedPage.WaitForLoadStateAsync(state, options).SyncResult();
     }
 
 
-    public IPage WaitForPopup(PageWaitForPopupOptions options = null)
+    public IPage WaitForPopup(PageWaitForPopupOptions? options = null)
     {
         return WrappedPage.WaitForPopupAsync(options).SyncResult();
     }
 
-    public IRequest WaitForRequest(string urlOrPredicate, PageWaitForRequestOptions options = null)
+    public IRequest WaitForRequest(string urlOrPredicate, PageWaitForRequestOptions? options = null)
     {
         return WrappedPage.WaitForRequestAsync(urlOrPredicate, options).SyncResult();
     }
 
-    public IRequest WaitForRequest(Regex urlOrPredicate, PageWaitForRequestOptions options = null)
+    public IRequest WaitForRequest(Regex urlOrPredicate, PageWaitForRequestOptions? options = null)
     {
         return WrappedPage.WaitForRequestAsync(urlOrPredicate, options).SyncResult();
     }
 
-    public IRequest WaitForRequest(Func<IRequest, bool> urlOrPredicate, PageWaitForRequestOptions options = null)
+    public IRequest WaitForRequest(Func<IRequest, bool> urlOrPredicate, PageWaitForRequestOptions? options = null)
     {
         return WrappedPage.WaitForRequestAsync(urlOrPredicate, options).SyncResult();
     }
 
-    public IRequest WaitForRequestFinished(PageWaitForRequestFinishedOptions options = null)
+    public IRequest WaitForRequestFinished(PageWaitForRequestFinishedOptions? options = null)
     {
         return WrappedPage.WaitForRequestFinishedAsync(options).SyncResult();
     }
 
-    public IResponse WaitForResponse(string urlOrPredicate, PageWaitForResponseOptions options = null)
+    public IResponse WaitForResponse(string urlOrPredicate, PageWaitForResponseOptions? options = null)
     {
         return WrappedPage.WaitForResponseAsync(urlOrPredicate, options).SyncResult();
     }
 
-    public IResponse WaitForResponse(Regex urlOrPredicate, PageWaitForResponseOptions options = null)
+    public IResponse WaitForResponse(Regex urlOrPredicate, PageWaitForResponseOptions? options = null)
     {
         return WrappedPage.WaitForResponseAsync(urlOrPredicate, options).SyncResult();
     }
 
-    public IResponse WaitForResponse(Func<IResponse, bool> urlOrPredicate, PageWaitForResponseOptions options = null)
+    public IResponse WaitForResponse(Func<IResponse, bool> urlOrPredicate, PageWaitForResponseOptions? options = null)
     {
         return WrappedPage.WaitForResponseAsync(urlOrPredicate, options).SyncResult();
     }
 
-    public IElementHandle WaitForSelector(string selector, PageWaitForSelectorOptions options = null)
+    public IElementHandle WaitForSelector(string selector, PageWaitForSelectorOptions? options = null)
     {
-        return WrappedPage.WaitForSelectorAsync(selector, options).SyncResult();
+        return WrappedPage.WaitForSelectorAsync(selector, options).SyncResult() ?? throw new InvalidOperationException("No element returned");
     }
 
     public void WaitForTimeout(float timeout)
@@ -791,27 +791,27 @@ public partial class BrowserPage
         WrappedPage.WaitForTimeoutAsync(timeout).SyncResult();
     }
 
-    public void WaitForURL(string url, PageWaitForURLOptions options = null)
+    public void WaitForURL(string url, PageWaitForURLOptions? options = null)
     {
         WrappedPage.WaitForURLAsync(url, options).SyncResult();
     }
 
-    public void WaitForURL(Regex url, PageWaitForURLOptions options = null)
+    public void WaitForURL(Regex url, PageWaitForURLOptions? options = null)
     {
         WrappedPage.WaitForURLAsync(url, options).SyncResult();
     }
 
-    public void WaitForURL(Func<string, bool> url, PageWaitForURLOptions options = null)
+    public void WaitForURL(Func<string, bool> url, PageWaitForURLOptions? options = null)
     {
         WrappedPage.WaitForURLAsync(url, options).SyncResult();
     }
 
-    public IWebSocket WaitForWebSocket(PageWaitForWebSocketOptions options = null)
+    public IWebSocket WaitForWebSocket(PageWaitForWebSocketOptions? options = null)
     {
         return WrappedPage.WaitForWebSocketAsync(options).SyncResult();
     }
 
-    public IWorker WaitForWorker(PageWaitForWorkerOptions options = null)
+    public IWorker WaitForWorker(PageWaitForWorkerOptions? options = null)
     {
         return WrappedPage.WaitForWorkerAsync(options).SyncResult();
     }

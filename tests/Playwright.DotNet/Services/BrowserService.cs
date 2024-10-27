@@ -70,7 +70,7 @@ public class BrowserService(WrappedBrowser wrappedBrowser) : WebService(wrappedB
     }
 
 
-    private string InvokeScript(string scriptToInvoke)
+    private string? InvokeScript(string scriptToInvoke)
     {
         JavaScriptService javaScriptService = new JavaScriptService(WrappedBrowser);
         return javaScriptService.Execute(scriptToInvoke)?.ToString();

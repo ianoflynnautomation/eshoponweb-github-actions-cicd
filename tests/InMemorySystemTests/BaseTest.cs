@@ -3,7 +3,6 @@ using Playwright.DotNet.Infra;
 using Playwright.DotNet.Services;
 using Autofac;
 using Playwright.DotNet.DI;
-using Microsoft.Extensions.Logging;
 using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Enums;
 
@@ -14,7 +13,7 @@ public class BaseTest
     protected SystemTestFixture _fixture;
     protected App _app;
     protected TestExecutionEngine _testExecutionEngine;
-    protected EShopOnWebApp EShopOnWebApp;
+    protected EShopOnWebApp _eShopOnWebApp;
     protected ContainerBuilder _builder; 
     protected IContainer _container;
 
@@ -50,7 +49,7 @@ public class BaseTest
         _container = _builder.Build();
         ServiceLocator.SetContainer(_container);
 
-        EShopOnWebApp = new EShopOnWebApp(_container);
+        _eShopOnWebApp = new EShopOnWebApp(_container);
           //_fixture.Logger.LogInformation("Navigating to server address");
 
         _app = ServiceLocator.Resolve<App>();

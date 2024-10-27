@@ -32,7 +32,7 @@ public class Dialog(IDialog dialog)
     /// <summary>
     /// Gets the dialog page.
     /// </summary>
-    public BrowserPage Page => new BrowserPage(WrappedDialog.Page);
+    public BrowserPage Page => new(WrappedDialog.Page);
 
     /// <summary>
     /// Gets the dialog type.
@@ -43,7 +43,7 @@ public class Dialog(IDialog dialog)
     /// Accept the dialog.
     /// </summary>
     /// <param name="promptText"></param>
-    public void Accept(string promptText = null)
+    public void Accept(string? promptText = null)
     {
         WrappedDialog.AcceptAsync(promptText).SyncResult();
     }
