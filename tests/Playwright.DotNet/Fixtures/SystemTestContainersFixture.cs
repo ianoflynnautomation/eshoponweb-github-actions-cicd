@@ -38,6 +38,7 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
     private IHost? _host;
     private bool _disposed;
 
+
     private void EnsureServer()
     {
         if (_host is null)
@@ -69,9 +70,9 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
         {
             // remove the default logging providers
             c.ClearProviders();
-            c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-            c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-                => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
+            // c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+            // c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+            //     => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
         });
 
         builder.ConfigureTestServices(async services =>

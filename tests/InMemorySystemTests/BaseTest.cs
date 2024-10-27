@@ -29,7 +29,6 @@ public class BaseTest
     public void SetUp()
     {  
         _builder = new ContainerBuilder();
-        //_fixture.Logger.LogInformation("Setting up test");
         var config = new BrowserConfiguration()
         {
             BrowserType = BrowserTypes.ChromiumHeadless,
@@ -39,7 +38,8 @@ public class BaseTest
         _builder.RegisterInstance(config).As<BrowserConfiguration>().SingleInstance();
         _testExecutionEngine = new TestExecutionEngine();
         _builder.RegisterInstance(_testExecutionEngine).AsSelf();
-         //_fixture.Logger.LogInformation("Starting browser");
+
+         _fixture.Logger.Information($"Start test {TestContext.Test.FullName}");
         _testExecutionEngine.StartBrowser(config, _builder);
         
         DISetup.RegisterPageObjects(_builder);
@@ -50,7 +50,7 @@ public class BaseTest
         ServiceLocator.SetContainer(_container);
 
         _eShopOnWebApp = new EShopOnWebApp(_container);
-          //_fixture.Logger.LogInformation("Navigating to server address");
+        _fixture.Logger.Information("Navigating to the web server url {WebServerUrl}", _fixture.SystemTestHost.WebServerUrl);
 
         _app = ServiceLocator.Resolve<App>();
         _app.Navigation.Navigate(_fixture.SystemTestHost.WebServerUrl);
@@ -59,7 +59,7 @@ public class BaseTest
     [TearDown]
     public void TearDown()
     {
-        //_fixture.Logger.LogInformation("Tearing down test");
+        _fixture.Logger.Information($"End test {TestContext.Test.FullName}");
         _testExecutionEngine.Dispose(_container);
         _app = ServiceLocator.Resolve<App>();
         _app.Dispose();

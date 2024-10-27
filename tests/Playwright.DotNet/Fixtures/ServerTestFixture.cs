@@ -27,7 +27,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
     {
         if (_host is null)
         {
-            Log.Logger.Information("Ensuring server is created");
             using var _ = CreateDefaultClient();
         }
     }
@@ -40,7 +39,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         get
         {
             EnsureServer();
-            Log.Logger.Information("Server address retrieved: {ServerAddress}", ClientOptions.BaseAddress);
             return ClientOptions.BaseAddress.ToString();
         }
     }
@@ -51,14 +49,14 @@ public class ServerTestFixture : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         base.ConfigureWebHost(builder);
-
+        
         builder.ConfigureLogging(c =>
         {
             // remove the default logging providers
             c.ClearProviders();
-            c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-            c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-                => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
+            // c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
+            // c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
+            //     => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
         });
 
         builder.ConfigureServices(services =>
@@ -75,7 +73,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
 
            services.AddScoped(sp =>
            {
-               Log.Logger.Information("Creating in-memory database for CatalogContext");
                var options = new DbContextOptionsBuilder<CatalogContext>()
                .UseInMemoryDatabase("TestCatalog")
                .UseApplicationServiceProvider(sp)
@@ -87,7 +84,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
 
            services.AddScoped(sp =>
            {
-               Log.Logger.Information("Creating in-memory database for CatalogContext");
                var options = new DbContextOptionsBuilder<AppIdentityDbContext>()
                .UseInMemoryDatabase("TestIdentity")
                .UseApplicationServiceProvider(sp)
@@ -113,7 +109,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
     /// </summary>
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        Log.Logger.Information("Creating host...");
         var testHost = builder.Build();
 
         builder.UseEnvironment("Development");
@@ -135,8 +130,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         ClientOptions.BaseAddress = addresses!.Addresses.Select(x => new Uri(x)).Last();
         testHost.Start();
 
-        Log.Logger.Information("Host created and started at {BaseAddress}", ClientOptions.BaseAddress);
-
         return testHost;
     }
 
@@ -152,7 +145,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         {
             if (disposing)
             {
-                Log.Logger.Information("Disposing host");
                 _host?.StopAsync();
                 _host?.Dispose();
             }

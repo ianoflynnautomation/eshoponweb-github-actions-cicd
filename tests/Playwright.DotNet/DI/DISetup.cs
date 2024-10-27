@@ -36,4 +36,5 @@ public static class DISetup
     {
         builder.RegisterType<App>();
     }
+
 }

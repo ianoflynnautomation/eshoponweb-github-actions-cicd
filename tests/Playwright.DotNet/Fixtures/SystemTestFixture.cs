@@ -1,4 +1,3 @@
-using Microsoft.Build.Framework;
 using Microsoft.Extensions.Configuration;
 using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
@@ -15,11 +14,12 @@ public class SystemTestFixture : IDisposable
     {
         _configurationRoot = ConfigurationRootInstance.TestConfiguration;
         SystemTestHost = GetTestHostFixture();
-
+        Logger = CreateLogger();
     }
 
-    public ITestHost SystemTestHost { get; }
+    public ILogger Logger { get; set; }
 
+    public ITestHost SystemTestHost { get; }
 
     private ITestHost GetTestHostFixture()
     {
@@ -34,8 +34,16 @@ public class SystemTestFixture : IDisposable
         };
     }
 
+    private ILogger CreateLogger()
+    {
+        return new LoggerConfiguration()
+        .WriteTo.Console()
+        .CreateLogger();
+    }
+
 
     public void Dispose()
     {
+
     }
 }
