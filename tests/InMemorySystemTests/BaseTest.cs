@@ -5,6 +5,7 @@ using Autofac;
 using Playwright.DotNet.DI;
 using Microsoft.Extensions.Logging;
 using Playwright.DotNet.Fixtures;
+using Playwright.DotNet.Enums;
 
 namespace EShopOnWeb.InMemorySystemTests;
 
@@ -32,7 +33,12 @@ public class BaseTest
  
         _builder = new ContainerBuilder();
         //_fixture.Logger.LogInformation("Setting up test");
-         var config = new BrowserConfiguration();
+        var config = new BrowserConfiguration()
+        {
+            BrowserType = BrowserTypes.ChromiumHeadless
+        };
+
+
         _builder.RegisterInstance(config).As<BrowserConfiguration>().SingleInstance();
         _testExecutionEngine = new TestExecutionEngine();
         _builder.RegisterInstance(_testExecutionEngine).AsSelf();
