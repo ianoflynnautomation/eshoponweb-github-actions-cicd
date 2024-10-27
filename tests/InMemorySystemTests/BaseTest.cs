@@ -29,13 +29,11 @@ public class BaseTest
     [SetUp]
     public void SetUp()
     {  
-        _app = new App();
- 
         _builder = new ContainerBuilder();
         //_fixture.Logger.LogInformation("Setting up test");
         var config = new BrowserConfiguration()
         {
-            BrowserType = BrowserTypes.ChromiumHeadless
+            BrowserType = BrowserTypes.Chromium,
         };
 
 
@@ -47,12 +45,15 @@ public class BaseTest
         
         DISetup.RegisterPageObjects(_builder);
         DISetup.RegisterServices(_builder);
+        DISetup.AddApp(_builder);
 
         _container = _builder.Build();
         ServiceLocator.SetContainer(_container);
 
         EShopOnWebApp = new EShopOnWebApp(_container);
           //_fixture.Logger.LogInformation("Navigating to server address");
+
+        _app = ServiceLocator.Resolve<App>();
         _app.Navigation.Navigate(_fixture.SystemTestHost.WebServerUrl);
     }
 
@@ -61,6 +62,7 @@ public class BaseTest
     {
         //_fixture.Logger.LogInformation("Tearing down test");
         _testExecutionEngine.Dispose(_container);
+        _app = ServiceLocator.Resolve<App>();
         _app.Dispose();
         _container.Dispose();
     }

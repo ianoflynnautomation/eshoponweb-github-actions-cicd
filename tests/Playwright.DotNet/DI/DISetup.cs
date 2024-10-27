@@ -7,6 +7,7 @@ using Playwright.Dotnet.PageObjects.LoginPage;
 using Playwright.DotNet.Services;
 using Playwright.DotNet.Services.Contracts;
 using Autofac;
+using Playwright.DotNet.Infra;
 
 namespace Playwright.DotNet.DI;
 
@@ -29,5 +30,10 @@ public static class DISetup
         builder.RegisterType<BrowserService>().As<IBrowserService>();
         builder.RegisterType<JavaScriptService>().As<IJavaScriptService>();
         builder.RegisterType<ComponentWaitService>().As<IComponentWaitService>();
+    }
+
+    public static void AddApp(ContainerBuilder builder)
+    {
+        builder.RegisterType<App>();
     }
 }

@@ -1,4 +1,6 @@
 
+using Autofac.Core;
+using Playwright.DotNet.DI;
 using Playwright.DotNet.Infra;
 
 namespace Playwright.DotNet.PageObjects;
@@ -8,7 +10,7 @@ namespace Playwright.DotNet.PageObjects;
 /// </summary>
 public abstract class WebPage
 {
-    protected App App => new();
+    protected App App => ServiceLocator.Resolve<App>();
 
     public abstract string Url { get; }
 

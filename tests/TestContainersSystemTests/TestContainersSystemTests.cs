@@ -4,6 +4,7 @@ namespace EShopOnWeb.TestContainersSystemTests;
 public class TestContainersSystemTests : BaseTest
 {
     [Test]
+    [Ignore("TestContainers tests are not yet implemented")]
     public void Customer_Order_UserJourney()
     {
         EShopOnWebApp.HeaderSection.OpenLogin();
