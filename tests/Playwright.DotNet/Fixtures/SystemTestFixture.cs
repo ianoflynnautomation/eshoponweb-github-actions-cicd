@@ -1,7 +1,9 @@
+using Microsoft.Build.Framework;
 using Microsoft.Extensions.Configuration;
 using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
 using Playwright.DotNet.Fixtures.Host;
+using Serilog;
 
 namespace Playwright.DotNet.Fixtures;
 

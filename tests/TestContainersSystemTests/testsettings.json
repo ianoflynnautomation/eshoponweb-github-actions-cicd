@@ -1,4 +1,8 @@
 {
+  "TestHost" : {
+    "HostType": "Internal",
+    "HostUrl": ""
+},
   "WebSettings": {
     "IsParallelExecutionEnabled": "false",
     "ArtificialDelayBeforeAction": "0",

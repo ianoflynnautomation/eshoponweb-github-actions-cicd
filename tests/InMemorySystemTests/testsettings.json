@@ -33,7 +33,7 @@
     },
     "ExecutionSettings": {
       "ExecutionType": "regular",
-      "DefaultBrowser": "edge",
+      "DefaultBrowser": "webkit",
       "DefaultLifeCycle": "restart every time",
       "Resolution": "",
       "BrowserVersion": "",
