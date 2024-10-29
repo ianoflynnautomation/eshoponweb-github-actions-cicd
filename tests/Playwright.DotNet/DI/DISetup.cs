@@ -32,7 +32,7 @@ public static class DISetup
         builder.RegisterType<ComponentWaitService>().As<IComponentWaitService>();
     }
 
-    public static void AddApp(ContainerBuilder builder)
+    public static void RegisterApp(ContainerBuilder builder)
     {
         builder.RegisterType<App>();
     }

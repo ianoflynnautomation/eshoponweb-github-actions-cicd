@@ -16,8 +16,7 @@ public class BaseTest
     protected EShopOnWebApp _eShopOnWebApp;
     protected ContainerBuilder _builder; 
     protected IContainer _container;
-
-    public TestContext TestContext => TestContext.CurrentContext;
+    protected TestContext TestContext => TestContext.CurrentContext;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -31,7 +30,7 @@ public class BaseTest
         _builder = new ContainerBuilder();
         var config = new BrowserConfiguration()
         {
-            BrowserType = BrowserTypes.ChromiumHeadless,
+            BrowserType = BrowserTypes.Chromium,
         };
 
 
@@ -44,7 +43,7 @@ public class BaseTest
         
         DISetup.RegisterPageObjects(_builder);
         DISetup.RegisterServices(_builder);
-        DISetup.AddApp(_builder);
+        DISetup.RegisterApp(_builder);
 
         _container = _builder.Build();
         ServiceLocator.SetContainer(_container);

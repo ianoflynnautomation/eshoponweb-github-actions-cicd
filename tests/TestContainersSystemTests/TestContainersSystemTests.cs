@@ -4,15 +4,15 @@ namespace EShopOnWeb.TestContainersSystemTests;
 public class TestContainersSystemTests : BaseTest
 {
     [Test]
-    [Ignore("TestContainers tests are not yet implemented")]
-    public void Customer_Order_UserJourney()
+    public void TC_01_Customer_Order_UserJourney()
     {
-        EShopOnWebApp.HeaderSection.OpenLogin();
-        EShopOnWebApp.LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
-        EShopOnWebApp.HomePage.AddItemToBasket(".NET Black & White Mug");
-        EShopOnWebApp.BasketPage.Checkout();
-        EShopOnWebApp.CheckoutPage.PayNow();
-        EShopOnWebApp.SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
+        _eShopOnWebApp.HeaderSection.OpenLogin();
+        _eShopOnWebApp.LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
+        _eShopOnWebApp.HomePage.FilterForProduct(".NET", "Mug")
+                               .AddItemToBasket(".NET Black & White Mug");
+        _eShopOnWebApp.BasketPage.Checkout();
+        _eShopOnWebApp.CheckoutPage.PayNow();
+        _eShopOnWebApp.SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 
 }

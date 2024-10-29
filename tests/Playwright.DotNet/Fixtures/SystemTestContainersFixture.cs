@@ -43,7 +43,7 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
     {
         if (_host is null)
         {
-            Log.Logger.Information("Ensuring server is created");
+    
             using var _ = CreateDefaultClient();
         }
     }
@@ -56,7 +56,6 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
         get
         {
             EnsureServer();
-            Log.Logger.Information("Server address retrieved: {ServerAddress}", ClientOptions.BaseAddress);
             return ClientOptions.BaseAddress.ToString();
         }
     }
@@ -75,7 +74,34 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
             //     => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
         });
 
-        builder.ConfigureTestServices(async services =>
+        builder.UseKestrel(Options =>
+        {
+            Options.AddServerHeader = false;
+        });
+
+        builder.UseStaticWebAssets();
+        builder.UseUrls($"http://127.0.0.1:5000");
+    }
+
+
+    /// <summary>
+    /// Creates the host.
+    /// </summary>
+    protected override IHost CreateHost(IHostBuilder builder)
+    {
+        var testHost = builder.Build();
+
+        builder.ConfigureHostConfiguration(config =>
+          {
+              config.AddJsonFile("appsettings.test.json");
+          });
+
+
+        builder.UseEnvironment("Docker");
+
+        builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
+
+        builder.ConfigureServices(async services =>
        {
            // Add mock/test services to the builder here
            var descriptors = services.Where(d =>
@@ -115,35 +141,6 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
 
        });
 
-        builder.UseKestrel(Options =>
-        {
-            Options.AddServerHeader = false;
-        });
-
-        builder.UseStaticWebAssets();
-        builder.UseUrls($"http://127.0.0.1:5000");
-    }
-
-
-    /// <summary>
-    /// Creates the host.
-    /// </summary>
-    protected override IHost CreateHost(IHostBuilder builder)
-    {
-        Log.Logger.Information("Creating host...");
-        var testHost = builder.Build();
-
-        builder.ConfigureHostConfiguration(config =>
-          {
-              Log.Logger.Information("Loading host configuration");
-              config.AddJsonFile("appsettings.test.json");
-          });
-
-
-        builder.UseEnvironment("Docker");
-
-        builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
-
         _host = builder.Build();
         _host.Start();
 
@@ -152,8 +149,6 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
 
         ClientOptions.BaseAddress = addresses!.Addresses.Select(x => new Uri(x)).Last();
         testHost.Start();
-
-        Log.Logger.Information("Host created and started at {BaseAddress}", ClientOptions.BaseAddress);
 
         return testHost;
     }
@@ -170,14 +165,11 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
         {
             if (disposing)
             {
-                Log.Logger.Information("Disposing host");
                 _host?.StopAsync();
                 _host?.Dispose();
             }
 
             _disposed = true;
         }
-        Log.Logger.Information("ServerFixture disposed");
-        Log.CloseAndFlush();
     }
 }

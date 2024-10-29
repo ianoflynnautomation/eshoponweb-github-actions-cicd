@@ -16,6 +16,7 @@ internal sealed class CustomSerilogLoggerFactory : SerilogLoggerFactory
   public CustomSerilogLoggerFactory(IConfiguration configuration)
     : base(
       new LoggerConfiguration()
+      .WriteTo.Console()
         .ReadFrom
         .Configuration(configuration)
         .CreateLogger(),

@@ -11,6 +11,10 @@ using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
 using Playwright.DotNet.Logging;
 using Serilog;
+using BlazorAdmin.Pages.CatalogItemPage;
+using BlazorAdmin.Services;
+using BlazorShared.Interfaces;
+using Docker.DotNet.Models;
 
 
 namespace Playwright.DotNet.Fixtures;
@@ -22,6 +26,18 @@ public class ServerTestFixture : WebApplicationFactory<Program>
 {
     private IHost? _host;
     private bool _disposed;
+    private IServiceProvider _serviceProvider;
+
+    public ServerTestFixture()
+    {
+        Client = CreateClient(new WebApplicationFactoryClientOptions
+        {
+            AllowAutoRedirect = false
+        });
+
+        ServiceProvider = new ServiceCollection().BuildServiceProvider();
+
+    }
 
     private void EnsureServer()
     {
@@ -30,6 +46,10 @@ public class ServerTestFixture : WebApplicationFactory<Program>
             using var _ = CreateDefaultClient();
         }
     }
+
+    protected HttpClient Client { get; }
+
+    protected IServiceProvider ServiceProvider { get; private set; }
 
     /// <summary>
     /// Gets the server address.
@@ -49,15 +69,37 @@ public class ServerTestFixture : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         base.ConfigureWebHost(builder);
-        
+
         builder.ConfigureLogging(c =>
         {
-            // remove the default logging providers
             c.ClearProviders();
-            // c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-            // c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-            //     => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
         });
+
+
+        builder.UseKestrel(Options =>
+        {
+            Options.AddServerHeader = false;
+        });
+
+        builder.UseStaticWebAssets();
+        builder.UseUrls($"http://127.0.0.1:5000");
+    }
+
+    /// <summary>
+    /// Creates the host.
+    /// </summary>
+    protected override IHost CreateHost(IHostBuilder builder)
+    {
+        var testHost = builder.Build();
+
+        builder.UseEnvironment("Development");
+
+        builder.ConfigureHostConfiguration(config =>
+          {
+              config.AddJsonFile("appsettings.test.json");
+          });
+
+        builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
 
         builder.ConfigureServices(services =>
        {
@@ -94,33 +136,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
 
        });
 
-
-        builder.UseKestrel(Options =>
-        {
-            Options.AddServerHeader = false;
-        });
-
-        builder.UseStaticWebAssets();
-        builder.UseUrls($"http://127.0.0.1:5000");
-    }
-
-    /// <summary>
-    /// Creates the host.
-    /// </summary>
-    protected override IHost CreateHost(IHostBuilder builder)
-    {
-        var testHost = builder.Build();
-
-        builder.UseEnvironment("Development");
-
-        builder.ConfigureHostConfiguration(config =>
-          {
-              Log.Logger.Information("Loading host configuration");
-              config.AddJsonFile("appsettings.test.json");
-          });
-
-        builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
-
         _host = builder.Build();
         _host.Start();
 
@@ -131,6 +146,26 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         testHost.Start();
 
         return testHost;
+    }
+
+
+    protected T GetWebServerService<T>()
+    {
+        if (_host is null)
+        {
+            return ServiceProvider.GetRequiredService<T>();
+        }
+        else
+        {
+
+            return _host.Services.GetRequiredService<T>();
+        }
+    }
+
+    protected T GetScopedService<T>()
+    {
+        using var scope = _host.Services.CreateScope();
+        return scope.ServiceProvider.GetRequiredService<T>();
     }
 
     /// <summary>

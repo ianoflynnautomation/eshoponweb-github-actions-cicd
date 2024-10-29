@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.UI.UnitTests", "tests\Blazor.UI.UnitTests\Blazor.UI.UnitTests.csproj", "{BC15A605-4D04-400D-9C04-0DBF8DF63A52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerSystemTests", "tests\DockerSystemTests\DockerSystemTests.csproj", "{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{BC15A605-4D04-400D-9C04-0DBF8DF63A52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC15A605-4D04-400D-9C04-0DBF8DF63A52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC15A605-4D04-400D-9C04-0DBF8DF63A52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,5 +127,6 @@ Global
 		{E9F9F160-B997-43B0-8DC1-3E8423FED173} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
 		{B2B4E11C-0F42-4E12-9F43-866DEFCCEA69} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
 		{BC15A605-4D04-400D-9C04-0DBF8DF63A52} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
+		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
 	EndGlobalSection
 EndGlobal

@@ -1,17 +1,17 @@
-﻿//using System.Net.Http;
-//using System.Text;
-//using System.Text.Json;
-//using System.Threading.Tasks;
-//using Microsoft.eShopWeb.ApplicationCore.Constants;
-//using Microsoft.eShopWeb.FunctionalTests.PublicApi;
-//using Microsoft.eShopWeb.PublicApi.AuthEndpoints;
-//using Xunit;
+﻿// using System.Net.Http;
+// using System.Text;
+// using System.Text.Json;
+// using System.Threading.Tasks;
+// using Microsoft.eShopWeb.ApplicationCore.Constants;
+// using Microsoft.eShopWeb.FunctionalTests.PublicApi;
+// using Microsoft.eShopWeb.PublicApi.AuthEndpoints;
+// using Xunit;
 
-//namespace Microsoft.eShopWeb.FunctionalTests.Web.Controllers;
+// namespace Microsoft.eShopWeb.FunctionalTests.Web.Controllers;
 
-//[Collection("Sequential")]
-//public class AuthenticateEndpoint : IClassFixture<TestApiApplication>
-//{
+// [Collection("Sequential")]
+// public class AuthenticateEndpoint : IClassFixture<TestApiApplication>
+// {
 //    JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
 //    public AuthenticateEndpoint(TestApiApplication factory)
@@ -40,4 +40,4 @@
 
 //        Assert.Equal(expectedResult, model.Result);
 //    }
-//}
+// }

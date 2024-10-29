@@ -4,17 +4,20 @@ using Playwright.DotNet.Services;
 using Autofac;
 using Playwright.DotNet.DI;
 using Playwright.DotNet.Fixtures;
+using Playwright.DotNet.Enums;
 
 namespace EShopOnWeb.TestContainersSystemTests;
 
 public class BaseTest
 {
+    protected SystemTestContainersFixture _fixture;
     protected App _app;
     protected TestExecutionEngine _testExecutionEngine;
-    protected EShopOnWebApp EShopOnWebApp;
+    protected EShopOnWebApp _eShopOnWebApp;
     protected ContainerBuilder _builder;
     protected IContainer _container;
-    public SystemTestContainersFixture _fixture;
+
+    protected TestContext TestContext => TestContext.CurrentContext;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -28,23 +31,28 @@ public class BaseTest
     {
         await _fixture.SqlEdgeFixture.InitializeAsync();
 
-        _app = new App();
-
         _builder = new ContainerBuilder();
+        var config = new BrowserConfiguration()
+        {
+            BrowserType = BrowserTypes.Chromium,
+        };
 
-        var config = new BrowserConfiguration();
         _builder.RegisterInstance(config).As<BrowserConfiguration>().SingleInstance();
         _testExecutionEngine = new TestExecutionEngine();
         _builder.RegisterInstance(_testExecutionEngine).AsSelf();
-        _testExecutionEngine.StartBrowser(config, _builder);
 
+        _testExecutionEngine.StartBrowser(config, _builder);
+        
         DISetup.RegisterPageObjects(_builder);
         DISetup.RegisterServices(_builder);
+        DISetup.RegisterApp(_builder);
 
         _container = _builder.Build();
         ServiceLocator.SetContainer(_container);
 
-        EShopOnWebApp = new EShopOnWebApp(_container);
+        _eShopOnWebApp = new EShopOnWebApp(_container);
+    
+        _app = ServiceLocator.Resolve<App>();
         _app.Navigation.Navigate(_fixture.ServerAddress);
     }
 
@@ -52,15 +60,16 @@ public class BaseTest
     public async Task TearDown()
     {
         _testExecutionEngine.Dispose(_container);
+        _app = ServiceLocator.Resolve<App>();
         _app.Dispose();
         _container.Dispose();
-        await _fixture.SqlEdgeFixture.StopContainer();
+        //await _fixture.SqlEdgeFixture.StopContainer();
+        await _fixture.SqlEdgeFixture.DisposeAsync();
     }
 
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
-        await _fixture.SqlEdgeFixture.DisposeAsync();
         _fixture.Dispose();
     }
 }
