@@ -30,7 +30,7 @@ public class BaseTest
         _builder = new ContainerBuilder();
         var config = new BrowserConfiguration()
         {
-            BrowserType = BrowserTypes.Chromium,
+            BrowserType = BrowserTypes.ChromiumHeadless,
         };
 
 
