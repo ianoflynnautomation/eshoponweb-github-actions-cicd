@@ -11,16 +11,16 @@ public class Tests : BaseTest
 {
 
     [Test]
-    public async Task TC_01_Customer_Order_UserJourney()
+    public void TC_01_Customer_Order_UserJourney()
     {
-         var request = new CreateCatalogItemRequest()
-        {
-            CatalogBrandId = 1,
-            CatalogTypeId = 2,
-            Description = "test description 001",
-            Name = "001 Name",
-            Price = 1.23m
-        };
+        //  var request = new CreateCatalogItemRequest()
+        // {
+        //     CatalogBrandId = 1,
+        //     CatalogTypeId = 2,
+        //     Description = "test description 001",
+        //     Name = "001 Name",
+        //     Price = 1.23m
+        // };
 
         //await _fixture.SystemTestHost.CreateCatelogItem(request);
 
