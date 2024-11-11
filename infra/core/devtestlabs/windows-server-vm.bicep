@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 @description('The name of the DevTest Lab in which to create the virtual machine.')
 param labName string = 'Ians-DevTestLab'
 @description('The name of the VM in the DevTest Lab')
-param vmName string
+param vmName string = 'windows-s-vm'
 @description('The name of the virtual network in the DevTest Lab.')
 param labVirtualNetworkName string = 'vnet'
 @description('The lab subnet name of the virtual machine.')

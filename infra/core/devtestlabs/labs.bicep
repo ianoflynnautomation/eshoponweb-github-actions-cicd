@@ -34,7 +34,6 @@ resource devTestVNet 'Microsoft.DevTestLab/labs/virtualnetworks@2018-09-15' = {
     description: 'Virtual network for the DevTestLab'
     subnetOverrides: [
       {
-        usePublicIpAddress: 'Allow'
         useInVmCreationPermission: 'Allow'
       }
     ]
