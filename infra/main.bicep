@@ -224,7 +224,6 @@ module applicationServerVm './core/devtestlabs/windows-server-vm.bicep' = if(env
   scope: rg
 }
 
-
 // Data outputs
 output AZURE_SQL_CATALOG_CONNECTION_STRING_KEY string = catalogDb.outputs.connectionStringKey
 output AZURE_SQL_IDENTITY_CONNECTION_STRING_KEY string = identityDb.outputs.connectionStringKey
@@ -237,6 +236,10 @@ output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
 output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 
+// Application Server VM outputs
+output APPLICATION_SERVER_VM_NAME string = applicationServerVm.outputs.labVMName
+output APPLICATION_SERVER_VM_ID string = applicationServerVm.outputs.labVMId
+
 // Client VM outputs
 output CLIENT_VM_ID_NAME array = [
   for i in range(1, vmCountUiTest): {
@@ -245,6 +248,3 @@ output CLIENT_VM_ID_NAME array = [
   }
 ]
 
-// Application Server VM outputs
-output APPLICATION_SERVER_VM_NAME string = applicationServerVm.outputs.labVMName
-output APPLICATION_SERVER_VM_ID string = applicationServerVm.outputs.labVMId
