@@ -27,4 +27,15 @@
     <Using Include="System.Threading.Tasks" />
   </ItemGroup>
 
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\tests\Playwright.DotNet\Playwright.DotNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="testsettings.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
+  </ItemGroup>
+
 </Project>

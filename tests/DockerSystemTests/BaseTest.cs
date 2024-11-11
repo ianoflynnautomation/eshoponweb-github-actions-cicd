@@ -6,40 +6,38 @@ using Playwright.DotNet.DI;
 using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Enums;
 
-namespace EShopOnWeb.TestContainersSystemTests;
+namespace EShopOnWeb.DockerSystemTests;
 
 public class BaseTest
 {
-    protected SystemTestContainersFixture _fixture;
+    protected SystemTestFixture _fixture;
     protected App _app;
     protected TestExecutionEngine _testExecutionEngine;
     protected EShopOnWebApp _eShopOnWebApp;
-    protected ContainerBuilder _builder;
+    protected ContainerBuilder _builder; 
     protected IContainer _container;
-
     protected TestContext TestContext => TestContext.CurrentContext;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new SystemTestContainersFixture();
+        _fixture = new SystemTestFixture();
     }
 
     [SetUp]
-    public async Task SetUp()
-    {
-        await _fixture.SqlEdgeFixture.InitializeAsync();
-
+    public void SetUp()
+    {  
         _builder = new ContainerBuilder();
         var config = new BrowserConfiguration()
         {
-            BrowserType = BrowserTypes.ChromiumHeadless,
+            BrowserType = BrowserTypes.Chromium,
         };
 
         _builder.RegisterInstance(config).As<BrowserConfiguration>().SingleInstance();
         _testExecutionEngine = new TestExecutionEngine();
         _builder.RegisterInstance(_testExecutionEngine).AsSelf();
 
+         _fixture.Logger.Information($"Start test {TestContext.Test.FullName}");
         _testExecutionEngine.StartBrowser(config, _builder);
         
         DISetup.RegisterPageObjects(_builder);
@@ -50,24 +48,24 @@ public class BaseTest
         ServiceLocator.SetContainer(_container);
 
         _eShopOnWebApp = new EShopOnWebApp(_container);
-    
+        _fixture.Logger.Information("Navigating to the web server url {WebServerUrl}", _fixture.SystemTestHost.WebServerUrl);
+
         _app = ServiceLocator.Resolve<App>();
-        _app.Navigation.Navigate(_fixture.ServerAddress);
+        _app.Navigation.Navigate(_fixture.SystemTestHost.WebServerUrl);
     }
 
     [TearDown]
-    public async Task TearDown()
+    public void TearDown()
     {
+        _fixture.Logger.Information($"End test {TestContext.Test.FullName}");
         _testExecutionEngine.Dispose(_container);
         _app = ServiceLocator.Resolve<App>();
         _app.Dispose();
         _container.Dispose();
-        //await _fixture.SqlEdgeFixture.StopContainer();
-        await _fixture.SqlEdgeFixture.DisposeAsync();
     }
 
     [OneTimeTearDown]
-    public async Task OneTimeTearDown()
+    public void OneTimeTearDown()
     {
         _fixture.Dispose();
     }

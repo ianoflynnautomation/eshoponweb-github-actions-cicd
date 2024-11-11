@@ -29,11 +29,13 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
         SqlEdgeFixture = new SqlEdgeFixture();
     }
 
-
     /// <summary>
     /// Gets the SQL Edge fixture.
     /// </summary>
     public SqlEdgeFixture SqlEdgeFixture { get; }
+
+    protected CatalogContext CatalogContext => Services.GetRequiredService<CatalogContext>();
+    protected AppIdentityDbContext AppIdentityDbContext => Services.GetRequiredService<AppIdentityDbContext>();
 
     private IHost? _host;
     private bool _disposed;
@@ -43,7 +45,6 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
     {
         if (_host is null)
         {
-    
             using var _ = CreateDefaultClient();
         }
     }
@@ -96,7 +97,6 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
               config.AddJsonFile("appsettings.test.json");
           });
 
-
         builder.UseEnvironment("Docker");
 
         builder.ConfigureWebHost(webHostBuilder => webHostBuilder.UseKestrel());
@@ -120,26 +120,7 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
 
            services.AddDbContext<AppIdentityDbContext>(options
                => options.UseSqlServer(SqlEdgeFixture.Container.GetConnectionString()));
-
-           //    using var scope = Services.CreateScope();
-           //    var scopedProvider = scope.ServiceProvider;
-           //    try
-           //    {
-           //        var catalogContext = scopedProvider.GetRequiredService<CatalogContext>();
-           //        await CatalogContextSeed.SeedAsync(catalogContext,Logger);
-
-           //        var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
-           //        var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
-           //        var identityContext = scopedProvider.GetRequiredService<AppIdentityDbContext>();
-           //        await AppIdentityDbContextSeed.SeedAsync(identityContext, userManager, roleManager);
-           //    }
-           //    catch (Exception ex)
-           //    {
-           //        Log.Logger.Error(ex, "An error occurred seeding the DB.");
-           //    }
-
-
-       });
+        });
 
         _host = builder.Build();
         _host.Start();

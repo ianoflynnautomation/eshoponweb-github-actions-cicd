@@ -1,9 +1,13 @@
 {
-  "TestHost" : {
-    "HostType": "Internal",
-    "HostUrl": "",
-    "PublicApiUrl": ""
-},
+  "TestHost": {
+    "HostType": "Docker",
+    "HostUrl": "http://localhost:5106/",
+    "PublicApiUrl": "http://localhost:5200/api/"
+  },
+  "ConnectionStrings": {
+    "CatalogConnection": "Server=localhost,1433;Integrated Security=true;Initial Catalog=Microsoft.eShopOnWeb.CatalogDb;User Id=sa;Password=@someThingComplicated1234;Trusted_Connection=false;TrustServerCertificate=true;",
+    "IdentityConnection": "Server=localhost,1433;Integrated Security=true;Initial Catalog=Microsoft.eShopOnWeb.Identity;User Id=sa;Password=@someThingComplicated1234;Trusted_Connection=false;TrustServerCertificate=true;"
+  },
   "WebSettings": {
     "IsParallelExecutionEnabled": "false",
     "ArtificialDelayBeforeAction": "0",
@@ -34,7 +38,7 @@
     },
     "ExecutionSettings": {
       "ExecutionType": "regular",
-      "DefaultBrowser": "webkit",
+      "DefaultBrowser": "edge",
       "DefaultLifeCycle": "restart every time",
       "Resolution": "",
       "BrowserVersion": "",

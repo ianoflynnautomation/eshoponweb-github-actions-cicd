@@ -30,6 +30,7 @@ public class SystemTestFixture : IDisposable
         {
             HostType.Internal => new InternalTestHost(),
             HostType.External => new ExternalTestHost(),
+            HostType.Docker => new DockerTestFixture(),
             _ => throw new ArgumentOutOfRangeException(nameof(testHostOptions.HostType), testHostOptions.HostType, null)
         };
     }

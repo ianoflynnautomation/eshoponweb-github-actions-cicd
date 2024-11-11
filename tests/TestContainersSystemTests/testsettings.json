@@ -1,7 +1,8 @@
 {
   "TestHost" : {
     "HostType": "Internal",
-    "HostUrl": ""
+    "HostUrl": "",
+    "PublicApiUrl": ""
 },
   "WebSettings": {
     "IsParallelExecutionEnabled": "false",

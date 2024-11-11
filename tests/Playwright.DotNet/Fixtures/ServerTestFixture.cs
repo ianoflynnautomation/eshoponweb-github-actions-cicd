@@ -51,6 +51,10 @@ public class ServerTestFixture : WebApplicationFactory<Program>
 
     protected IServiceProvider ServiceProvider { get; private set; }
 
+    protected CatalogContext CatalogContext => GetScopedService<CatalogContext>();
+    
+    protected AppIdentityDbContext AppIdentityDbContext => GetScopedService<AppIdentityDbContext>();
+
     /// <summary>
     /// Gets the server address.
     /// </summary>

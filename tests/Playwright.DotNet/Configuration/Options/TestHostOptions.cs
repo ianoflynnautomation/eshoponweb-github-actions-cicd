@@ -11,6 +11,8 @@ public class TestHostOptions
 
 	public string HostUrl { get; set; } = string.Empty;
 
+	public string PublicApiUrl { get; set; } = string.Empty;
+
 }
 
 

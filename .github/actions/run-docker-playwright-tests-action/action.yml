@@ -1,0 +1,91 @@
+name: Run Playwright Tests
+description: 'Runs the Playwright tests for the eShopOnWeb project'
+
+inputs:
+  dotnet-version:
+    description: 'The version of the .Net Core SDK to use'
+    required: true
+  test-artifact-name:
+    description: 'The name of the artifact to publish'
+    required: true
+  test-project-name:
+    description: 'The name of the project to run the tests for'
+    required: true
+  test-project-pattern:
+    description: 'The pattern to use to find the test projects'
+    required: true
+  test-filter-criteria:
+    description: 'The filter criteria to use to run the tests'
+    required: false
+  browser-name:
+    description: 'The name of the browser to use'
+    required: true
+  channel:
+    description: 'The channel of the browser to use'
+  headless:
+    description: 'Whether to run the browser in headless mode'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+
+    # - name: Download ${{ inputs.test-artifact-name }} Artifact
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: ${{ inputs.test-artifact-name }}
+    #     path: artifacts
+    #     pattern: ${{ inputs.test-project-pattern }} 
+
+    - name: 'Set Dotnet Version ${{ inputs.dotnet-version }}'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }} 
+
+    - name: Install Dependencies
+      shell: bash
+      run: dotnet restore Everything.sln
+
+    - name: Build Solution
+      shell: bash
+      run: |
+        dotnet build Everything.sln --configuration Release --no-restore
+
+    - name: Install PowerShell
+      shell: pwsh
+      run: dotnet tool update --global PowerShell
+
+    - name: Ensure browsers are installed
+      shell: pwsh
+      run: |
+        pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
+
+    - name: Run docker compose up
+      shell: bash
+      run: |
+        docker-compose up -d
+
+    - name: Run your tests
+      shell: bash
+      run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj
+
+    # - name: Publish Test Results
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: test_results_${{ inputs.test-type }}
+    #     path: ${{ github.workspace }}/TestResults
+    
+    # - uses: dorny/test-reporter@v1
+    #   with:
+    #     artifact: test_results_${{ inputs.test-artifact-name }}
+    #     name: test_results_${{ inputs.test-artifact-name }}
+    #     path: '*.trx'
+    #     reporter: dotnet-trx
+
+    - name: Run docker compose down
+      shell: bash
+      run: |
+        docker-compose down
+
+    
+

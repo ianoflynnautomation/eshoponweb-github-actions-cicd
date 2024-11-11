@@ -1,10 +1,9 @@
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using BlazorAdmin.Services;
-using BlazorShared.Interfaces;
 using BlazorShared.Models;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Playwright.DotNet.Fixtures.Host;
@@ -12,6 +11,9 @@ namespace Playwright.DotNet.Fixtures.Host;
 public class InternalTestHost : ServerTestFixture,  ITestHost
 {
     public string? WebServerUrl => ServerAddress;
+
+    // TODO: Implement this
+    public string? PublicApiUrl => string.Empty;
 
 
     //protected CatalogItemService CatalogItemService => ServiceProvider.GetRequiredService<CatalogItemService>();
@@ -31,11 +33,7 @@ public class InternalTestHost : ServerTestFixture,  ITestHost
 
     public async Task DeleteCatalogItem(int catalogItemId)
     {
-        var adminToken = ApiTokenHelper.GetAdminUserToken();
-        var client = ProgramTest.NewClient;
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-        var response = await client.DeleteAsync($"api/catalog-items/{catalogItemId}");
-        response.EnsureSuccessStatusCode();
+        //CatalogContext.Database.ExecuteSqlRaw("DELETE FROM Catalog WHERE Id = {0}", catalogItemId);
     }
 
 }

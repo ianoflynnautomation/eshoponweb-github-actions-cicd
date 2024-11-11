@@ -57,6 +57,8 @@
     "kustoClustersDatabases": "dedb",
     "logicIntegrationAccounts": "ia-",
     "logicWorkflows": "logic-",
+    "labVirtualMachinePrefix": "dtlvm",
+    "labLabPrefix": "dtllab",
     "machineLearningServicesWorkspaces": "mlw-",
     "managedIdentityUserAssignedIdentities": "id-",
     "managementManagementGroups": "mg-",

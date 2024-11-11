@@ -7,7 +7,7 @@ namespace Playwright.DotNet.Fixtures.Host;
 public class ExternalTestHost : ITestHost
 {
     public string? WebServerUrl => ConfigurationRootInstance.GetSection<TestHostOptions>(TestHostOptions.TestHostSection).HostUrl;
-
+    public string? PublicApiUrl => ConfigurationRootInstance.GetSection<TestHostOptions>(TestHostOptions.TestHostSection).PublicApiUrl;
 
     public async Task CreateCatelogItem(CreateCatalogItemRequest catalogItem){
 
