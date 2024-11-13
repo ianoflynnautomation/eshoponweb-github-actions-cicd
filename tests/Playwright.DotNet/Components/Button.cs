@@ -21,11 +21,11 @@ public class Button : Component
         await HoverAsync();
     }
 
-    public virtual  Task<string> InnerText => GetInnerTextAsync();
+    public virtual Task<string> InnerText => GetInnerTextAsync();
 
-    public virtual  Task<string> Value => DefaultGetValueAsync();
+    public virtual Task<string> Value => DefaultGetValueAsync();
 
-    public virtual  Task<bool> IsDisabled => GetDisabledAttributeAsync();
+    public virtual Task<bool> IsDisabled => GetDisabledAttributeAsync();
 
 }
 

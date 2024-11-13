@@ -5,7 +5,7 @@ namespace Playwright.DotNet.Components;
 public class Anchor : Component
 {
     public override Type ComponentType => GetType();
-    
+
     public async Task ClickAsync(LocatorClickOptions? options = null)
     {
         await DefaultClickAsync(options);
@@ -16,10 +16,10 @@ public class Anchor : Component
         await HoverAsync();
     }
     public virtual Task<string> InnerText => GetInnerTextAsync();
-    
+
     public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
 
     public virtual Task<string> Target => GetAttributeAsync("target");
 
-    public virtual Task<string> Rel =>  GetAttributeAsync("rel");
+    public virtual Task<string> Rel => GetAttributeAsync("rel");
 }

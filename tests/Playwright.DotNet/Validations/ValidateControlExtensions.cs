@@ -12,7 +12,7 @@ public static partial class ValidateControlExtensions
     public static async Task ValidateInnerTextIs<T>(this T control, string value)
     where T : IComponentInnerText, IComponent
     {
-        await control.WrappedElement.Expect().NativeAssertions.ToHaveTextAsync(value);
+        await control.WrappedElement.Expect().LocatorAssertions.ToHaveTextAsync(value);
     }
 
 }

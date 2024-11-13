@@ -17,7 +17,7 @@ namespace Playwright.DotNet.Components;
 /// </summary>
 public class Component : IComponent
 {
-    protected  WebElement _wrappedElement;
+    protected WebElement _wrappedElement;
     private readonly IComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
 
@@ -26,7 +26,7 @@ public class Component : IComponent
         _elementWaiter = ServiceLocator.Resolve<IComponentWaitService>();
         WrappedBrowser = ServiceLocator.Resolve<WrappedBrowser>();
         _untils = [];
-        BrowserService  = ServiceLocator.Resolve<IBrowserService>();
+        BrowserService = ServiceLocator.Resolve<IBrowserService>();
         ComponentCreateService = ServiceLocator.Resolve<IComponentCreateService>();
     }
 
@@ -84,7 +84,7 @@ public class Component : IComponent
     {
         if (_untils.Count == 0 || _untils[0] == null)
         {
-            await _wrappedElement.WrappedLocator.WaitForAsync(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToExistTimeout });
+            await _wrappedElement.WrappedLocator.WaitForAsync(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ElementToExistTimeout });
             return;
         }
 
@@ -105,7 +105,7 @@ public class Component : IComponent
 
         try
         {
-           await WrappedElement.WrappedLocator.ScrollIntoViewIfNeededAsync();
+            await WrappedElement.WrappedLocator.ScrollIntoViewIfNeededAsync();
         }
         catch (Exception)
         {
@@ -154,10 +154,10 @@ public class Component : IComponent
 
 
     public async Task<string?> GetTitleAsync()
-        => string.IsNullOrEmpty(await GetAttributeAsync("title")) 
-        ? null 
+        => string.IsNullOrEmpty(await GetAttributeAsync("title"))
+        ? null
         : await GetAttributeAsync("title");
-    
+
 
     internal async Task DefaultClickAsync(LocatorClickOptions? options = null)
     {
@@ -205,8 +205,8 @@ public class Component : IComponent
 
     internal async Task<int?> DefaultGetMaxLengthAsync()
     {
-        int? result = string.IsNullOrEmpty(await GetAttributeAsync("maxlength")) 
-        ? null 
+        int? result = string.IsNullOrEmpty(await GetAttributeAsync("maxlength"))
+        ? null
         : int.Parse(await GetAttributeAsync("maxlength"));
 
         if (result != null && (result == 2147483647 || result == -1))
@@ -219,8 +219,8 @@ public class Component : IComponent
 
     internal async Task<int?> DefaultGetMinLengthAsync()
     {
-        int? result = string.IsNullOrEmpty(await GetAttributeAsync("minlength")) 
-        ? null 
+        int? result = string.IsNullOrEmpty(await GetAttributeAsync("minlength"))
+        ? null
         : int.Parse(await GetAttributeAsync("minlength"));
 
         if (result != null && result == -1)
@@ -233,22 +233,22 @@ public class Component : IComponent
 
     internal async Task<int?> GetSizeAttributeAsync()
     {
-        return string.IsNullOrEmpty(await GetAttributeAsync("size")) 
-        ? null 
+        return string.IsNullOrEmpty(await GetAttributeAsync("size"))
+        ? null
         : int.Parse(await GetAttributeAsync("size"));
     }
 
     internal async Task<int?> GetHeightAttributeAsync()
     {
-        return string.IsNullOrEmpty(await GetAttributeAsync("height")) 
-        ? null 
+        return string.IsNullOrEmpty(await GetAttributeAsync("height"))
+        ? null
         : int.Parse(await GetAttributeAsync("height"));
     }
 
     internal async Task<int?> GetWidthAttributeAsync()
     {
         return string.IsNullOrEmpty(await GetAttributeAsync("width"))
-        ? null 
+        ? null
         : int.Parse(await GetAttributeAsync("width"));
     }
 
@@ -259,7 +259,7 @@ public class Component : IComponent
 
     internal async Task<string?> GetForAttributeAsync()
     {
-        return string.IsNullOrEmpty(await GetAttributeAsync("for")) 
+        return string.IsNullOrEmpty(await GetAttributeAsync("for"))
         ? null
         : await GetAttributeAsync("for");
     }
@@ -291,7 +291,7 @@ public class Component : IComponent
         return !string.IsNullOrEmpty(await GetAttributeAsync("readonly"));
     }
 
-    internal  async Task<bool> GetRequiredAttributeAsync()
+    internal async Task<bool> GetRequiredAttributeAsync()
     {
         return !string.IsNullOrEmpty(await GetAttributeAsync("required"));
     }

@@ -1,6 +1,4 @@
 
-using Playwright.DotNet.Components.Contracts;
-
 namespace Playwright.DotNet.Components;
 
 /// <summary>
@@ -12,29 +10,23 @@ public class TextInput : Component
 
     public virtual async Task SetTextAsync(string value)
     {
-       await DefaultSetText(value);
+        await DefaultSetText(value);
     }
 
     public static new async Task HoverAsync()
     {
         await HoverAsync();
     }
+    
     public virtual Task<string> InnerText => GetInnerTextAsync();
-
     public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
-
     public virtual Task<bool> IsDisabled => GetDisabledAttributeAsync();
     public virtual Task<string> Value => DefaultGetValueAsync();
     public virtual Task<bool> IsAutoComplete => GetAutoCompleteAttributeAsync();
-
     public virtual Task<bool> IsReadonly => GetReadonlyAttributeAsync();
-
     public virtual Task<bool> IsRequired => GetRequiredAttributeAsync();
-
     public virtual Task<string?> Placeholder => GetPlaceholderAttributeAsync();
-
     public virtual Task<int?> MaxLength => DefaultGetMaxLengthAsync();
-
     public virtual Task<int?> MinLength => DefaultGetMinLengthAsync();
 
     // public virtual int? Size => GetSizeAttribute();

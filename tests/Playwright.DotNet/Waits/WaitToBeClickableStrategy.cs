@@ -19,7 +19,7 @@ public class WaitToBeClickableStrategy : WaitStrategy
     public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
         : base(timeoutInterval, sleepInterval)
     {
-        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToBeClickableTimeout;
+        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ElementToBeClickableTimeout;
     }
 
     /// <summary>
@@ -38,6 +38,6 @@ public class WaitToBeClickableStrategy : WaitStrategy
     /// <param name="element"></param>
     public override async Task WaitUntil(WebElement element)
     {
-        await element.Expect(). NativeAssertions.ToBeEnabledAsync(new() { Timeout = TimeoutInterval });
+        await element.Expect().LocatorAssertions.ToBeEnabledAsync(new() { Timeout = TimeoutInterval });
     }
 }

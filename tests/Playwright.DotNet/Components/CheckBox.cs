@@ -23,7 +23,7 @@ public class CheckBox : Component
     /// <param name="options"></param>
     public virtual async Task UncheckAsync(LocatorUncheckOptions? options = default)
     {
-       await DefaultUncheckAsync(options);
+        await DefaultUncheckAsync(options);
     }
 
     public static new async Task HoverAsync()

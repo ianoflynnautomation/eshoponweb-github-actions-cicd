@@ -15,7 +15,7 @@ public class WebElementAssertions
     public WebElementAssertions(WebElement element)
     {
         Element = element;
-        NativeAssertions = Microsoft.Playwright.Assertions.Expect(Element.WrappedLocator);
+        LocatorAssertions = Microsoft.Playwright.Assertions.Expect(Element.WrappedLocator);
     }
 
     /// <summary>
@@ -26,13 +26,13 @@ public class WebElementAssertions
     /// <summary>
     /// Gets the native assertions.
     /// </summary>
-    public ILocatorAssertions NativeAssertions { get; init; }
+    public ILocatorAssertions LocatorAssertions { get; init; }
 
     public WebElementAssertions Not
     {
         get
         {
-            _ = NativeAssertions.Not;
+            _ = LocatorAssertions.Not;
             return this;
         }
     }

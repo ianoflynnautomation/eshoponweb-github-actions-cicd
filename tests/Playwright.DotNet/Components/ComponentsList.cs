@@ -10,7 +10,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 {
     private readonly List<TComponent> _components;
 
-    public ComponentsList(FindStrategy by, Component parenTComponent) 
+    public ComponentsList(FindStrategy by, Component parenTComponent)
         : this(ComponentRepository.CreateComponentListWithParent<TComponent>(by, parenTComponent))
     {
     }

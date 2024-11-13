@@ -14,7 +14,7 @@ public class WaitToBeVisibleStrategy : WaitStrategy
     public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
         : base(timeoutInterval, sleepInterval)
     {
-        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToBeVisibleTimeout;
+        TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ElementToBeVisibleTimeout;
     }
 
     public override async Task WaitUntil<TComponent>(TComponent component)
@@ -24,6 +24,6 @@ public class WaitToBeVisibleStrategy : WaitStrategy
 
     public override async Task WaitUntil(WebElement element)
     {
-        await element.Expect().NativeAssertions.ToBeVisibleAsync(new() { Timeout = TimeoutInterval });
+        await element.Expect().LocatorAssertions.ToBeVisibleAsync(new() { Timeout = TimeoutInterval });
     }
 }

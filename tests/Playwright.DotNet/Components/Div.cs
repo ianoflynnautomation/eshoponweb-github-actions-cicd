@@ -1,6 +1,3 @@
-
-
-using Microsoft.Playwright;
 using Playwright.DotNet.Components.Contracts;
 
 namespace Playwright.DotNet.Components;
@@ -19,7 +16,6 @@ public class Div : Component, IComponentInnerText
 
     public virtual Task<string> InnerText => GetInnerTextAsync();
 
-    public virtual Task<string>  InnerHtml => GetInnerHtmlAttributeAsync();
-
+    public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
 
 }

@@ -10,24 +10,31 @@ namespace Playwright.DotNet.Playwright.Assertions;
 /// Initializes a new instance of the <see cref="BrowserPageAssertions"/> class.
 /// </remarks>
 /// <param name="page">Page to assert</param>
-public class BrowserPageAssertions(BrowserPage page)
+public class BrowserPageAssertions
 {
+
+    public BrowserPageAssertions(BrowserPage page)
+    {
+        Page = page;
+        PageAssertions = Microsoft.Playwright.Assertions.Expect(page.WrappedPage);
+
+    }
 
     /// <summary>
     /// Gets the page.
     /// </summary>
-    public BrowserPage Page { get; init; } = page;
+    public BrowserPage Page { get; init; }
 
     /// <summary>
     /// Gets the native assertions.
     /// </summary>
-    public IPageAssertions NativeAssertions { get; init; } = Microsoft.Playwright.Assertions.Expect(page.WrappedPage);
+    public IPageAssertions PageAssertions { get; init; }
 
     public BrowserPageAssertions Not
     {
         get
         {
-            _ = NativeAssertions.Not;
+            _ = PageAssertions.Not;
             return this;
         }
     }

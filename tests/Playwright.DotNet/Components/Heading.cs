@@ -12,7 +12,5 @@ public class Heading : Component, IComponentInnerText
         await HoverAsync();
     }
 
-    public virtual  Task<string> InnerText => GetInnerTextAsync();
-
-
+    public virtual Task<string> InnerText => GetInnerTextAsync();
 }
