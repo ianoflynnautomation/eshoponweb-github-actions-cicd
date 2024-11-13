@@ -1,5 +1,5 @@
 
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Components.Contracts;
 

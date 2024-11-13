@@ -1,8 +1,7 @@
-﻿using Playwright.DotNet.SyncPlaywright.Core;
+﻿using Playwright.DotNet.Playwright.Core;
 using Microsoft.Playwright;
-using Microsoft.VisualStudio.Services.WebApi;
 
-namespace Playwright.DotNet.SyncPlaywright;
+namespace Playwright.DotNet.Playwright;
 
 /// <summary>
 /// Synchronous wrapper for Playwright IDialog
@@ -38,21 +37,4 @@ public class Dialog(IDialog dialog)
     /// Gets the dialog type.
     /// </summary>
     public string Type => WrappedDialog.Type;
-
-    /// <summary>
-    /// Accept the dialog.
-    /// </summary>
-    /// <param name="promptText"></param>
-    public void Accept(string? promptText = null)
-    {
-        WrappedDialog.AcceptAsync(promptText).SyncResult();
-    }
-
-    /// <summary>
-    /// Dismiss the dialog.
-    /// </summary>
-    public void Dismiss()
-    {
-        WrappedDialog.DismissAsync().SyncResult();
-    }
 }

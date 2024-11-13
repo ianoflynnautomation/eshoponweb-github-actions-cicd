@@ -14,6 +14,6 @@ public interface ISuccessPage
     /// <summary>
     /// Clicks the continue shopping button to return to the home page.
     /// </summary>
-    ISuccessPage ContinueShopping();
+    Task<ISuccessPage> ContinueShopping();
 
 }

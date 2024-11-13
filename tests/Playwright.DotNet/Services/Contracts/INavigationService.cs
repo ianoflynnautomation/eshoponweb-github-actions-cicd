@@ -3,10 +3,10 @@ namespace Playwright.DotNet.Services.Contracts;
 public interface INavigationService
 {
 
-    INavigationService Navigate(Uri url);
+    Task<INavigationService> Navigate(Uri url);
 
-    INavigationService Navigate(string url);
+    Task<INavigationService> Navigate(string url);
 
-    INavigationService WaitForPartialUrl(string partialUrl);
+    Task<INavigationService> WaitForPartialUrl(string partialUrl);
 
 }

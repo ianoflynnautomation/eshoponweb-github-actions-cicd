@@ -2,31 +2,31 @@ using System.Text.RegularExpressions;
 using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
 using Playwright.DotNet.Services.Contracts;
-using Playwright.DotNet.SyncPlaywright.Assertions;
+using Playwright.DotNet.Playwright.Assertions;
 
 namespace Playwright.DotNet.Services;
 
 public class NavigationService(WrappedBrowser wrappedBrowser) : WebService(wrappedBrowser), INavigationService
 {
 
-    public INavigationService Navigate(Uri uri)
+    public async Task<INavigationService> Navigate(Uri uri)
     {
-        NavigateInternal(uri.ToString());
+        await NavigateInternal(uri.ToString());
 
         return this;
     }
 
-    public INavigationService Navigate(string url)
+    public async Task<INavigationService> Navigate(string url)
     {
         try
         {
-            NavigateInternal(url);
+            await NavigateInternal(url);
         }
         catch (Exception)
         {
             try
             {
-                NavigateInternal(url);
+                await NavigateInternal(url);
             }
             catch (Exception ex)
             {
@@ -37,11 +37,11 @@ public class NavigationService(WrappedBrowser wrappedBrowser) : WebService(wrapp
         return this;
     }
 
-    public INavigationService WaitForPartialUrl(string partialUrl)
+    public async Task<INavigationService> WaitForPartialUrl(string partialUrl)
     {
         try
         {
-            CurrentPage.Expect().ToHaveURL(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().WaitForPartialUrl });
+            await CurrentPage.Expect().NativeAssertions.ToHaveURLAsync(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().WaitForPartialUrl });
         }
         catch (Exception ex)
         {
@@ -52,8 +52,8 @@ public class NavigationService(WrappedBrowser wrappedBrowser) : WebService(wrapp
     }
 
 
-    private void NavigateInternal(string url)
+    private async Task NavigateInternal(string url)
     {
-        _ = CurrentPage.GoTo(url);
+        await CurrentPage.WrappedPage.GotoAsync(url);
     }
 }

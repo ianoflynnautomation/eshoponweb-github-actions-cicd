@@ -1,15 +1,15 @@
 ﻿using Microsoft.Playwright;
 
-namespace Playwright.DotNet.SyncPlaywright.Core;
+namespace Playwright.DotNet.Playwright.Core;
 
 /// <summary>
 /// Synchronous wrapper for Playwright.
 /// </summary>
 /// <remarks>
-/// Initializes a new instance of the <see cref="PlaywrightSync"/> class.
+/// Initializes a new instance of the <see cref="PlaywrightCore"/> class.
 /// </remarks>
 /// <param name="playwright"></param>
-public class PlaywrightSync(IPlaywright playwright)
+public class PlaywrightCore(IPlaywright playwright)
 {
     /// <summary>
     /// Gets the wrapped playwright.

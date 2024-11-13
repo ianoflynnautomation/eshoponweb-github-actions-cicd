@@ -1,5 +1,5 @@
 ﻿using Playwright.DotNet.Enums;
-using Playwright.DotNet.SyncPlaywright.Core;
+using Playwright.DotNet.Playwright.Core;
 using Microsoft.Playwright;
 using System.Net.Sockets;
 using System.Net;
@@ -22,7 +22,7 @@ public static class WrappedBrowserCreateService
         BrowserConfiguration = executionConfiguration;
          var wrappedBrowser = new WrappedBrowser();
 
-        wrappedBrowser.Playwright = new PlaywrightSync(Microsoft.Playwright.Playwright.CreateAsync().Result);
+        wrappedBrowser.Playwright = new PlaywrightCore(Microsoft.Playwright.Playwright.CreateAsync().Result);
 
         if (executionConfiguration.ExecutionType == ExecutionType.Regular)
         {
@@ -35,7 +35,7 @@ public static class WrappedBrowserCreateService
 
         var pageLoadTimeout = WebSettings.TimeoutSettings?.InMilliseconds().PageLoadTimeout ?? 30000;
 
-        wrappedBrowser.CurrentPage.SetDefaultNavigationTimeout(pageLoadTimeout);
+        wrappedBrowser.CurrentPage.WrappedPage.SetDefaultNavigationTimeout(pageLoadTimeout);
 
         ChangeWindowSize(executionConfiguration.Size, wrappedBrowser);
 
@@ -167,7 +167,7 @@ public static class WrappedBrowserCreateService
     {
         BrowserNewContextOptions options = new();
 
-        if (wrappedBrowser.CurrentContext != null) wrappedBrowser.CurrentContext.Dispose();
+        if (wrappedBrowser.CurrentContext != null) wrappedBrowser.CurrentContext.WrappedBrowserContext.DisposeAsync();
 
         if (WebSettings.PlaywrightSettings != null && WebSettings.PlaywrightSettings.ContextOptions != null)
         {

@@ -11,43 +11,46 @@ public class TextArea : Component, IComponentText, IComponentInnerText
 {
     public override Type ComponentType => GetType();
 
-    public new virtual string GetText()
+    public new virtual async Task<string> GetTextAsync()
     {
-        var text = base.GetText();
+        var text = await GetTextAsync();
 
         if (string.IsNullOrEmpty(text))
         {
-            return GetAttribute("value");
+            return await GetAttributeAsync("value");
         }
 
         return text;
     }
 
-    public virtual void SetText(string value) => DefaultSetText(value);
+    public virtual async void SetTextAsync(string value) => await DefaultSetText(value);
 
-    public new virtual void Hover() => Hover();
+    public async new Task HoverAsync()
+    {
+        await HoverAsync();
+    }
 
-    public virtual string InnerText => GetInnerText();
+     public virtual  Task<string> InnerText => GetInnerTextAsync();
 
-    public virtual bool IsDisabled => GetDisabledAttribute();
+   public virtual  Task<bool> IsDisabled => GetDisabledAttributeAsync();
 
-    public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
+    public virtual Task<bool> IsAutoComplete => GetAutoCompleteAttributeAsync();
 
-    public virtual bool IsReadonly => GetReadonlyAttribute();
+    public virtual Task<bool> IsReadonly => GetReadonlyAttributeAsync();
 
-    public virtual bool IsRequired => GetRequiredAttribute();
+    public virtual Task<bool> IsRequired => GetRequiredAttributeAsync();
 
-    public virtual string? Placeholder => GetPlaceholderAttribute();
+    public virtual Task<string?> Placeholder => GetPlaceholderAttributeAsync();
 
-    public virtual int? MaxLength => DefaultGetMaxLength();
+    public virtual Task<int?> MaxLength => DefaultGetMaxLengthAsync();
 
-    public virtual int? MinLength => DefaultGetMinLength();
+    public virtual Task<int?> MinLength => DefaultGetMinLengthAsync();
 
-    public virtual int? Rows => string.IsNullOrEmpty(GetAttribute("rows")) ? null : (int?)int.Parse(GetAttribute("rows"));
+    // public virtual int? Rows => string.IsNullOrEmpty(GetAttribute("rows")) ? null : (int?)int.Parse(GetAttribute("rows"));
 
-    public virtual int? Cols => string.IsNullOrEmpty(GetAttribute("cols")) ? null : (int?)int.Parse(GetAttribute("cols"));
+    // public virtual int? Cols => string.IsNullOrEmpty(GetAttribute("cols")) ? null : (int?)int.Parse(GetAttribute("cols"));
 
-    public virtual string? SpellCheck => string.IsNullOrEmpty(GetAttribute("spellcheck")) ? null : GetAttribute("spellcheck");
+    // public virtual string? SpellCheck => string.IsNullOrEmpty(GetAttribute("spellcheck")) ? null : GetAttribute("spellcheck");
 
-    public virtual string? Wrap => string.IsNullOrEmpty(GetAttribute("wrap")) ? null : GetAttribute("wrap");
+    // public virtual string? Wrap => string.IsNullOrEmpty(GetAttribute("wrap")) ? null : GetAttribute("wrap");
 }

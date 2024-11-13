@@ -18,51 +18,51 @@ public class HomePage : WebPage, IHomePage
     public override string Url => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public IHomePage FilterForProduct(string brand, string type)
+    public async Task<IHomePage> FilterForProduct(string brand, string type)
     {
         if (brand is not null)
         {
-            FilterBrand(brand);
+            await FilterBrand(brand);
         }
 
         if (type is not null)
         {
-            FilterType(type);
+            await FilterType(type);
         }
 
-        Filter();
+        await Filter();
 
         return this;
     }
 
     /// <inheritdoc/>
-    public IHomePage AddItemToBasket(string itemName)
+    public async Task<IHomePage> AddItemToBasket(string itemName)
     {
-        AddToBasket(itemName).Click();
+        await AddToBasket(itemName).ClickAsync();
 
         return this;
     }
 
     /// <inheritdoc/>
-    public IHomePage FilterBrand(string brand)
+    public async Task<IHomePage> FilterBrand(string brand)
     {
-        BrandFilter.SelectByText(brand);
+       await BrandFilter.SelectByTextAsync(brand);
 
         return this;
     }
 
     /// <inheritdoc/>
-    public IHomePage FilterType(string type)
+    public async Task<IHomePage> FilterType(string type)
     {
-        TypeFilter.SelectByText(type);
+       await TypeFilter.SelectByTextAsync(type);
 
         return this;
     }
 
     /// <inheritdoc/>
-    public IHomePage Filter()
+    public async Task<IHomePage> Filter()
     {
-        FilterButton.Click();
+        await FilterButton.ClickAsync();
 
         return this;
     }

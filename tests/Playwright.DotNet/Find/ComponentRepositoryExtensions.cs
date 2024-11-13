@@ -1,5 +1,4 @@
 ﻿using Playwright.DotNet.Components;
-using Playwright.DotNet.Services;
 using Playwright.DotNet.Services.Contracts;
 
 namespace Playwright.DotNet.Find;
@@ -22,11 +21,11 @@ public static class ComponentRepositoryExtensions
         where TComponent : Component => repository.Create<TComponent, FindDataTestIdStrategy>(new FindDataTestIdStrategy(dataTestId));
 
     public static ComponentsList<TComponent> CreateAllByXpath<TComponent>(this IComponentCreateService repository, string xpath)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindXPathStrategy(xpath));
+        where TComponent : Component => new(new FindXPathStrategy(xpath));
 
     public static ComponentsList<TComponent> CreateAllByCss<TComponent>(this IComponentCreateService repository, string cssClass)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindCssStrategy(cssClass));
+        where TComponent : Component => new(new FindCssStrategy(cssClass));
 
     public static ComponentsList<TComponent> CreateAllByClassContaining<TComponent>(this IComponentCreateService repository, string classContaining)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindClassContainingStrategy(classContaining));
+        where TComponent : Component => new(new FindClassContainingStrategy(classContaining));
 }

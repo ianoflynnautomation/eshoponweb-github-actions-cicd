@@ -4,15 +4,17 @@ namespace Playwright.DotNet.Components;
 
 public class Label : Component, IComponentInnerText
 {
-    public new virtual void Hover()
-    {
-        Hover();
-    }
     public override Type ComponentType => GetType();
 
-    public virtual string InnerText => GetInnerText();
+    public static new async Task HoverAsync()
+    {
+        await HoverAsync();
+    }
 
-    public virtual string InnerHtml => GetInnerHtmlAttribute();
+    public virtual  Task<string> InnerText => GetInnerTextAsync();
 
-    public virtual string? For => GetForAttribute();
+
+    public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
+
+    public virtual Task<string?> For => GetForAttributeAsync();
 }

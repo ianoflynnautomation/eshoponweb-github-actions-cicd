@@ -18,17 +18,17 @@ public class HeaderSection : WebPage, IHeaderSection
     public override string Url => throw new NotImplementedException();
 
     // <inheritdoc/>
-    public IHeaderSection OpenBasket()
+    public async Task<IHeaderSection> OpenBasket()
     {
-        BasketButton.Click();
+        await BasketButton.ClickAsync();
 
         return this;
     }
 
     // <inheritdoc/>
-    public IHeaderSection OpenLogin()
+    public async Task<IHeaderSection> OpenLogin()
     {
-        LoginButton.Click();
+        await LoginButton.ClickAsync();
 
         return this;
     }

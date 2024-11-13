@@ -1,15 +1,10 @@
-﻿using Playwright.DotNet.SyncPlaywright.Core;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+﻿using Playwright.DotNet.Playwright.Core;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Find;
 
-public class FindXPathStrategy : FindStrategy
+public class FindXPathStrategy(string value) : FindStrategy(value)
 {
-    public FindXPathStrategy(string value)
-        : base(value)
-    {
-    }
-
     public override WebElement Resolve(WebElement searchContext)
     {
         if (!Value.StartsWith("xpath=")) return searchContext.Locate($"xpath={Value}");

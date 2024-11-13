@@ -11,18 +11,18 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     private readonly List<TComponent> _components;
 
     public ComponentsList(FindStrategy by, Component parenTComponent) 
-        : this((ComponentRepository.CreateComponentListWithParent<TComponent>(by, parenTComponent)))
+        : this(ComponentRepository.CreateComponentListWithParent<TComponent>(by, parenTComponent))
     {
     }
 
     public ComponentsList(FindStrategy by)
-        : this((ComponentRepository.CreateComponentList<TComponent>(by)))
+        : this(ComponentRepository.CreateComponentList<TComponent>(by))
     {
     }
 
     public ComponentsList()
     {
-        _components = new List<TComponent>();
+        _components = [];
         WrappedBrowser = ServiceLocator.Resolve<WrappedBrowser>();
     }
 

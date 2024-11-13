@@ -3,7 +3,7 @@
 using System.Diagnostics;
 using Microsoft.Playwright;
 using Playwright.DotNet.Services.Contracts;
-using Playwright.DotNet.SyncPlaywright.Core;
+using Playwright.DotNet.Playwright.Core;
 
 namespace Playwright.DotNet.Services;
 
@@ -13,29 +13,29 @@ namespace Playwright.DotNet.Services;
 /// <param name="wrappedBrowser"></param>
 public class BrowserService(WrappedBrowser wrappedBrowser) : WebService(wrappedBrowser), IBrowserService
 {
-    public string HtmlSource => CurrentPage.Content();
+    public Task<string> HtmlSource => CurrentPage.WrappedPage.ContentAsync();
 
     public Uri Url => new(CurrentPage.Url);
 
-    public string Title => CurrentPage.Title();
+    public Task<string> Title => CurrentPage.WrappedPage.TitleAsync();
 
-    public IBrowserService Back()
+    public async Task<IBrowserService> GoBackAsync()
     {
-        CurrentPage.GoBack();
+        await CurrentPage.WrappedPage.GoBackAsync();
+        
+        return this;
+    }
+
+    public async Task<IBrowserService> GoForwardAsync()
+    {
+       await CurrentPage.WrappedPage.GoForwardAsync();
 
         return this;
     }
 
-    public IBrowserService Forward()
+    public async Task<IBrowserService> ReloadAsync()
     {
-        CurrentPage.GoForward();
-
-        return this;
-    }
-
-    public IBrowserService Refresh()
-    {
-        CurrentPage.Reload();
+        await CurrentPage.WrappedPage.ReloadAsync();
 
         return this;
     }
@@ -46,25 +46,24 @@ public class BrowserService(WrappedBrowser wrappedBrowser) : WebService(wrappedB
 
     
     // Faster than sending js and checking for a X state.
-    public IBrowserService WaitForLoadState(LoadState state = LoadState.Load)
+    public IBrowserService WaitForLoadStateAsync(LoadState state = LoadState.Load)
     {
-        WrappedBrowser.CurrentPage.WaitForLoadState(state);
+        CurrentPage.WrappedPage.WaitForLoadStateAsync(state);
+        return this;
+    }
+
+    public async Task<IBrowserService> ClearSessionStorage()
+    {
+        var javaScriptService = new JavaScriptService(WrappedBrowser);
+       await javaScriptService.ExecuteAsync("sessionStorage.clear();");
 
         return this;
     }
 
-    public IBrowserService ClearSessionStorage()
+    public async Task<IBrowserService> ClearLocalStorage()
     {
         var javaScriptService = new JavaScriptService(WrappedBrowser);
-        javaScriptService.Execute("sessionStorage.clear();");
-
-        return this;
-    }
-
-    public IBrowserService ClearLocalStorage()
-    {
-        var javaScriptService = new JavaScriptService(WrappedBrowser);
-        javaScriptService.Execute("localStorage.clear();");
+        await javaScriptService.ExecuteAsync("localStorage.clear();");
 
         return this;
     }
@@ -73,35 +72,6 @@ public class BrowserService(WrappedBrowser wrappedBrowser) : WebService(wrappedB
     private string? InvokeScript(string scriptToInvoke)
     {
         JavaScriptService javaScriptService = new JavaScriptService(WrappedBrowser);
-        return javaScriptService.Execute(scriptToInvoke)?.ToString();
-    }
-
-    public IBrowserService WaitUntilReady()
-    {
-        int maxSeconds = 60;
-
-        Utilities.Wait.ForConditionUntilTimeout(
-                () =>
-                {
-                    try
-                    {
-                        var isReady = InvokeScript("document.readyState") == "complete";
-
-                        if (isReady)
-                        {
-                            return true;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"Exception occurred while waiting for ReadyState = complete. Message: {ex.Message}");
-                    }
-
-                    return false;
-                },
-                maxSeconds,
-                sleepTimeMilliseconds: 100);
-
-        return this;
+        return javaScriptService.ExecuteAsync(scriptToInvoke)?.ToString();
     }
 }

@@ -5,7 +5,6 @@ namespace Playwright.DotNet.Find;
 
 public static class ComponentCreateExtensions
 {
-
     public static TComponent CreateByXpath<TComponent>(this Component component, string xpath, bool shouldCacheElement = false)
         where TComponent : Component => component.Create<TComponent, FindXPathStrategy>(new FindXPathStrategy(xpath), shouldCacheElement);
 
@@ -22,13 +21,13 @@ public static class ComponentCreateExtensions
         where TComponent : Component => component.Create<TComponent, FindDataTestIdStrategy>(new FindDataTestIdStrategy(dataTestId));
 
     public static ComponentsList<TComponent> CreateAllByXpath<TComponent>(this Component component, string xpath)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindXPathStrategy(xpath), component);
+        where TComponent : Component => new(new FindXPathStrategy(xpath), component);
 
     public static ComponentsList<TComponent> CreateAllByCss<TComponent>(this Component component, string cssClass)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindCssStrategy(cssClass), component);
+        where TComponent : Component => new(new FindCssStrategy(cssClass), component);
 
     public static ComponentsList<TComponent> CreateAllByClassContaining<TComponent>(this Component component, string cssClassContaining)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindClassContainingStrategy(cssClassContaining), component);
+        where TComponent : Component => new(new FindClassContainingStrategy(cssClassContaining), component);
 
 
 }

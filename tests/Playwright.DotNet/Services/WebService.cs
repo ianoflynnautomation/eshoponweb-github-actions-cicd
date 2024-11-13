@@ -1,4 +1,4 @@
-using Playwright.DotNet.SyncPlaywright.Core;
+using Playwright.DotNet.Playwright.Core;
 
 namespace Playwright.DotNet.Services;
 

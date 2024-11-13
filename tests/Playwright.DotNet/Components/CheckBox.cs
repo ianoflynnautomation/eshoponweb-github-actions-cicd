@@ -12,28 +12,27 @@ public class CheckBox : Component
     /// Automatically performs a validation if the component is already checked.
     /// </summary>
     /// <param name="options"></param>
-    public virtual void Check(LocatorCheckOptions? options = default)
+    public virtual async Task CheckAsync(LocatorCheckOptions? options = default)
     {
-        DefaultCheck(options);
+        await DefaultCheckAsync(options);
     }
 
     /// <summary>
     /// Automatically performs a validation if the component is already unchecked.
     /// </summary>
     /// <param name="options"></param>
-    public virtual void Uncheck(LocatorUncheckOptions? options = default)
+    public virtual async Task UncheckAsync(LocatorUncheckOptions? options = default)
     {
-        DefaultUncheck(options);
+       await DefaultUncheckAsync(options);
     }
 
-    public new virtual void Hover()
+    public static new async Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
+    public virtual Task<bool> IsDisabled => GetDisabledAttributeAsync();
 
-    public virtual bool IsDisabled => GetDisabledAttribute();
+    public virtual Task<string> Value => DefaultGetValueAsync();
 
-    public virtual string Value => DefaultGetValue();
-
-    public virtual bool IsChecked => WrappedElement.IsChecked();
+    public virtual Task<bool> IsChecked => WrappedElement.WrappedLocator.IsCheckedAsync();
 }

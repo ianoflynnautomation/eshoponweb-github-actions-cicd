@@ -1,15 +1,10 @@
-using Playwright.DotNet.SyncPlaywright.Core;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Core;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Find;
 
-public class FindTagStrategy : FindStrategy
+public class FindTagStrategy(string value) : FindStrategy(value)
 {
-    public FindTagStrategy(string value)
-        : base(value)
-    {
-    }
-
     public override WebElement Resolve(BrowserPage searchContext)
     {
          return searchContext.Locate($"{Value}");

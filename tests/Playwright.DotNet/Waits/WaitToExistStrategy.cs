@@ -1,8 +1,8 @@
 ﻿
 using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
-using Playwright.DotNet.SyncPlaywright.Assertions;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Assertions;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Waits;
 
@@ -17,13 +17,13 @@ public class WaitToExistStrategy : WaitStrategy
         TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToExistTimeout;
     }
 
-    public override void WaitUntil<TComponent>(TComponent component)
+    public override async Task WaitUntil<TComponent>(TComponent component)
     {
-        WaitUntil(component.WrappedElement);
+        await WaitUntil(component.WrappedElement);
     }
 
-    public override void WaitUntil(WebElement element)
+    public override async Task WaitUntil(WebElement element)
     {
-        element.Expect().ToBeAttached(new() { Timeout = TimeoutInterval });
+        await element.Expect().NativeAssertions.ToBeAttachedAsync();
     }
 }

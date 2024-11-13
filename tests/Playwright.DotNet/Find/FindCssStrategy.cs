@@ -1,6 +1,6 @@
 ﻿
-using Playwright.DotNet.SyncPlaywright.Core;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Core;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Find;
 

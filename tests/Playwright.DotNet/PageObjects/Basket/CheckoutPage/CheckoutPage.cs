@@ -15,17 +15,17 @@ public class CheckoutPage : WebPage, ICheckoutPage
     public override string Url => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public ICheckoutPage BackToBasket()
+    public async Task<ICheckoutPage> BackToBasket()
     {
-        BackButton.Click();
+        await BackButton.ClickAsync();
 
         return this;
     }
 
     /// <inheritdoc/>
-    public ICheckoutPage PayNow()
+    public async Task<ICheckoutPage> PayNow()
     {
-        PayNowButton.Click();
+       await PayNowButton.ClickAsync();
 
         return this;
     }

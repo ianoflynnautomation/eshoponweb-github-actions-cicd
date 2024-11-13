@@ -9,12 +9,12 @@ public interface IHeaderSection
     /// <summary>
     /// Opens the basket by clicking the basket icon.
     /// </summary>
-    IHeaderSection OpenBasket();
+    Task<IHeaderSection> OpenBasket();
 
     /// <summary>
     /// Opens the login page by clicking the login icon.
     /// </summary>
-    IHeaderSection OpenLogin();
+    Task<IHeaderSection> OpenLogin();
 
     /// <summary>
     /// Asserts that the user email is displayed in the header.

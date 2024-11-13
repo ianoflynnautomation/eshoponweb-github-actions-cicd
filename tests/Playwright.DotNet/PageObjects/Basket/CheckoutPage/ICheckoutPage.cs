@@ -8,11 +8,11 @@ public interface ICheckoutPage
     /// <summary>
     /// Clicks the pay now button.
     /// </summary>
-    ICheckoutPage PayNow();
+    Task<ICheckoutPage> PayNow();
 
     /// <summary>
     /// Clicks the back button to return to the basket.
     /// </summary>
-    ICheckoutPage BackToBasket();
+    Task<ICheckoutPage> BackToBasket();
 
 }

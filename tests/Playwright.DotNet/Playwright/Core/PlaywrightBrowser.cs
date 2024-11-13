@@ -1,7 +1,6 @@
 ﻿using Microsoft.Playwright;
-using Microsoft.VisualStudio.Services.WebApi;
 
-namespace Playwright.DotNet.SyncPlaywright.Core;
+namespace Playwright.DotNet.Playwright.Core;
 
 /// <summary>
 /// Synchronous wrapper for Playwright Browser.
@@ -39,7 +38,7 @@ public class PlaywrightBrowser
 
     public BrowserType? BrowserType { get; internal init; }
 
-    internal List<BrowserContext> BrowserContexts { get; private init; } = new List<BrowserContext>();
+    internal List<BrowserContext> BrowserContexts { get; private init; } = [];
 
     public IReadOnlyList<BrowserContext> Contexts => BrowserContexts.AsReadOnly();
 
@@ -51,21 +50,6 @@ public class PlaywrightBrowser
     {
         add => WrappedBrowser.Disconnected += value;
         remove => WrappedBrowser.Disconnected -= value;
-    }
-
-    public void Close(BrowserCloseOptions? options = null)
-    {
-        WrappedBrowser.CloseAsync(options).SyncResult();
-    }
-
-    public void Dispose()
-    {
-        WrappedBrowser.DisposeAsync().GetAwaiter().GetResult();
-    }
-
-    public ICDPSession NewBrowserCDPSession()
-    {
-        return WrappedBrowser.NewBrowserCDPSessionAsync().SyncResult();
     }
 
     public BrowserContext NewContext(BrowserNewContextOptions? options = null)

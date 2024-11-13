@@ -6,21 +6,23 @@ public class Option : Component, IComponentInnerText
 {
     public override Type ComponentType => GetType();
 
-    public virtual string InnerText => GetInnerText();
-
-    public virtual bool IsDisabled => GetDisabledAttribute();
-
-    public virtual string Value => DefaultGetValue();
+    public virtual Task<string> InnerText => GetInnerTextAsync();
     
-    public virtual bool IsSelected => WrappedElement.Evaluate<bool>("el => el.selected");
+    public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
 
-    public virtual void Select()
+    public virtual Task<bool> IsDisabled => GetDisabledAttributeAsync();
+
+    public virtual Task<string> Value => DefaultGetValueAsync();
+    
+    public virtual Task<bool> IsSelected =>  WrappedElement.WrappedLocator.EvaluateAsync<bool>("el => el.selected");
+
+    public virtual async Task SelectAsync()
     {
-        WrappedElement.Evaluate("el => el.selected = true");
+        await WrappedElement.WrappedLocator.EvaluateAsync("el => el.selected = true");
     }
 
-    public virtual void UnSelect()
+    public virtual async Task UnSelectAsync()
     {
-        WrappedElement.Evaluate("el => el.selected = false");
+        await WrappedElement.WrappedLocator.EvaluateAsync("el => el.selected = false");
     }
 }

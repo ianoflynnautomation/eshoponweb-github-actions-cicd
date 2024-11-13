@@ -1,23 +1,22 @@
 using Microsoft.Playwright;
-using Playwright.DotNet.SyncPlaywright.Core;
+using Playwright.DotNet.Playwright.Core;
 
 namespace Playwright.DotNet.Services.Contracts;
 
 public interface IBrowserService
 {
 
-    string HtmlSource { get; }
+    Task<string> HtmlSource { get; }
     Uri Url { get; }
-    string Title { get; }
-    IBrowserService Back();
-    IBrowserService Forward();
-    IBrowserService Refresh();
+    Task<string> Title { get; }
+    Task<IBrowserService> GoBackAsync();
+    Task<IBrowserService> GoForwardAsync();
+    Task<IBrowserService> ReloadAsync();
     BrowserPage SwitchToFirstTab();
     BrowserPage SwitchToLastTab();
-    IBrowserService WaitForLoadState(LoadState state = LoadState.Load);
-    IBrowserService ClearSessionStorage();
-    IBrowserService ClearLocalStorage();
-    IBrowserService WaitUntilReady();
+    IBrowserService WaitForLoadStateAsync(LoadState state = LoadState.Load);
+    Task<IBrowserService> ClearSessionStorage();
+    Task<IBrowserService>  ClearLocalStorage();
 
 }
 

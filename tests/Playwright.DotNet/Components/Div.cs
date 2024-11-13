@@ -12,13 +12,14 @@ public class Div : Component, IComponentInnerText
 {
     public override Type ComponentType => GetType();
 
-    public new virtual void Hover()
+    public async new Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
-    public virtual string InnerText => GetInnerText();
 
-    public virtual string InnerHtml => GetInnerHtmlAttribute();
+    public virtual Task<string> InnerText => GetInnerTextAsync();
+
+    public virtual Task<string>  InnerHtml => GetInnerHtmlAttributeAsync();
 
 
 }

@@ -1,8 +1,8 @@
 ﻿
 using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
-using Playwright.DotNet.SyncPlaywright.Assertions;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Assertions;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Waits;
 
@@ -27,17 +27,17 @@ public class WaitToBeClickableStrategy : WaitStrategy
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="component"></param>
-    public override void WaitUntil<TComponent>(TComponent component)
+    public override async Task WaitUntil<TComponent>(TComponent component)
     {
-        WaitUntil(component);
+        await WaitUntil(component);
     }
 
     /// <summary>
     /// Wait until the element is clickable.
     /// </summary>
     /// <param name="element"></param>
-    public override void WaitUntil(WebElement element)
+    public override async Task WaitUntil(WebElement element)
     {
-        element.Expect().ToBeEnabled(new() { Timeout = TimeoutInterval });
+        await element.Expect(). NativeAssertions.ToBeEnabledAsync(new() { Timeout = TimeoutInterval });
     }
 }

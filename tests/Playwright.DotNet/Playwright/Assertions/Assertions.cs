@@ -1,7 +1,7 @@
-﻿using Playwright.DotNet.SyncPlaywright.Core.Elements;
-using Playwright.DotNet.SyncPlaywright.Core;
+﻿using Playwright.DotNet.Playwright.Core.Elements;
+using Playwright.DotNet.Playwright.Core;
 
-namespace Playwright.DotNet.SyncPlaywright.Assertions;
+namespace Playwright.DotNet.Playwright.Assertions;
 
 /// <summary>
 /// Represents the assertions.

@@ -26,8 +26,8 @@ public class Tests : BaseTest
 
         _eShopOnWebApp.HeaderSection.OpenLogin();
         _eShopOnWebApp.LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
-        _eShopOnWebApp.HomePage.FilterForProduct(".NET", "Mug")
-                .AddItemToBasket(".NET Black & White Mug");
+        _eShopOnWebApp.HomePage.FilterForProduct(".NET", "Mug");
+        _eShopOnWebApp.HomePage.AddItemToBasket(".NET Black & White Mug");
         _eShopOnWebApp.BasketPage.Checkout();
         _eShopOnWebApp.CheckoutPage.PayNow();
         _eShopOnWebApp.SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");

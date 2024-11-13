@@ -6,21 +6,20 @@ public class Anchor : Component
 {
     public override Type ComponentType => GetType();
     
-    public virtual void Click(LocatorClickOptions? options = null)
+    public async Task ClickAsync(LocatorClickOptions? options = null)
     {
-        DefaultClick(options);
+        await DefaultClickAsync(options);
     }
 
-    public new virtual void Hover()
+    public static new async Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
-
-    public virtual string InnerText => GetInnerText();
+    public virtual Task<string> InnerText => GetInnerTextAsync();
     
-    public virtual string InnerHtml => GetInnerHtmlAttribute();
+    public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
 
-    public virtual string Target => GetAttribute("target");
+    public virtual Task<string> Target => GetAttributeAsync("target");
 
-    public virtual string Rel => GetAttribute("rel");
+    public virtual Task<string> Rel =>  GetAttributeAsync("rel");
 }

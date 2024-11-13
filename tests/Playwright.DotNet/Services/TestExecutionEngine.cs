@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Autofac;
-using Microsoft.Playwright;
 using Playwright.DotNet.Configuration;
 
 namespace Playwright.DotNet.Services;

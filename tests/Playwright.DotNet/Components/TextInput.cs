@@ -10,36 +10,33 @@ public class TextInput : Component
 {
     public override Type ComponentType => GetType();
 
-    public virtual void SetText(string value)
+    public virtual async Task SetTextAsync(string value)
     {
-        DefaultSetText(value);
+       await DefaultSetText(value);
     }
 
-    public new virtual void Hover()
+    public static new async Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
+    public virtual Task<string> InnerText => GetInnerTextAsync();
 
-    public virtual string InnerText => GetInnerText();
+    public virtual Task<string> InnerHtml => GetInnerHtmlAttributeAsync();
 
-    public virtual string InnerHtml => GetInnerHtmlAttribute();
+    public virtual Task<bool> IsDisabled => GetDisabledAttributeAsync();
+    public virtual Task<string> Value => DefaultGetValueAsync();
+    public virtual Task<bool> IsAutoComplete => GetAutoCompleteAttributeAsync();
 
-    public virtual bool IsDisabled => GetDisabledAttribute();
+    public virtual Task<bool> IsReadonly => GetReadonlyAttributeAsync();
 
-    public virtual string Value => DefaultGetValue();
+    public virtual Task<bool> IsRequired => GetRequiredAttributeAsync();
 
-    public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
+    public virtual Task<string?> Placeholder => GetPlaceholderAttributeAsync();
 
-    public virtual bool IsReadonly => GetReadonlyAttribute();
+    public virtual Task<int?> MaxLength => DefaultGetMaxLengthAsync();
 
-    public virtual bool IsRequired => GetRequiredAttribute();
+    public virtual Task<int?> MinLength => DefaultGetMinLengthAsync();
 
-    public virtual string? Placeholder => GetPlaceholderAttribute();
-
-    public virtual int? MaxLength => DefaultGetMaxLength();
-
-    public virtual int? MinLength => DefaultGetMinLength();
-
-    public virtual int? Size => GetSizeAttribute();
+    // public virtual int? Size => GetSizeAttribute();
 
 }

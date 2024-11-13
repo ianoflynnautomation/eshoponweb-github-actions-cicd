@@ -6,8 +6,9 @@ using Playwright.DotNet.DI;
 using Playwright.DotNet.Find;
 using Playwright.DotNet.Services;
 using Playwright.DotNet.Services.Contracts;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Core.Elements;
 using Playwright.DotNet.Waits;
+using Microsoft.VisualStudio.Services.WebApi;
 
 namespace Playwright.DotNet.Components;
 
@@ -20,9 +21,7 @@ public class Component : IComponent
     private readonly IComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public Component()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     {
         _elementWaiter = ServiceLocator.Resolve<IComponentWaitService>();
         WrappedBrowser = ServiceLocator.Resolve<WrappedBrowser>();
@@ -37,7 +36,7 @@ public class Component : IComponent
     {
         get
         {
-            WaitToBe();
+            WaitToBe().SyncResult();
             return _wrappedElement;
         }
         set => _wrappedElement = value;
@@ -81,31 +80,32 @@ public class Component : IComponent
         return elementsCollection;
     }
 
-    public void WaitToBe()
+    public async Task WaitToBe()
     {
         if (_untils.Count == 0 || _untils[0] == null)
         {
-            _wrappedElement.WaitFor(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToExistTimeout });
+            await _wrappedElement.WrappedLocator.WaitForAsync(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().ElementToExistTimeout });
             return;
         }
 
         foreach (var item in _untils)
         {
-            item.WaitUntil(_wrappedElement);
+            await item.WaitUntil(_wrappedElement);
         }
     }
 
-    public string GetAttribute(string name)
+    public async Task<string> GetAttributeAsync(string name)
     {
-        return WrappedElement.GetAttribute(name);
+        return await WrappedElement.WrappedLocator.GetAttributeAsync(name)
+        ?? throw new Exception($"Attribute {name} not found");
     }
 
-    private void ScrollToBeVisible(bool shouldWait = true)
+    private async Task ScrollIntoViewIfNeededAsync(bool shouldWait = true)
     {
 
         try
         {
-            WrappedElement.ScrollIntoViewIfNeeded();
+           await WrappedElement.WrappedLocator.ScrollIntoViewIfNeededAsync();
         }
         catch (Exception)
         {
@@ -113,9 +113,9 @@ public class Component : IComponent
         }
     }
 
-    public void ScrollToVisible()
+    public async Task ScrollToVisible()
     {
-        ScrollToBeVisible(true);
+        await ScrollIntoViewIfNeededAsync(true);
     }
 
     public void EnsureState(WaitStrategy until)
@@ -127,15 +127,15 @@ public class Component : IComponent
     where TComponent : Component
     {
         var component = Activator.CreateInstance<TComponent>();
-        component.By = this.By;
+        component.By = By;
 
         if (component is Frame)
         {
-            component.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, this.WrappedElement);
+            component.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, WrappedElement);
         }
         else
         {
-            component.WrappedElement = this.WrappedElement;
+            component.WrappedElement = WrappedElement;
         }
 
         return component;
@@ -153,54 +153,62 @@ public class Component : IComponent
     public string LocatorValue => By.Value;
 
 
-    public string? GetTitle() => string.IsNullOrEmpty(GetAttribute("title")) ? null : GetAttribute("title");
+    public async Task<string?> GetTitleAsync()
+        => string.IsNullOrEmpty(await GetAttributeAsync("title")) 
+        ? null 
+        : await GetAttributeAsync("title");
     
 
-    internal void DefaultClick(LocatorClickOptions? options = null)
+    internal async Task DefaultClickAsync(LocatorClickOptions? options = null)
     {
         if (options != null)
         {
-            if (options.Force != null && (bool)options.Force) PerformJsClick();
-            else WrappedElement.Click(options);
+            if (options.Force != null && (bool)options.Force)
+            {
+                await PerformJsClickAsync();
+            }
+            else
+            {
+                await WrappedElement.WrappedLocator.ClickAsync(options);
+            }
         }
 
-        else WrappedElement.Click();
+        else await WrappedElement.WrappedLocator.ClickAsync();
     }
 
-    private void PerformJsClick() => WrappedElement.Evaluate("el => el.click()");
+    private async Task PerformJsClickAsync() => await WrappedElement.WrappedLocator.EvaluateAsync("el => el.click()");
 
-    internal void DefaultCheck(LocatorCheckOptions? options = default)
+    internal async Task DefaultCheckAsync(LocatorCheckOptions? options = default)
     {
-
-        WrappedElement.Check(options);
-
+        await WrappedElement.WrappedLocator.CheckAsync(options);
     }
 
-    internal void DefaultUncheck(LocatorUncheckOptions? options = default)
+    internal async Task DefaultUncheckAsync(LocatorUncheckOptions? options = default)
     {
-
-        WrappedElement.Uncheck(options);
+        await WrappedElement.WrappedLocator.UncheckAsync(options);
     }
 
-    internal void Hover()
+    internal async Task HoverAsync()
     {
-
-        WrappedElement.Hover();
+        await WrappedElement.WrappedLocator.HoverAsync();
     }
 
-    internal string GetInnerText()
+    internal async Task<string> GetInnerTextAsync()
     {
-        return WrappedElement.InnerText().Trim().Replace("\r\n", string.Empty);
+        return await WrappedElement.WrappedLocator.InnerTextAsync();
     }
 
-    internal string DefaultGetValue()
+    internal async Task<string> DefaultGetValueAsync()
     {
-        return GetAttribute("value");
+        return await GetAttributeAsync("value");
     }
 
-    internal int? DefaultGetMaxLength()
+    internal async Task<int?> DefaultGetMaxLengthAsync()
     {
-        int? result = string.IsNullOrEmpty(GetAttribute("maxlength")) ? null : (int?)int.Parse(GetAttribute("maxlength"));
+        int? result = string.IsNullOrEmpty(await GetAttributeAsync("maxlength")) 
+        ? null 
+        : int.Parse(await GetAttributeAsync("maxlength"));
+
         if (result != null && (result == 2147483647 || result == -1))
         {
             result = null;
@@ -209,9 +217,11 @@ public class Component : IComponent
         return result;
     }
 
-    internal int? DefaultGetMinLength()
+    internal async Task<int?> DefaultGetMinLengthAsync()
     {
-        int? result = string.IsNullOrEmpty(GetAttribute("minlength")) ? null : (int?)int.Parse(GetAttribute("minlength"));
+        int? result = string.IsNullOrEmpty(await GetAttributeAsync("minlength")) 
+        ? null 
+        : int.Parse(await GetAttributeAsync("minlength"));
 
         if (result != null && result == -1)
         {
@@ -221,65 +231,74 @@ public class Component : IComponent
         return result;
     }
 
-    internal int? GetSizeAttribute()
+    internal async Task<int?> GetSizeAttributeAsync()
     {
-        return string.IsNullOrEmpty(GetAttribute("size")) ? null : (int?)int.Parse(GetAttribute("size"));
+        return string.IsNullOrEmpty(await GetAttributeAsync("size")) 
+        ? null 
+        : int.Parse(await GetAttributeAsync("size"));
     }
 
-    internal int? GetHeightAttribute()
+    internal async Task<int?> GetHeightAttributeAsync()
     {
-        return string.IsNullOrEmpty(GetAttribute("height")) ? null : (int?)int.Parse(GetAttribute("height"));
+        return string.IsNullOrEmpty(await GetAttributeAsync("height")) 
+        ? null 
+        : int.Parse(await GetAttributeAsync("height"));
     }
 
-    internal int? GetWidthAttribute()
+    internal async Task<int?> GetWidthAttributeAsync()
     {
-        return string.IsNullOrEmpty(GetAttribute("width")) ? null : (int?)int.Parse(GetAttribute("width"));
+        return string.IsNullOrEmpty(await GetAttributeAsync("width"))
+        ? null 
+        : int.Parse(await GetAttributeAsync("width"));
     }
 
-    internal string GetInnerHtmlAttribute()
+    internal async Task<string> GetInnerHtmlAttributeAsync()
     {
-        return WrappedElement.InnerHTML();
+        return await WrappedElement.WrappedLocator.InnerHTMLAsync();
     }
 
-    internal string? GetForAttribute()
+    internal async Task<string?> GetForAttributeAsync()
     {
-        return string.IsNullOrEmpty(GetAttribute("for")) ? null : GetAttribute("for");
+        return string.IsNullOrEmpty(await GetAttributeAsync("for")) 
+        ? null
+        : await GetAttributeAsync("for");
     }
 
-    protected bool GetDisabledAttribute()
+    protected async Task<bool> GetDisabledAttributeAsync()
     {
-        return WrappedElement.IsDisabled();
+        return await WrappedElement.WrappedLocator.IsDisabledAsync();
     }
 
-    internal string GetText()
+    internal async Task<string> GetTextAsync()
     {
-        return WrappedElement.InnerText();
+        return await WrappedElement.WrappedLocator.InnerTextAsync();
     }
 
-    internal string? GetPlaceholderAttribute()
+    internal async Task<string?> GetPlaceholderAttributeAsync()
     {
-        return string.IsNullOrEmpty(GetAttribute("placeholder")) ? null : GetAttribute("placeholder");
+        return string.IsNullOrEmpty(await GetAttributeAsync("placeholder"))
+        ? null
+        : await GetAttributeAsync("placeholder");
     }
 
-    internal bool GetAutoCompleteAttribute()
+    internal async Task<bool> GetAutoCompleteAttributeAsync()
     {
-        return GetAttribute("autocomplete") == "on";
+        return await GetAttributeAsync("autocomplete") == "on";
     }
 
-    internal bool GetReadonlyAttribute()
+    internal async Task<bool> GetReadonlyAttributeAsync()
     {
-        return !string.IsNullOrEmpty(GetAttribute("readonly"));
+        return !string.IsNullOrEmpty(await GetAttributeAsync("readonly"));
     }
 
-    internal bool GetRequiredAttribute()
+    internal  async Task<bool> GetRequiredAttributeAsync()
     {
-        return !string.IsNullOrEmpty(GetAttribute("required"));
+        return !string.IsNullOrEmpty(await GetAttributeAsync("required"));
     }
 
-    internal void DefaultSetText(string value, LocatorFillOptions? options = default)
+    internal async Task DefaultSetText(string value, LocatorFillOptions? options = default)
     {
-
-        WrappedElement.Fill(value, options);
+        await WrappedElement.WrappedLocator.FillAsync(value, options);
     }
 
 }

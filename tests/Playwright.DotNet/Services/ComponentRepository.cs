@@ -4,7 +4,7 @@ using System.Reflection;
 using Playwright.DotNet.Components;
 using Playwright.DotNet.DI;
 using Playwright.DotNet.Find;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Services;
 public static class ComponentRepository

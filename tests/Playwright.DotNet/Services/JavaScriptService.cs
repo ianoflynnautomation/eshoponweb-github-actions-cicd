@@ -9,11 +9,11 @@ namespace Playwright.DotNet.Services;
 public class JavaScriptService(WrappedBrowser wrappedBrowser) : WebService(wrappedBrowser), IJavaScriptService
 {
 
-    public JsonElement? Execute(string script, params object[] args)
+    public async Task<JsonElement?> ExecuteAsync(string script, params object[] args)
     {
         try
         {
-            return CurrentPage.Evaluate(script, args);
+            return await CurrentPage.WrappedPage.EvaluateAsync(script, args);
         }
         catch (Exception ex)
         {

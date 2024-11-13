@@ -1,4 +1,4 @@
-using Playwright.DotNet.SyncPlaywright.Core;
+using Playwright.DotNet.Playwright.Core;
 
 namespace Playwright.DotNet.Services;
 
@@ -17,7 +17,7 @@ public class WrappedBrowser
     }
 
     public WrappedBrowser(
-        PlaywrightSync playwright,
+        PlaywrightCore playwright,
         PlaywrightBrowser browser,
         BrowserContext context,
         BrowserPage page)
@@ -28,7 +28,7 @@ public class WrappedBrowser
         CurrentPage = page;
     }
 
-    public PlaywrightSync Playwright { get; internal set; }
+    public PlaywrightCore Playwright { get; internal set; }
     public PlaywrightBrowser Browser { get; internal set; }
     public BrowserContext CurrentContext { get; internal set; }
     public BrowserPage CurrentPage { get; internal set; }
@@ -40,9 +40,12 @@ public class WrappedBrowser
     {
         try
         {
-            CurrentPage?.Close();
-            CurrentContext?.Close();
-            Browser?.Close();
+            CurrentPage?.WrappedPage.CloseAsync();
+            CurrentPage?.Context?.BrowserPages.Remove(CurrentPage);
+
+            CurrentContext?.WrappedBrowserContext.CloseAsync();
+
+            Browser?.WrappedBrowser.CloseAsync();
             Playwright?.Dispose();
         }
         catch

@@ -1,23 +1,23 @@
-﻿using Playwright.DotNet.SyncPlaywright.Core.Elements;
+﻿using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Components;
 
 public class Frame : Component
 {
-    public string Name => GetAttribute("name");
+    public Task<string> Name => GetAttributeAsync("name");
 
     public override TComponent As<TComponent>()
     {
         var component = Activator.CreateInstance<TComponent>();
-        component.By = this.By;
+        component.By = By;
 
         if (component is not Frame)
         {
-            component.WrappedElement = new WebElement(this.WrappedElement.Page, this.WrappedElement.WrappedLocator);
+            component.WrappedElement = new WebElement(WrappedElement.Page, WrappedElement.WrappedLocator);
         }
         else
         {
-            component.WrappedElement = this.WrappedElement;
+            component.WrappedElement = WrappedElement;
         }
 
         return component;

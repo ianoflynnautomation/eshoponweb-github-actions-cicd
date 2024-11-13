@@ -9,5 +9,5 @@ public interface IComponentText
     /// <summary>
     /// Gets the text of the component
     /// </summary>
-    string GetText();
+    Task<string> GetTextAsync();
 }

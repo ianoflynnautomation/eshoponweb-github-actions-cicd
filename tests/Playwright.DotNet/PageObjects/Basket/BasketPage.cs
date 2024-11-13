@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Playwright.DotNet.Components;
 using Playwright.DotNet.Find;
 using Playwright.DotNet.Waits;
@@ -15,30 +16,31 @@ public class BasketPage : WebPage, IBasketPage
     public override string Url => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public IBasketPage Checkout()
+    public async Task<IBasketPage> Checkout()
     {
-        CheckoutButton.Click();
+        await CheckoutButton.ClickAsync();
         return this;
     }
 
     /// <inheritdoc/>
-    public IBasketPage ContinueShopping()
+    public async Task<IBasketPage> ContinueShopping()
     {
-        ContinueShoppingButton.Click();
+        await ContinueShoppingButton.ClickAsync();
         return this;
     }
 
     /// <inheritdoc/>
-    public IBasketPage Update()
+    public async Task<IBasketPage> Update()
     {
-        UpdateButton.Click();
+        await UpdateButton.ClickAsync();
         return this;
     }
 
     /// <inheritdoc/>
-    public IBasketPage UpdateQuantity(string item, int quantity)
+    public async Task<IBasketPage> UpdateQuantity(string item, int quantity)
     {
-        throw new NotImplementedException();
+
+        return this;
     }
 
 }

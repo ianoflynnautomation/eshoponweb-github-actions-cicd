@@ -18,41 +18,41 @@ public class LoginPage : WebPage, ILoginPage
     public override string Url => throw new NotImplementedException();
 
     // <inheritdoc/>
-    public ILoginPage CheckRememberMe()
+    public async Task<ILoginPage> CheckRememberMe()
     {
-        RememberMeCheckbox.Check();
+        await RememberMeCheckbox.CheckAsync();
 
         return this;
     }
 
     // <inheritdoc/>
-    public ILoginPage Login(string email, string password, bool rememberMe = false)
+    public async Task<ILoginPage> Login(string email, string password, bool rememberMe = false)
     {
-        SetEmail(email);
-        SetPassword(password);
+        await SetEmail(email);
+        await SetPassword(password);
 
         if (rememberMe)
         {
-            CheckRememberMe();
+            await CheckRememberMe();
         }
 
-        LoginButton.Click();
+        await LoginButton.ClickAsync();
 
         return this;
     }
 
     // <inheritdoc/>
-    public ILoginPage SetEmail(string email)
+    public async Task<ILoginPage> SetEmail(string email)
     {
-        EmailInput.SetText(email);
+        await EmailInput.SetTextAsync(email);
 
         return this;
     }
 
     // <inheritdoc/>
-    public ILoginPage SetPassword(string password)
+    public async Task<ILoginPage> SetPassword(string password)
     {
-        PasswordInput.SetText(password);
+        await PasswordInput.SetTextAsync(password);
 
         return this;
     }

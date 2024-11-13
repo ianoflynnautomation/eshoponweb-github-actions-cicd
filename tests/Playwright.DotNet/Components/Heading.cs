@@ -7,10 +7,12 @@ public class Heading : Component, IComponentInnerText
 {
     public override Type ComponentType => GetType();
 
-     public new virtual void Hover()
+    public static new async Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
-    public virtual string InnerText => GetInnerText();
+
+    public virtual  Task<string> InnerText => GetInnerTextAsync();
+
 
 }

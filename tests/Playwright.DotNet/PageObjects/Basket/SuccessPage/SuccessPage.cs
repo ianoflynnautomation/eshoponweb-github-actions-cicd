@@ -19,15 +19,15 @@ public class SuccessPage : WebPage, ISuccessPage
     /// <inheritdoc/>
     public ISuccessPage SuccessMessageShouldBe(string message)
     {
-        OrderCompleteMessage.ValidateInnerTextContains(message);
+        OrderCompleteMessage.ValidateInnerTextIs(message);
 
         return this;
     }
 
     /// <inheritdoc/>
-    public ISuccessPage ContinueShopping()
+    public async Task<ISuccessPage> ContinueShopping()
     {
-        ContinueShoppingAnchor.Click();
+        await ContinueShoppingAnchor.ClickAsync();
 
         return this;
     }

@@ -12,9 +12,9 @@ public class Select : Component
 
     public override Type ComponentType => GetType();
 
-    public new virtual void Hover()
+    public static new async Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
 
     public virtual ComponentsList<Option> GetAllOptions()
@@ -22,32 +22,28 @@ public class Select : Component
         return this.CreateAllByXpath<Option>(".//option");
     }
 
-        public virtual void SelectByText(string text)
+    public virtual async Task SelectByTextAsync(string text)
     {
-
-        InternalSelect(new SelectOptionValue() { Label = text });
-
+        await InternalSelect(new SelectOptionValue() { Label = text });
     }
 
-        public virtual void SelectByValue(string value)
+    public virtual async Task SelectByValueAsync(string value)
     {
-
-        InternalSelect(new SelectOptionValue() { Value = value });
-
+        await InternalSelect(new SelectOptionValue() { Value = value });
     }
 
-    public virtual bool IsDisabled => GetDisabledAttribute();
+    public virtual Task<bool> IsDisabled => GetDisabledAttributeAsync();
 
-    public virtual bool IsRequired => GetRequiredAttribute();
+    public virtual Task<bool> IsRequired => GetRequiredAttributeAsync();
 
-    public virtual bool IsReadonly => GetReadonlyAttribute();
+    public virtual Task<bool> IsReadonly => GetReadonlyAttributeAsync();
 
-     private void InternalSelect(SelectOptionValue option)
+    private async Task InternalSelect(SelectOptionValue option)
     {
         try
         {
-            var optionValue = WrappedElement.SelectOption(option)[0];
-            if (string.IsNullOrEmpty(optionValue)) throw new ArgumentException("Returning option value was empty, something went wrong during selection.");
+            await WrappedElement.WrappedLocator.SelectOptionAsync(option);
+
         }
 
         catch

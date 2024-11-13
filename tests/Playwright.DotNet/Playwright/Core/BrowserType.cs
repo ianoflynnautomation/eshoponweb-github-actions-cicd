@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 
-namespace Playwright.DotNet.SyncPlaywright.Core;
+namespace Playwright.DotNet.Playwright.Core;
 
 /// <summary>
 /// Synchronous wrapper for Playwright IBrowserType.

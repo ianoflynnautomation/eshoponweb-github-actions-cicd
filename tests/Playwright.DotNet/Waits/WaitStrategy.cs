@@ -4,7 +4,7 @@ using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
 using Playwright.DotNet.DI;
 using Playwright.DotNet.Services;
-using Playwright.DotNet.SyncPlaywright.Core.Elements;
+using Playwright.DotNet.Playwright.Core.Elements;
 
 namespace Playwright.DotNet.Waits;
 
@@ -21,8 +21,8 @@ public abstract class WaitStrategy(int? timeoutInterval = null, int? sleepInterv
 
     protected int? SleepInterval { get; } = sleepInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.InMilliseconds().SleepInterval;
 
-    public abstract void WaitUntil<TComponent>(TComponent by)
+    public abstract Task WaitUntil<TComponent>(TComponent by)
         where TComponent : Component;
 
-    public abstract void WaitUntil(WebElement element);
+    public abstract Task WaitUntil(WebElement element);
 }

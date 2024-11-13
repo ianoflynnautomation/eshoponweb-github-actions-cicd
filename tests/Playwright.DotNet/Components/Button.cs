@@ -11,21 +11,21 @@ public class Button : Component
 {
     public override Type ComponentType => GetType();
 
- 
-    public virtual void Click(LocatorClickOptions? options = null)
+    public async Task ClickAsync(LocatorClickOptions? options = null)
     {
-        DefaultClick(options);
+        await DefaultClickAsync(options);
     }
 
-    public new virtual void Hover()
+    public async new Task HoverAsync()
     {
-        Hover();
+        await HoverAsync();
     }
-    public virtual string InnerText => GetInnerText();
 
-    public virtual string Value => DefaultGetValue();
+    public virtual  Task<string> InnerText => GetInnerTextAsync();
 
-    public virtual bool IsDisabled => GetDisabledAttribute();
+    public virtual  Task<string> Value => DefaultGetValueAsync();
+
+    public virtual  Task<bool> IsDisabled => GetDisabledAttributeAsync();
 
 }
 
