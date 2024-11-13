@@ -19,7 +19,7 @@ public class SuccessPage : WebPage, ISuccessPage
     /// <inheritdoc/>
     public async Task<ISuccessPage> SuccessMessageShouldBe(string message)
     {
-        await OrderCompleteMessage.ValidateInnerTextIs(message);
+        await OrderCompleteMessage.ValidateToHaveTextAsync(message);
 
         return this;
     }

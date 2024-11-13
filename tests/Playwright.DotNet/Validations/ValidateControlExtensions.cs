@@ -13,7 +13,7 @@ public static partial class ValidateControlExtensions
 {
     private static int? _validationsTimeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ValidationsTimeout;
 
-    public static async Task ValidateInnerTextIs<T>(this T control, string value, int? timeoutInterval = default)
+    public static async Task ValidateToHaveTextAsync<T>(this T control, string value, int? timeoutInterval = default)
     where T : IComponentInnerText, IComponent
     {
         await control.WrappedElement.Expect().LocatorAssertions.ToHaveTextAsync(value, new() { Timeout = timeoutInterval ?? _validationsTimeout });

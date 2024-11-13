@@ -1,9 +1,6 @@
 ﻿
 using Microsoft.Playwright;
 using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.Services.WebApi;
-using System.Text.Json;
-using Playwright.DotNet.SyncPlaywright.GetByOptions;
 
 namespace Playwright.DotNet.Playwright.Core.Elements;
 
@@ -42,12 +39,12 @@ public class WebElement
     /// <summary>
     /// Gets the first element.
     /// </summary>
-    public virtual WebElement First => new WebElement(Page, WrappedLocator.First);
+    public virtual WebElement First => new(Page, WrappedLocator.First);
 
     /// <summary>
     /// Gets the last element.
     /// </summary>
-    public virtual WebElement Last => new WebElement(Page, WrappedLocator.Last);
+    public virtual WebElement Last => new(Page, WrappedLocator.Last);
 
     /// <summary>
     /// Gets the page.
@@ -57,23 +54,17 @@ public class WebElement
     /// <summary>
     /// Gets the parent element.
     /// </summary>
-    /// <returns></returns>
     public IReadOnlyList<WebElement> All()
     {
         IReadOnlyCollection<ILocator> nativeLocators;
 
         try
         {
-            // Maybe because of the async to sync conversion, it always fails on the first try.
-            // Another reason could be the fact that Playwright doesn't wait for all elements to be loaded properly on the page before trying to find them.
             nativeLocators = WrappedLocator.AllAsync().Result;
         }
         catch
         {
-            // patch: Adding a wait for no HTTP requests and responses sent in the last few hundred milliseconds.
-            //ServicesCollection.Current.Resolve<WrappedBrowser>().CurrentPage.WaitForLoadState(LoadState.NetworkIdle);
-
-            nativeLocators = WrappedLocator.AllAsync().Result;
+            throw;
         }
 
         var elements = new List<WebElement>();
