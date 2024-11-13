@@ -17,9 +17,9 @@ public class SuccessPage : WebPage, ISuccessPage
     public override string Url => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public ISuccessPage SuccessMessageShouldBe(string message)
+    public async Task<ISuccessPage> SuccessMessageShouldBe(string message)
     {
-        OrderCompleteMessage.ValidateInnerTextIs(message);
+        await OrderCompleteMessage.ValidateInnerTextIs(message);
 
         return this;
     }

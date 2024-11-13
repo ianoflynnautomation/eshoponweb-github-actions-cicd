@@ -46,6 +46,7 @@ public class WrappedBrowser
             CurrentContext?.WrappedBrowserContext.CloseAsync();
 
             Browser?.WrappedBrowser.CloseAsync();
+
             Playwright?.Dispose();
         }
         catch

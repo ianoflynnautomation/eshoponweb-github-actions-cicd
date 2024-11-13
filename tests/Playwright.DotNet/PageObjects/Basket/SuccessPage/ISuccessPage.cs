@@ -9,7 +9,7 @@ public interface ISuccessPage
     /// Asserts that the success message is displayed.
     /// </summary>
     /// <param name="message">Expected message to be displayed</param>
-    ISuccessPage SuccessMessageShouldBe(string message);
+    Task<ISuccessPage> SuccessMessageShouldBe(string message);
 
     /// <summary>
     /// Clicks the continue shopping button to return to the home page.

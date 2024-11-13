@@ -3,29 +3,29 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
+    # steps:
 
-    - name: Checkout code
-      uses: actions/checkout@main
+    # - name: Checkout code
+    #   uses: actions/checkout@main
 
-    - name: Log into Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    # - name: Log into Azure
+    #   uses: azure/login@v1
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy SaaS Environment
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: infra/main.bicep
-        parameters: |
-          environmentName=${{ vars.ENVIRONMENT }}
-          location=${{ vars.LOCATION }}
-          resourceGroupName=${{ secrets.AZURE_RG }}
-          vmUserPassword=${{ vars.VM_USER_PASSWORD }}
-          agentPat=${{ secrets.AGENT_PAT }}
-          agentPool= ${{ vars.AGENT_POOL }}
-          principalId=${{ secrets.PRINCIPAL_ID }}
-          sqlAdminPassword=${{ secrets.SQL_ADMIN_PASSWORD }}      
-        failOnStdErr: false
+    # - name: Deploy SaaS Environment
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+    #     resourceGroupName: ${{ secrets.AZURE_RG }}
+    #     template: infra/main.bicep
+    #     parameters: |
+    #       environmentName=${{ vars.ENVIRONMENT }}
+    #       location=${{ vars.LOCATION }}
+    #       resourceGroupName=${{ secrets.AZURE_RG }}
+    #       vmUserPassword=${{ vars.VM_USER_PASSWORD }}
+    #       agentPat=${{ secrets.AGENT_PAT }}
+    #       agentPool= ${{ vars.AGENT_POOL }}
+    #       principalId=${{ secrets.PRINCIPAL_ID }}
+    #       sqlAdminPassword=${{ secrets.SQL_ADMIN_PASSWORD }}      
+    #     failOnStdErr: false

@@ -16,8 +16,8 @@ public class WaitToBeClickableStrategy : WaitStrategy
     /// </summary>
     /// <param name="timeoutInterval">Element to be clickable timout interval in milliseconds</param>
     /// <param name="sleepInterval">Element to be clickable sleep interval in milliseconds</param>
-    public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-        : base(timeoutInterval, sleepInterval)
+    public WaitToBeClickableStrategy(int? timeoutInterval = default)
+        : base(timeoutInterval)
     {
         TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ElementToBeClickableTimeout;
     }

@@ -11,8 +11,8 @@ namespace Playwright.DotNet.Waits;
 /// </summary>
 public class WaitToExistStrategy : WaitStrategy
 {
-    public WaitToExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-        : base(timeoutInterval, sleepInterval)
+    public WaitToExistStrategy(int? timeoutInterval = default)
+        : base(timeoutInterval)
     {
         TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ElementToExistTimeout;
     }
@@ -24,6 +24,6 @@ public class WaitToExistStrategy : WaitStrategy
 
     public override async Task WaitUntil(WebElement element)
     {
-        await element.Expect().LocatorAssertions.ToBeAttachedAsync();
+        await element.Expect().LocatorAssertions.ToBeAttachedAsync(new() { Timeout = TimeoutInterval });
     }
 }

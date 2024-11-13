@@ -11,8 +11,8 @@ namespace Playwright.DotNet.Waits;
 /// </summary>
 public class WaitToBeVisibleStrategy : WaitStrategy
 {
-    public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-        : base(timeoutInterval, sleepInterval)
+    public WaitToBeVisibleStrategy(int? timeoutInterval = default)
+        : base(timeoutInterval)
     {
         TimeoutInterval = timeoutInterval ?? ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ElementToBeVisibleTimeout;
     }

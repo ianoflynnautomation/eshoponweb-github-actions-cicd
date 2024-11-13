@@ -8,7 +8,7 @@ using Playwright.DotNet.Services;
 using Playwright.DotNet.Services.Contracts;
 using Playwright.DotNet.Playwright.Core.Elements;
 using Playwright.DotNet.Waits;
-using Microsoft.VisualStudio.Services.WebApi;
+
 
 namespace Playwright.DotNet.Components;
 
@@ -31,22 +31,21 @@ public class Component : IComponent
     }
 
     public WrappedBrowser WrappedBrowser { get; }
+    public Component ParentComponent { get; set; }
+    protected IBrowserService BrowserService { get; }
+    protected IComponentCreateService ComponentCreateService { get; }
+    public FindStrategy By { get; internal set; }
+
 
     public WebElement WrappedElement
     {
         get
         {
-            WaitToBe().SyncResult();
+            WaitToBe().Wait();
             return _wrappedElement;
         }
         set => _wrappedElement = value;
     }
-
-    public Component ParentComponent { get; set; }
-    protected readonly IBrowserService BrowserService;
-    protected readonly IComponentCreateService ComponentCreateService;
-
-    public FindStrategy By { get; internal set; }
 
     public dynamic Create<TBy>(TBy by, Type newElementType)
         where TBy : FindStrategy
@@ -102,7 +101,6 @@ public class Component : IComponent
 
     private async Task ScrollIntoViewIfNeededAsync(bool shouldWait = true)
     {
-
         try
         {
             await WrappedElement.WrappedLocator.ScrollIntoViewIfNeededAsync();

@@ -1,5 +1,7 @@
 
 using Playwright.DotNet.Components.Contracts;
+using Playwright.DotNet.Configuration;
+using Playwright.DotNet.Configuration.Options;
 using Playwright.DotNet.Playwright.Assertions;
 
 namespace Playwright.DotNet.Validations;
@@ -9,10 +11,12 @@ namespace Playwright.DotNet.Validations;
 /// </summary>
 public static partial class ValidateControlExtensions
 {
-    public static async Task ValidateInnerTextIs<T>(this T control, string value)
+    private static int? _validationsTimeout = ConfigurationRootInstance.GetSection<WebSettingsOptions>(WebSettingsOptions.SectionName).TimeoutSettings?.ValidationsTimeout;
+
+    public static async Task ValidateInnerTextIs<T>(this T control, string value, int? timeoutInterval = default)
     where T : IComponentInnerText, IComponent
     {
-        await control.WrappedElement.Expect().LocatorAssertions.ToHaveTextAsync(value);
+        await control.WrappedElement.Expect().LocatorAssertions.ToHaveTextAsync(value, new() { Timeout = timeoutInterval ?? _validationsTimeout });
     }
 
 }

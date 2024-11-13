@@ -8,7 +8,6 @@ namespace Playwright.DotNet.Services;
 
 public class NavigationService(WrappedBrowser wrappedBrowser) : WebService(wrappedBrowser), INavigationService
 {
-
     public async Task<INavigationService> Navigate(Uri uri)
     {
         await NavigateInternal(uri.ToString());
@@ -50,7 +49,6 @@ public class NavigationService(WrappedBrowser wrappedBrowser) : WebService(wrapp
 
         return this;
     }
-
 
     private async Task NavigateInternal(string url)
     {

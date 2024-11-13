@@ -1,7 +1,4 @@
-﻿
-
-using System.Diagnostics;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using Playwright.DotNet.Services.Contracts;
 using Playwright.DotNet.Playwright.Core;
 
@@ -41,11 +38,8 @@ public class BrowserService(WrappedBrowser wrappedBrowser) : WebService(wrappedB
     }
 
     public BrowserPage SwitchToFirstTab() => WrappedBrowser.CurrentContext.Pages.First();
-
     public BrowserPage SwitchToLastTab() => WrappedBrowser.CurrentContext.Pages.Last();
 
-    
-    // Faster than sending js and checking for a X state.
     public IBrowserService WaitForLoadStateAsync(LoadState state = LoadState.Load)
     {
         CurrentPage.WrappedPage.WaitForLoadStateAsync(state);
@@ -68,10 +62,4 @@ public class BrowserService(WrappedBrowser wrappedBrowser) : WebService(wrappedB
         return this;
     }
 
-
-    private string? InvokeScript(string scriptToInvoke)
-    {
-        JavaScriptService javaScriptService = new JavaScriptService(WrappedBrowser);
-        return javaScriptService.ExecuteAsync(scriptToInvoke)?.ToString();
-    }
 }

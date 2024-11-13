@@ -52,7 +52,7 @@ public class BaseTest
         _eShopOnWebApp = new EShopOnWebApp(_container);
     
         _app = ServiceLocator.Resolve<App>();
-        _app.Navigation.Navigate(_fixture.ServerAddress);
+        await _app.Navigation.Navigate(_fixture.ServerAddress);
     }
 
     [TearDown]

@@ -11,7 +11,7 @@ public class Tests : BaseTest
     [Test]
     public async Task TC_01_Customer_Order_UserJourney()
     {
-         var request = new CreateCatalogItemRequest()
+        var request = new CreateCatalogItemRequest()
         {
             CatalogBrandId = 2,
             CatalogTypeId = 1,
@@ -22,13 +22,13 @@ public class Tests : BaseTest
 
         await _fixture.SystemTestHost.CreateCatelogItem(request);
 
-        _eShopOnWebApp.HeaderSection.OpenLogin();
-        _eShopOnWebApp.LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
-        _eShopOnWebApp.HomePage.FilterForProduct(".NET", "Mug");
-        _eShopOnWebApp.HomePage.AddItemToBasket(".NET Green Mug");
-        _eShopOnWebApp.BasketPage.Checkout();
-        _eShopOnWebApp.CheckoutPage.PayNow();
-        _eShopOnWebApp.SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
+        await _eShopOnWebApp.HeaderSection.OpenLogin();
+        await _eShopOnWebApp.LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
+        await _eShopOnWebApp.HomePage.FilterForProduct(".NET", "Mug");
+        await _eShopOnWebApp.HomePage.AddItemToBasket(".NET Green Mug");
+        await _eShopOnWebApp.BasketPage.Checkout();
+        await _eShopOnWebApp.CheckoutPage.PayNow();
+        await _eShopOnWebApp.SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
 
     }
 

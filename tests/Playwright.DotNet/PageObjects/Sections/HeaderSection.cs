@@ -34,9 +34,9 @@ public class HeaderSection : WebPage, IHeaderSection
     }
 
     // <inheritdoc/>
-    public IHeaderSection UserEmailShouldBe(string email)
+    public async Task<IHeaderSection> UserEmailShouldBe(string email)
     {
-        UserEmail.ValidateInnerTextIs(email);
+        await UserEmail.ValidateInnerTextIs(email);
 
         return this;
     }

@@ -20,5 +20,5 @@ public interface IHeaderSection
     /// Asserts that the user email is displayed in the header.
     /// </summary>
     /// <param name="email">Expected email address to be displayed</param>
-    IHeaderSection UserEmailShouldBe(string email);
+    Task<IHeaderSection> UserEmailShouldBe(string email);
 }

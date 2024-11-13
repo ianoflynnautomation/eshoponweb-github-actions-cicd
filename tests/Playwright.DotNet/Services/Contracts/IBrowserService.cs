@@ -5,7 +5,6 @@ namespace Playwright.DotNet.Services.Contracts;
 
 public interface IBrowserService
 {
-
     Task<string> HtmlSource { get; }
     Uri Url { get; }
     Task<string> Title { get; }

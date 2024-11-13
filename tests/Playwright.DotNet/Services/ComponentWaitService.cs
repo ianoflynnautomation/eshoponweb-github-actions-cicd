@@ -25,5 +25,8 @@ public class ComponentWaitService : IComponentWaitService
 
     internal void WaitInternal<TUntil, TComponent>(TComponent by, TUntil until)
         where TUntil : WaitStrategy
-        where TComponent : Component => until?.WaitUntil(@by);
+        where TComponent : Component
+    {
+        until?.WaitUntil(@by);
+    }
 }

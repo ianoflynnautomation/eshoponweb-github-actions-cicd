@@ -11,18 +11,18 @@ namespace Playwright.DotNet.Services;
 
 public static class WrappedBrowserCreateService
 {
-    public static BrowserConfiguration BrowserConfiguration { get; set; }
+    public static BrowserConfiguration? BrowserConfiguration { get; set; }
     public static int Port { get; set; }
     public static int DebuggerPort { get; set; }
 
 
     internal static WrappedBrowser Create(BrowserConfiguration executionConfiguration)
     {
-
         BrowserConfiguration = executionConfiguration;
-         var wrappedBrowser = new WrappedBrowser();
-
-        wrappedBrowser.Playwright = new PlaywrightCore(Microsoft.Playwright.Playwright.CreateAsync().Result);
+        var wrappedBrowser = new WrappedBrowser
+        {
+            Playwright = new PlaywrightCore(Microsoft.Playwright.Playwright.CreateAsync().Result)
+        };
 
         if (executionConfiguration.ExecutionType == ExecutionType.Regular)
         {
@@ -163,13 +163,16 @@ public static class WrappedBrowserCreateService
         InitializeBrowserContextAndPage(wrappedBrowser);
     }
 
-    internal static void InitializeBrowserContextAndPage(WrappedBrowser wrappedBrowser)
+    internal static async void InitializeBrowserContextAndPage(WrappedBrowser wrappedBrowser)
     {
         BrowserNewContextOptions options = new();
 
-        if (wrappedBrowser.CurrentContext != null) wrappedBrowser.CurrentContext.WrappedBrowserContext.DisposeAsync();
+        if (wrappedBrowser.CurrentContext is not null)
+        {
+            await wrappedBrowser.CurrentContext.WrappedBrowserContext.DisposeAsync();
+        }
 
-        if (WebSettings.PlaywrightSettings != null && WebSettings.PlaywrightSettings.ContextOptions != null)
+        if (WebSettings.PlaywrightSettings is not null && WebSettings.PlaywrightSettings.ContextOptions is not null)
         {
             options = WebSettings.PlaywrightSettings.ContextOptions;
         }
