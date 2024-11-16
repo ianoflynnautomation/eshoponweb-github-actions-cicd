@@ -40,14 +40,16 @@ public class BaseTest : PageTest
             || TestContext.CurrentContext.Result.Outcome == ResultState.Failure;
 
 
+        var tracePath = Path.Combine(
+            TestContext.CurrentContext.WorkDirectory,
+            "playwright-traces",
+            $"{TestContext.CurrentContext.Test.Name}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}.zip");
+
         await Context.Tracing.StopAsync(new()
         {
-            Path = failed ? Path.Combine(
-                TestContext.CurrentContext.WorkDirectory,
-                "playwright-traces",
-                $"{TestContext.CurrentContext.Test.Name}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}.zip"
-            ) : null,
+            Path = failed ? tracePath : null
         });
+        TestContext.AddTestAttachment(tracePath, description: "Trace");
 
 
         // Take a screenshot on error and add it as an attachment
