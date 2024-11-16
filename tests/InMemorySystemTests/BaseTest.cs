@@ -1,18 +1,18 @@
 ﻿
+using System;
 using System.IO;
-using Microsoft.Playwright;
+using NUnit.Framework.Interfaces;
 using Playwright.DotNet.Fixtures;
 
 namespace EShopOnWeb.InMemorySystemTests;
 
 public class BaseTest : PageTest
 {
-    //protected IPage Page;
     protected SystemTestFixture _fixture;
     protected TestContext TestContext => TestContext.CurrentContext;
 
     [OneTimeSetUp]
-    public void OneTimeSetUp()
+    public async Task OneTimeSetUp()
     {
         _fixture = new SystemTestFixture();
     }
@@ -20,74 +20,6 @@ public class BaseTest : PageTest
     [SetUp]
     public async Task SetUp()
     {
-        var Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
-        {
-            Args = null,
-            Channel = null,
-            ChromiumSandbox = null,
-            Devtools = true,
-            DownloadsPath = Path.Combine(TestContext.CurrentContext.WorkDirectory, "downloads"),
-            Env = null,
-            ExecutablePath = null,
-            FirefoxUserPrefs = null,
-            HandleSIGHUP = null,
-            HandleSIGINT = null,
-            HandleSIGTERM = null,
-            Headless = true,
-            IgnoreAllDefaultArgs = null,
-            IgnoreDefaultArgs = null,
-            Proxy = null,
-            SlowMo = null,
-            Timeout = 5000,
-            TracesDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "playwright-traces")
-
-        });
-
-
-        var Context = await Browser.NewContextAsync(new BrowserNewContextOptions
-        {
-            AcceptDownloads = true,
-            BaseURL = null,
-            BypassCSP = null,
-            ColorScheme = ColorScheme.Dark,
-            DeviceScaleFactor = 1,
-            ExtraHTTPHeaders = null,
-            Geolocation = null,
-            HasTouch = false,
-            HttpCredentials = null,
-            IgnoreHTTPSErrors = false,
-            IsMobile = false,
-            JavaScriptEnabled = true,
-            Locale = "en-US",
-            Offline = false,
-            Permissions = null,
-            Proxy = null,
-            RecordHarContent = null,
-            RecordHarMode = null,
-            RecordHarOmitContent = null,
-            RecordHarPath = null,
-            RecordHarUrlFilterString = null,
-            RecordHarUrlFilterRegex = null,
-            RecordVideoDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "recordings"),
-            RecordVideoSize = null,
-            ReducedMotion = null,
-            ScreenSize = null,
-            ServiceWorkers = null,
-            StorageState = null,
-            StorageStatePath = null,
-            StrictSelectors = null,
-            TimezoneId = null,
-            UserAgent = null,
-            ViewportSize = new ViewportSize
-            {
-                Width = 1920,
-                Height = 1080
-            },
-        });
-
-         await Context.NewPageAsync();
- 
-        await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
 
         await Context.Tracing.StartAsync(new()
         {
@@ -95,29 +27,17 @@ public class BaseTest : PageTest
             Screenshots = true,
             Snapshots = true,
             Sources = true
-
         });
+
+        await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
 
     }
 
     [TearDown]
     public async Task TearDown()
     {
-        var failed = TestContext.CurrentContext.Result.Outcome == NUnit.Framework.Interfaces.ResultState.Error
-            || TestContext.CurrentContext.Result.Outcome == NUnit.Framework.Interfaces.ResultState.Failure;
-
-        if (failed)
-        {
-            //     await Page.ScreenshotAsync(new()
-            // {
-            //     Path = Path.Combine(
-            //         TestContext.CurrentContext.WorkDirectory,
-            //         "screenshots",
-            //         $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.png"
-            //     ),
-            //     FullPage = true,
-            // });
-        }
+        var failed = TestContext.CurrentContext.Result.Outcome == ResultState.Error
+            || TestContext.CurrentContext.Result.Outcome == ResultState.Failure;
 
 
         await Context.Tracing.StopAsync(new()
@@ -125,21 +45,49 @@ public class BaseTest : PageTest
             Path = failed ? Path.Combine(
                 TestContext.CurrentContext.WorkDirectory,
                 "playwright-traces",
-                $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
+                $"{TestContext.CurrentContext.Test.Name}-{Guid.NewGuid()}.zip"
             ) : null,
         });
 
-        await Page.CloseAsync();
+
+       // Take a screenshot on error and add it as an attachment
+            if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
+            {
+                var screenshotPath = Path.Combine(
+                    TestContext.CurrentContext.WorkDirectory,
+                    "playwright-screenshot",
+                    $"{TestContext.CurrentContext.Test.Name}-{Guid.NewGuid()}.png");
+                await Page.ScreenshotAsync(new()
+                {
+                    Path = screenshotPath,
+                });
+                TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
+            }
+
         await Context.CloseAsync();
+
+        //await Page.CloseAsync();
+        //await Context.CloseAsync();
+
+
+            var videoPath = Path.Combine(
+                TestContext.CurrentContext.WorkDirectory,
+                "playwright-videos",
+                $"{TestContext.CurrentContext.Test.Name}-{Guid.NewGuid()}.webm");
+            if (Page.Video != null)
+            {
+                await Page.Video.SaveAsAsync(videoPath);
+                TestContext.AddTestAttachment(videoPath, description: "Video");
+            }
         await Browser.CloseAsync();
         await Browser.DisposeAsync();
-        Playwright.Dispose();
 
     }
 
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
+        //Playwright.Dispose();
         _fixture.Dispose();
 
     }

@@ -42,6 +42,12 @@
     </Content>  
   </ItemGroup>
 
+    <ItemGroup>
+    <Content Include=".runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
+  </ItemGroup>
+
   <ItemGroup>
     <Content Include="testsettings.json">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
