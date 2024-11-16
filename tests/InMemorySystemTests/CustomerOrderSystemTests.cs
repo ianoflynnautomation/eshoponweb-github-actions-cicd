@@ -30,7 +30,7 @@ public class CustomerOrderSystemTests : BaseTest
         await homepage.AddItemToBasket(".NET Black & White Mug");
         await basketPage.Checkout();
         await checkoutPage.PayNow();
-        await successPage.SuccessMessageShouldBe("for your Order!");
+        await successPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 
     public override BrowserNewContextOptions ContextOptions()
@@ -38,7 +38,7 @@ public class CustomerOrderSystemTests : BaseTest
         return new BrowserNewContextOptions
         {
             Locale = "en-US",
-            RecordVideoDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "playwright-videos"),
+            RecordVideoDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "playwright-videos/"),
             ViewportSize = new ViewportSize
             {
                 Width = 1920,
