@@ -5,7 +5,13 @@ using NUnit.Framework.Interfaces;
 using Playwright.DotNet.Fixtures;
 
 namespace EShopOnWeb.InMemorySystemTests;
-
+/// <summary>
+/// Each test gets a fresh copy of a web Page created in its own unique BrowserContext. 
+/// Extending this class is the simplest way of writing a fully-functional Playwright test.
+/// Note: You can override the ContextOptions method in each test file to control context options, 
+/// the ones typically passed into the Browser.NewContextAsync() method. 
+/// That way you can specify all kinds of emulation options for your test file individually.
+/// </summary>
 public class BaseTest : PageTest
 {
     protected SystemTestFixture _fixture;
@@ -49,7 +55,7 @@ public class BaseTest : PageTest
         {
             Path = failed ? tracePath : null
         });
-        TestContext.AddTestAttachment(tracePath, description: "Trace");
+        //TestContext.AddTestAttachment(tracePath, description: "Trace");
 
 
         // Take a screenshot on error and add it as an attachment
@@ -64,7 +70,7 @@ public class BaseTest : PageTest
             {
                 Path = screenshotPath,
             });
-            TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
+            //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
         //await Page.CloseAsync();
@@ -79,7 +85,7 @@ public class BaseTest : PageTest
         if (Page.Video != null)
         {
             await Page.Video.SaveAsAsync(videoPath);
-            TestContext.AddTestAttachment(videoPath, description: "Video");
+            //TestContext.AddTestAttachment(videoPath, description: "Video");
         }
 
 

@@ -38,7 +38,7 @@ public class CustomerOrderSystemTests : BaseTest
         return new BrowserNewContextOptions
         {
             Locale = "en-US",
-            RecordVideoDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "playwright-videos/"),
+            RecordVideoDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "playwright-videos"),
             ViewportSize = new ViewportSize
             {
                 Width = 1920,
