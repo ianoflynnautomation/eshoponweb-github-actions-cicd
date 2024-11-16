@@ -28,7 +28,7 @@ public class HeaderSection(IPage page) : WebPage(page), IHeaderSection
     // <inheritdoc/>
     public async Task<IHeaderSection> UserEmailShouldBe(string email)
     {
-        await Assertions.Expect(UserEmail).ToHaveTextAsync(email);
+        await Expect(UserEmail).ToHaveTextAsync(email);
 
         return this;
     }

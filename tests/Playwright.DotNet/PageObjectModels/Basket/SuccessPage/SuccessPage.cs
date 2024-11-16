@@ -11,7 +11,7 @@ public class SuccessPage(IPage page) : WebPage(page),  ISuccessPage
     /// <inheritdoc/>
     public async Task<ISuccessPage> SuccessMessageShouldBe(string message)
     {
-        await Assertions.Expect(OrderCompleteMessage).ToHaveTextAsync(message);
+        await Expect(OrderCompleteMessage).ToHaveTextAsync(message);
 
         return this;
     }

@@ -30,7 +30,6 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     /// <inheritdoc/>
     public async Task<IHomePage> AddItemToBasket(string itemName)
     {
-         await Assertions.Expect(AddToBasket(itemName)).ToBeEnabledAsync(new(){ Timeout = 5000 });  
         await AddToBasket(itemName).ClickAsync();
 
         return this;
@@ -39,7 +38,6 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     /// <inheritdoc/>
     public async Task<IHomePage> FilterBrand(string brand)
     {
-        //await Assertions.Expect(BrandFilter).ToBeVisibleAsync();
         await BrandFilter.SelectOptionAsync(new SelectOptionValue() { Label = brand });
 
         return this;
@@ -48,7 +46,6 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     /// <inheritdoc/>
     public async Task<IHomePage> FilterType(string type)
     {
-        //await Assertions.Expect(TypeFilter).ToBeVisibleAsync();
         await TypeFilter.SelectOptionAsync(new SelectOptionValue() { Label = type });
 
         return this;
@@ -57,7 +54,6 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     /// <inheritdoc/>
     public async Task<IHomePage> Filter()
     {
-
         await FilterButton.ClickAsync(new(){ Force = true });
 
         return this;

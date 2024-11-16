@@ -2,13 +2,18 @@ using Microsoft.Playwright;
 
 namespace Playwright.DotNet.PageObjectModels;
 
-public class WebPage
+public class WebPage(IPage _page)
 {
-    protected IPage Page { get; }
+    protected IPage Page { get; } = _page;
 
-    public WebPage(IPage _page)
+    protected IPageAssertions Expect()
     {
-        Page = _page; ;
+        return Assertions.Expect(Page);
+    }
+
+    protected ILocatorAssertions Expect(ILocator locator)
+    {
+        return Assertions.Expect(locator);
     }
 
 }
