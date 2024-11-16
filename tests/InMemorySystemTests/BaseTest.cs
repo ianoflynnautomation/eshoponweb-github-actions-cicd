@@ -1,9 +1,5 @@
 ﻿
-using System;
-using System.Data.Common;
 using System.IO;
-using System.Security;
-using System.Security.Policy;
 using Microsoft.Playwright;
 using Playwright.DotNet.Fixtures;
 
@@ -11,7 +7,7 @@ namespace EShopOnWeb.InMemorySystemTests;
 
 public class BaseTest : PageTest
 {
-    protected IPage Page;
+    //protected IPage Page;
     protected SystemTestFixture _fixture;
     protected TestContext TestContext => TestContext.CurrentContext;
 
@@ -89,7 +85,8 @@ public class BaseTest : PageTest
             },
         });
 
-        Page = await Context.NewPageAsync();
+         await Context.NewPageAsync();
+ 
         await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
 
         await Context.Tracing.StartAsync(new()

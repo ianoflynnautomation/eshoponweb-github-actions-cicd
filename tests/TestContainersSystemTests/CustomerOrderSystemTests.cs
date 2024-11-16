@@ -25,6 +25,7 @@ public class CustomerOrderSystemTests : BaseTest
         {
             Headless = true
         });
+        
         var context = await browser.NewContextAsync();
          var page = await context.NewPageAsync();
         await page.GotoAsync(_fixture.ServerAddress);
