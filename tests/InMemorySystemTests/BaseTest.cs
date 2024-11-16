@@ -37,7 +37,7 @@ public class BaseTest : PageTest
             HandleSIGHUP = null,
             HandleSIGINT = null,
             HandleSIGTERM = null,
-            Headless = false,
+            Headless = true,
             IgnoreAllDefaultArgs = null,
             IgnoreDefaultArgs = null,
             Proxy = null,

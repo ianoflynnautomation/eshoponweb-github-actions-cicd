@@ -21,7 +21,10 @@ public class CustomerOrderSystemTests : BaseTest
     [Test]
     public async Task TC_01_Customer_Order_UserJourney()
     {
-        await using var browser = await Playwright.Chromium.LaunchAsync();
+        await using var browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+        {
+            Headless = true
+        });
         var context = await browser.NewContextAsync();
          var page = await context.NewPageAsync();
         await page.GotoAsync(_fixture.ServerAddress);
