@@ -36,6 +36,12 @@ public class CustomerOrderSystemTests : BaseTest
         await basketPage.Checkout();
         await checkoutPage.PayNow();
         await successPage.SuccessMessageShouldBe("Thanks for your Order!");
+
+        await page.CloseAsync();
+        await context.CloseAsync();
+        await browser.CloseAsync();
+        await browser.DisposeAsync();
+        Playwright.Dispose();
    
     }
 

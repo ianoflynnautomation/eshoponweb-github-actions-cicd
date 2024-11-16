@@ -128,6 +128,13 @@ public class BaseTest : PageTest
                 $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
             ) : null,
         });
+
+        await Page.CloseAsync();
+        await Context.CloseAsync();
+        await Browser.CloseAsync();
+        await Browser.DisposeAsync();
+        Playwright.Dispose();
+
     }
 
     [OneTimeTearDown]

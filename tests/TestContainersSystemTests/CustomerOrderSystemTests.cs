@@ -25,7 +25,7 @@ public class CustomerOrderSystemTests : BaseTest
         {
             Headless = true
         });
-        
+
         var context = await browser.NewContextAsync();
          var page = await context.NewPageAsync();
         await page.GotoAsync(_fixture.ServerAddress);
@@ -44,6 +44,12 @@ public class CustomerOrderSystemTests : BaseTest
         await basketPage.Checkout();
         await checkoutPage.PayNow();
         await successPage.SuccessMessageShouldBe("Thanks for your Order!");
+
+        await page.CloseAsync();
+        await context.CloseAsync();
+        await browser.CloseAsync();
+        await browser.DisposeAsync();
+        Playwright.Dispose();
    
     }
 
