@@ -9,12 +9,13 @@ using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
-using Playwright.DotNet.Logging;
 using Serilog;
 using BlazorAdmin.Pages.CatalogItemPage;
 using BlazorAdmin.Services;
 using BlazorShared.Interfaces;
 using Docker.DotNet.Models;
+using System.Net.Sockets;
+using System.Net;
 
 
 namespace Playwright.DotNet.Fixtures;
@@ -86,7 +87,17 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         });
 
         builder.UseStaticWebAssets();
-        builder.UseUrls($"http://127.0.0.1:5000");
+        builder.UseUrls($"http://127.0.0.1:{GetFreeTcpPort()}");
+    }
+
+    private static int GetFreeTcpPort()
+    {
+        Thread.Sleep(100);
+        var tcpListener = new TcpListener(IPAddress.Loopback, 0);
+        tcpListener.Start();
+        int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
+        tcpListener.Stop();
+        return port;
     }
 
     /// <summary>

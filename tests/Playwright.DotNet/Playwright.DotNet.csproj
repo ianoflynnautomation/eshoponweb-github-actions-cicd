@@ -10,8 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.Playwright.NUnit" />
+    <PackageReference Include="Microsoft.Playwright.TestAdapter"/>
     <PackageReference Include="Microsoft.Playwright" />
-    <PackageReference Include="Microsoft.VisualStudio.Services.Gallery.WebApi" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />

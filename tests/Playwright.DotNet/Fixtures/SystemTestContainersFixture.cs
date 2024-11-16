@@ -12,7 +12,6 @@ using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Playwright.DotNet.Fixtures.DataBase;
-using Playwright.DotNet.Logging;
 
 namespace Playwright.DotNet.Fixtures;
 
