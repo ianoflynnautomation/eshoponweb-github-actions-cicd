@@ -8,11 +8,10 @@ public class DockerContainersBaseTest : PageTestBase
     protected SystemTestContainersFixture _fixture;
 
     [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    public void OneTimeSetUp()
     {
         _fixture = new SystemTestContainersFixture();
 
-        await Task.CompletedTask;
     }
 
     [SetUp]

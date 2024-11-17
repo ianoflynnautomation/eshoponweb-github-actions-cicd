@@ -10,19 +10,19 @@ public class CheckoutPage(IPage page) : WebPage(page), ICheckoutPage
     private ILocator BackButton => Page.Locator("[data-testid=back-button]");
 
     /// <inheritdoc/>
-    public async Task<ICheckoutPage> BackToBasket()
+    public async Task BackToBasket()
     {
         await BackButton.ClickAsync();
 
-        return this;
+        
     }
 
     /// <inheritdoc/>
-    public async Task<ICheckoutPage> PayNow()
+    public async Task PayNow()
     {
        await PayNowButton.ClickAsync();
 
-        return this;
+        
     }
 
 }

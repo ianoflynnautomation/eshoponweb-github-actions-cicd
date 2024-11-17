@@ -10,27 +10,21 @@ public class HeaderSection(IPage page) : WebPage(page), IHeaderSection
     private ILocator UserEmail => Page.Locator("[data-testid=logged-in-user-email]");
 
     // <inheritdoc/>
-    public async Task<IHeaderSection> OpenBasket()
+    public async Task OpenBasket()
     {
         await BasketButton.ClickAsync();
-
-        return this;
     }
 
     // <inheritdoc/>
-    public async Task<IHeaderSection> OpenLogin()
+    public async Task OpenLogin()
     {
         await LoginButton.ClickAsync();
-
-        return this;
     }
 
     // <inheritdoc/>
-    public async Task<IHeaderSection> UserEmailShouldBe(string email)
+    public async Task UserEmailShouldBe(string email)
     {
         await Expect(UserEmail).ToHaveTextAsync(email);
-
-        return this;
     }
 
 }

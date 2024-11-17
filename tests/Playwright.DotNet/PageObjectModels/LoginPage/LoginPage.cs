@@ -10,15 +10,14 @@ public class LoginPage(IPage page) : WebPage(page), ILoginPage
     private ILocator LoginButton => Page.Locator("[data-testid=login-button]");
 
     // <inheritdoc/>
-    public async Task<ILoginPage> CheckRememberMe()
+    public async Task CheckRememberMe()
     {
         await RememberMeCheckbox.CheckAsync();
 
-        return this;
     }
 
     // <inheritdoc/>
-    public async Task<ILoginPage> Login(string email, string password, bool rememberMe = false)
+    public async Task Login(string email, string password, bool rememberMe = false)
     {
         await SetEmail(email);
         await SetPassword(password);
@@ -29,24 +28,20 @@ public class LoginPage(IPage page) : WebPage(page), ILoginPage
         }
 
         await LoginButton.ClickAsync();
-
-        return this;
     }
 
     // <inheritdoc/>
-    public async Task<ILoginPage> SetEmail(string email)
+    public async Task SetEmail(string email)
     {
         await EmailInput.FillAsync(email);
 
-        return this;
     }
 
     // <inheritdoc/>
-    public async Task<ILoginPage> SetPassword(string password)
+    public async Task SetPassword(string password)
     {
         await PasswordInput.FillAsync(password);
 
-        return this;
     }
 
 }

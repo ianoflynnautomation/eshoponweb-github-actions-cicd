@@ -16,9 +16,8 @@ public class PageTestBase : PageTest
     protected TestContext TestContext => TestContext.CurrentContext;
 
     [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    public void OneTimeSetUp()
     {
-        await Task.CompletedTask;
     }
 
     [SetUp]

@@ -10,7 +10,7 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     private ILocator AddToBasket(string item) => Page.Locator($"data-testid=add-to-basket-button-{item}");
 
     /// <inheritdoc/>
-    public async Task<IHomePage> FilterForProduct(string brand, string type)
+    public async Task FilterForProduct(string brand, string type)
     {
         if (brand is not null)
         {
@@ -23,39 +23,32 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
         }
 
         await Filter();
-
-        return this;
     }
 
     /// <inheritdoc/>
-    public async Task<IHomePage> AddItemToBasket(string itemName)
+    public async Task AddItemToBasket(string itemName)
     {
         await AddToBasket(itemName).ClickAsync();
-
-        return this;
+;
     }
 
     /// <inheritdoc/>
-    public async Task<IHomePage> FilterBrand(string brand)
+    public async Task FilterBrand(string brand)
     {
         await BrandFilter.SelectOptionAsync(new SelectOptionValue() { Label = brand });
 
-        return this;
     }
 
     /// <inheritdoc/>
-    public async Task<IHomePage> FilterType(string type)
+    public async Task FilterType(string type)
     {
         await TypeFilter.SelectOptionAsync(new SelectOptionValue() { Label = type });
-
-        return this;
     }
 
     /// <inheritdoc/>
-    public async Task<IHomePage> Filter()
+    public async Task Filter()
     {
         await FilterButton.ClickAsync(new(){ Force = true });
 
-        return this;
     }
 }

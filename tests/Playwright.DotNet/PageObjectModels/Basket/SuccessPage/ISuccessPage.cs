@@ -2,7 +2,7 @@
 
 public interface ISuccessPage
 {
-    Task<ISuccessPage> SuccessMessageShouldBe(string message);
-    Task<ISuccessPage> ContinueShopping();
+    Task SuccessMessageShouldBe(string message);
+    Task ContinueShopping();
 
 }

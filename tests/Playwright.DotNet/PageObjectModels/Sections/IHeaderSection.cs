@@ -3,9 +3,9 @@ namespace Playwright.DotNet.PageObjectModels.Sections;
 
 public interface IHeaderSection
 {    
-    Task<IHeaderSection> OpenBasket();
+    Task OpenBasket();
 
-    Task<IHeaderSection> OpenLogin();
+    Task OpenLogin();
 
-    Task<IHeaderSection> UserEmailShouldBe(string email);
+    Task UserEmailShouldBe(string email);
 }

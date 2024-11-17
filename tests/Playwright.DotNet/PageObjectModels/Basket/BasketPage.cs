@@ -11,24 +11,21 @@ public class BasketPage(IPage page) : WebPage(page), IBasketPage
     
 
     /// <inheritdoc/>
-    public async Task<IBasketPage> Checkout()
+    public async Task Checkout()
     {
         await CheckoutButton.ClickAsync();
-        return this;
     }
 
     /// <inheritdoc/>
-    public async Task<IBasketPage> ContinueShopping()
+    public async Task ContinueShopping()
     {
         await ContinueShoppingButton.ClickAsync();
-        return this;
     }
 
     /// <inheritdoc/>
-    public async Task<IBasketPage> Update()
-    {;
+    public async Task Update()
+    {
         await UpdateButton.ClickAsync();
-        return this;
     }
 
 }

@@ -9,18 +9,18 @@ public class SuccessPage(IPage page) : WebPage(page),  ISuccessPage
     private ILocator ContinueShoppingAnchor => Page.Locator("[data-testid=success-continue-shopping-anchor]");
 
     /// <inheritdoc/>
-    public async Task<ISuccessPage> SuccessMessageShouldBe(string message)
+    public async Task SuccessMessageShouldBe(string message)
     {
         await Expect(OrderCompleteMessage).ToHaveTextAsync(message);
 
-        return this;
+        
     }
 
     /// <inheritdoc/>
-    public async Task<ISuccessPage> ContinueShopping()
+    public async Task ContinueShopping()
     {
         await ContinueShoppingAnchor.ClickAsync();
 
-        return this;
+        
     }
 }

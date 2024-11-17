@@ -2,9 +2,9 @@
 
 public interface ILoginPage
 {
-    Task<ILoginPage> SetEmail(string email);
-    Task<ILoginPage> SetPassword(string password);
-    Task<ILoginPage> CheckRememberMe();
-    Task<ILoginPage> Login(string email, string password, bool rememberMe = false);
+    Task SetEmail(string email);
+    Task SetPassword(string password);
+    Task CheckRememberMe();
+    Task Login(string email, string password, bool rememberMe = false);
 
 }

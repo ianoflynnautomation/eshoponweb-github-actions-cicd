@@ -29,9 +29,8 @@ public class BrowserTestBase : BrowserTest
         }
 
     [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    public void OneTimeSetUp()
     {
-        await Task.CompletedTask;
     }
 
     [SetUp]
