@@ -1,8 +1,10 @@
-﻿using Playwright.DotNet.Fixtures;
+﻿using System;
+using Playwright.DotNet.Fixtures;
+using Playwright.DotNet.Infra.NUnit;
 
 namespace EShopOnWeb.DockerSystemTests;
 
-public class BaseTest : PageTest
+public class BaseTest : PageTestBase
 {
     protected SystemTestFixture _fixture;
     protected TestContext TestContext => TestContext.CurrentContext;
@@ -14,13 +16,13 @@ public class BaseTest : PageTest
     }
 
     [SetUp]
-    public void SetUp()
+    public async Task SetUp()
     {  
 
     }
 
     [TearDown]
-    public void TearDown()
+    public async Task TearDown()
     {
 
     }
