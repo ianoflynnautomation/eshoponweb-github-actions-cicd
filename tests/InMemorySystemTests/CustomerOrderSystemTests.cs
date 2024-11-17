@@ -19,20 +19,25 @@ public class CustomerOrderSystemTests : InMemoryBaseTest
     [Test]
     public async Task Customer_Order_UserJourney()
     {
-        var headerSection = new HeaderSection(await Browser.NewPageAsync());
+        var headerSection = new HeaderSection(Page);
         await headerSection.OpenLogin();
-        var loginPage = new LoginPage(await Browser.NewPageAsync());
+
+        var loginPage = new LoginPage(Page);
         await loginPage.Login("demouser@microsoft.com", "Pass@word1", false);
-        var homepage = new HomePage(await Browser.NewPageAsync());
+
+        var homepage = new HomePage(Page);
         await homepage.FilterForProduct(".NET", "Mug");
         await homepage.AddItemToBasket(".NET Black & White Mug");
-        var basketPage = new BasketPage(await Browser.NewPageAsync());
+
+        var basketPage = new BasketPage(Page);
         await basketPage.Checkout();
-        var checkoutPage = new CheckoutPage(await Browser.NewPageAsync());
+
+        var checkoutPage = new CheckoutPage(Page);
         await checkoutPage.PayNow();
-        var successPage = new SuccessPage(await Browser.NewPageAsync());
-        await successPage.SuccessMessageShouldBe("Thanks for your Order!");
         
+        var successPage = new SuccessPage(Page);
+        await successPage.SuccessMessageShouldBe("Thanks for your Order!");
+
     }
 
     public override BrowserNewContextOptions ContextOptions()
