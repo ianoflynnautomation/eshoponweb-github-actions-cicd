@@ -1,5 +1,4 @@
 
-using Microsoft.Playwright;
 using Playwright.DotNet.PageObjectModels.Basket;
 using Playwright.DotNet.PageObjectModels.Basket.CheckoutPage;
 using Playwright.DotNet.PageObjectModels.Basket.SuccessPage;
@@ -10,32 +9,21 @@ using Playwright.DotNet.PageObjectModels.Sections;
 namespace EShopOnWeb.TestContainersSystemTests;
 
 [Parallelizable(ParallelScope.Self)]
-//[FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
-[assembly: LevelOfParallelism(2)]
+[assembly: LevelOfParallelism(1)]
 
 [TestFixture]
-public class CustomerOrderSystemTests : BaseTest
+public class CustomerOrderSystemTests : DockerContainersBaseTest
 {
-
 
     [Test]
     public async Task TC_01_Customer_Order_UserJourney()
     {
-        await using var browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
-        {
-            Headless = true
-        });
-
-        var context = await browser.NewContextAsync();
-         var page = await context.NewPageAsync();
-        await page.GotoAsync(_fixture.ServerAddress);
-
-        var homepage = new HomePage(page);
-        var headerSection = new HeaderSection(page);
-        var loginPage = new LoginPage(page);
-        var basketPage = new BasketPage(page);
-        var checkoutPage = new CheckoutPage(page);
-        var successPage = new SuccessPage(page);
+        var homepage = new HomePage(Page);
+        var headerSection = new HeaderSection(Page);
+        var loginPage = new LoginPage(Page);
+        var basketPage = new BasketPage(Page);
+        var checkoutPage = new CheckoutPage(Page);
+        var successPage = new SuccessPage(Page);
 
         await headerSection.OpenLogin();
         await loginPage.Login("demouser@microsoft.com", "Pass@word1", false);
@@ -44,12 +32,6 @@ public class CustomerOrderSystemTests : BaseTest
         await basketPage.Checkout();
         await checkoutPage.PayNow();
         await successPage.SuccessMessageShouldBe("Thanks for your Order!");
-
-        await page.CloseAsync();
-        await context.CloseAsync();
-        await browser.CloseAsync();
-        await browser.DisposeAsync();
-        Playwright.Dispose();
    
     }
 

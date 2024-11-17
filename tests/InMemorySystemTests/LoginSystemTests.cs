@@ -1,4 +1,5 @@
 
+using Playwright.DotNet.Infra.NUnit;
 using Playwright.DotNet.PageObjectModels.LoginPage;
 using Playwright.DotNet.PageObjectModels.Sections;
 
@@ -7,7 +8,7 @@ namespace EShopOnWeb.InMemorySystemTests;
 [Parallelizable(ParallelScope.Self)]
 
 [TestFixture]
-public class LoginOrderSystemTests : BaseTest
+public class LoginOrderSystemTests : InMemoryBaseTest
 {
     // [Test]
     // public async Task Login_Success_UserJourney()

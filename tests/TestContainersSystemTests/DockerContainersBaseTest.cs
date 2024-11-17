@@ -1,30 +1,30 @@
-﻿
-using Playwright.DotNet.Fixtures;
+﻿using Playwright.DotNet.Fixtures;
+using Playwright.DotNet.Infra.NUnit;
 
 namespace EShopOnWeb.TestContainersSystemTests;
 
-public class BaseTest : PageTest
+public class DockerContainersBaseTest : PageTestBase
 {
     protected SystemTestContainersFixture _fixture;
 
-    protected TestContext TestContext => TestContext.CurrentContext;
-
     [OneTimeSetUp]
-    public void OneTimeSetUp()
+    public async Task OneTimeSetUp()
     {
         _fixture = new SystemTestContainersFixture();
+
+        await Task.CompletedTask;
     }
 
     [SetUp]
     public async Task SetUp()
     {
         await _fixture.SqlEdgeFixture.InitializeAsync();
+        await Page.GotoAsync(_fixture.ServerAddress);
     }
 
     [TearDown]
     public async Task TearDown()
     {
-        //await _fixture.SqlEdgeFixture.StopContainer();
         await _fixture.SqlEdgeFixture.DisposeAsync();
     }
 

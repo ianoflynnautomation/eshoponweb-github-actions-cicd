@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Playwright;
+using Playwright.DotNet.Infra.NUnit;
 using Playwright.DotNet.PageObjectModels.Basket;
 using Playwright.DotNet.PageObjectModels.Basket.CheckoutPage;
 using Playwright.DotNet.PageObjectModels.Basket.SuccessPage;
@@ -10,9 +11,10 @@ using Playwright.DotNet.PageObjectModels.Sections;
 namespace EShopOnWeb.InMemorySystemTests;
 
 [Parallelizable(ParallelScope.Self)]
+[assembly: LevelOfParallelism(1)]
 
 [TestFixture]
-public class CustomerOrderSystemTests : BaseTest
+public class CustomerOrderSystemTests : InMemoryBaseTest
 {
     [Test]
     public async Task Customer_Order_UserJourney()

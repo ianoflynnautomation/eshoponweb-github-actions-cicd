@@ -26,18 +26,18 @@ public sealed class SqlEdgeFixture : DataBaseFixture<SqlEdgeContainer>
     /// <inheritdoc />
     public override async Task DisposeAsync()
     {
-        await Container.DisposeAsync().ConfigureAwait(false); ;
+        await Container.DisposeAsync();
     }
 
     /// <inheritdoc />
     public override async Task InitializeAsync()
     {
-        await Container.StartAsync().ConfigureAwait(false);
+        await Container.StartAsync();
     }
 
     /// <inheritdoc />
     public override async Task StopContainer()
     {
-        await Container.StopAsync().ConfigureAwait(false);
+        await Container.StopAsync(); 
     }
 }
