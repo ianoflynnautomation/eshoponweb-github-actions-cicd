@@ -18,7 +18,6 @@ public class DockerContainersBaseTest : PageTestBase
     public async Task SetUp()
     {
         await _fixture.SqlEdgeFixture.InitializeAsync();
-        await Page.GotoAsync(_fixture.ServerAddress);
     }
 
     [TearDown]

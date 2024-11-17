@@ -17,7 +17,6 @@ public class InMemoryBaseTest : PageTestBase
     [SetUp]
     public async Task SetUp()
     {
-        await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
 
     }
 

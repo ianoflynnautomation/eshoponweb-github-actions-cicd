@@ -16,28 +16,37 @@ namespace EShopOnWeb.InMemorySystemTests;
 [TestFixture]
 public class CustomerOrderSystemTests : InMemoryBaseTest
 {
-    [Test]
-    public async Task Customer_Order_UserJourney()
+    private IHeaderSection HeaderSection;
+    private ILoginPage LoginPage;
+    private IHomePage HomePage;
+    private IBasketPage BasketPage;
+    private ICheckoutPage CheckoutPage;
+    private ISuccessPage SuccessPage;
+
+
+    [SetUp]
+    public async Task SetUp()
     {
-        var headerSection = new HeaderSection(Page);
-        await headerSection.OpenLogin();
+        HeaderSection = new HeaderSection(Page);
+        LoginPage = new LoginPage(Page);
+        HomePage = new HomePage(Page);
+        BasketPage = new BasketPage(Page);
+        CheckoutPage = new CheckoutPage(Page);
+        SuccessPage = new SuccessPage(Page);
 
-        var loginPage = new LoginPage(Page);
-        await loginPage.Login("demouser@microsoft.com", "Pass@word1", false);
+        await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
+    }
 
-        var homepage = new HomePage(Page);
-        await homepage.FilterForProduct(".NET", "Mug");
-        await homepage.AddItemToBasket(".NET Black & White Mug");
-
-        var basketPage = new BasketPage(Page);
-        await basketPage.Checkout();
-
-        var checkoutPage = new CheckoutPage(Page);
-        await checkoutPage.PayNow();
-        
-        var successPage = new SuccessPage(Page);
-        await successPage.SuccessMessageShouldBe("Thanks for your Order!");
-
+    [Test]
+    public async Task TC_01_Customer_Order_UserJourney()
+    {
+        await HeaderSection.OpenLogin();
+        await LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
+        await HomePage.FilterForProduct(".NET", "Mug");
+        await HomePage.AddItemToBasket(".NET Black & White Mug");
+        await BasketPage.Checkout();
+        await CheckoutPage.PayNow();     
+        await SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 
     public override BrowserNewContextOptions ContextOptions()
