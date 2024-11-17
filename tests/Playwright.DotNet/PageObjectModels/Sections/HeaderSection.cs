@@ -1,4 +1,3 @@
-
 using Microsoft.Playwright;
 
 namespace Playwright.DotNet.PageObjectModels.Sections;

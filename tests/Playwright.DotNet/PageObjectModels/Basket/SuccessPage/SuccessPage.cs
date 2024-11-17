@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 
 namespace Playwright.DotNet.PageObjectModels.Basket.SuccessPage;
 
@@ -11,16 +10,13 @@ public class SuccessPage(IPage page) : WebPage(page),  ISuccessPage
     /// <inheritdoc/>
     public async Task SuccessMessageShouldBe(string message)
     {
-        await Expect(OrderCompleteMessage).ToHaveTextAsync(message);
-
-        
+        await Expect(OrderCompleteMessage).ToHaveTextAsync(message);    
     }
 
     /// <inheritdoc/>
     public async Task ContinueShopping()
     {
         await ContinueShoppingAnchor.ClickAsync();
-
-        
     }
+    
 }

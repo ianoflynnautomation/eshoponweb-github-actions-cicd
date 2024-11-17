@@ -13,7 +13,6 @@ public class LoginPage(IPage page) : WebPage(page), ILoginPage
     public async Task CheckRememberMe()
     {
         await RememberMeCheckbox.CheckAsync();
-
     }
 
     // <inheritdoc/>
@@ -34,14 +33,12 @@ public class LoginPage(IPage page) : WebPage(page), ILoginPage
     public async Task SetEmail(string email)
     {
         await EmailInput.FillAsync(email);
-
     }
 
     // <inheritdoc/>
     public async Task SetPassword(string password)
     {
         await PasswordInput.FillAsync(password);
-
     }
 
 }

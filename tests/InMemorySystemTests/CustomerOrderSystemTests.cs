@@ -1,6 +1,5 @@
 using System.IO;
 using Microsoft.Playwright;
-using Playwright.DotNet.Infra.NUnit;
 using Playwright.DotNet.PageObjectModels.Basket;
 using Playwright.DotNet.PageObjectModels.Basket.CheckoutPage;
 using Playwright.DotNet.PageObjectModels.Basket.SuccessPage;

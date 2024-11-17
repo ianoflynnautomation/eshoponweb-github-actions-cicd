@@ -29,7 +29,6 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     public async Task AddItemToBasket(string itemName)
     {
         await AddToBasket(itemName).ClickAsync();
-;
     }
 
     /// <inheritdoc/>
@@ -48,7 +47,7 @@ public class HomePage(IPage page) : WebPage(page), IHomePage
     /// <inheritdoc/>
     public async Task Filter()
     {
-        await FilterButton.ClickAsync(new(){ Force = true });
-
+        await FilterButton.ClickAsync(new() { Force = true });
     }
+
 }

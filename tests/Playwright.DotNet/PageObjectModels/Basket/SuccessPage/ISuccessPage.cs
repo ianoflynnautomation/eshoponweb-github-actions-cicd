@@ -3,6 +3,7 @@
 public interface ISuccessPage
 {
     Task SuccessMessageShouldBe(string message);
+    
     Task ContinueShopping();
 
 }
