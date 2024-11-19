@@ -86,11 +86,4 @@ public class PageTestBase : PageTest
         }
 
     }
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        //Playwright.Dispose();
-
-    }
 }

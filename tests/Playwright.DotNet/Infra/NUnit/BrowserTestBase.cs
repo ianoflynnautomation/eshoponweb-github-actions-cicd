@@ -102,11 +102,4 @@ public class BrowserTestBase : BrowserTest
         }
 
     }
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        //Playwright.Dispose();
-
-    }
 }
