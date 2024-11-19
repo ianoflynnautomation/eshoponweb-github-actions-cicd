@@ -1,35 +1,38 @@
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Azure.Developer.MicrosoftPlaywrightTesting.TestLogger;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
+using Microsoft.Playwright.TestAdapter;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
 namespace Playwright.DotNet.Infra.NUnit;
 
 /// <summary>
-/// Each test will get a browser and can create as many contexts as it likes. 
+/// Each test will get a browser and can create as many contexts as it likes.
 /// Each test is responsible for cleaning up all the contexts it created.
 /// </summary>
 
 [TestFixture]
-public class BrowserTestBase : BrowserTest
+public class PlaywrightTestBase : PlaywrightTest
 {
-
-    // Declare the Context and Page
+    // Declare Browser, Context and Page
     public IPage Page { get; private set; } = null!;
     public IBrowserContext Context { get; private set; } = null!;
-    
+    public IBrowser Browser { get; private set; } = null!;
+
     protected TestContext TestContext => TestContext.CurrentContext;
 
     public virtual BrowserNewContextOptions ContextOptions()
+    {
+        return new()
         {
-            return new()
-            {
-                Locale = "en-US",
-                ColorScheme = ColorScheme.Light,
-                RecordVideoDir = ".videos"
-            };
-        }
+            Locale = "en-US",
+            ColorScheme = ColorScheme.Light,
+            RecordVideoDir = ".videos"
+        };
+    }
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -39,8 +42,34 @@ public class BrowserTestBase : BrowserTest
     [SetUp]
     public async Task SetUp()
     {
-        // Create Context
+        // Create Browser
+        if (TestContext.Parameters.Get(RunSettingKey.UseCloudHostedBrowsers) == "false")
+        {
+            Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
+        }
+        else
+        {
+            /* Connect Remote Browser using BrowserType.ConnectAsync
+             * fetches service connect options like wsEndpoint and options
+             * add x-playwright-launch-options header to pass launch options likes channel, headless, etc.
+             */
+            var playwrightService = new PlaywrightService();
+            var connectOptions = await playwrightService.GetConnectOptionsAsync<BrowserTypeConnectOptions>();
+            var launchOptionString = JsonSerializer.Serialize(PlaywrightSettingsProvider.LaunchOptions, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+            if (connectOptions.Options!.Headers is not null)
+            {
+                connectOptions.Options.Headers = connectOptions.Options.Headers.Concat(new Dictionary<string, string> { { "x-playwright-launch-options", launchOptionString } });
+            }
+            else
+            {
+                connectOptions.Options.Headers = new Dictionary<string, string> { { "x-playwright-launch-options", launchOptionString } };
+            }
+            Browser = await BrowserType.ConnectAsync(connectOptions.WsEndpoint!, connectOptions.Options!);
+        }
+
+        // Create context and page
         Context = await Browser.NewContextAsync(ContextOptions());
+
 
         await Context.Tracing.StartAsync(new()
         {
@@ -48,11 +77,10 @@ public class BrowserTestBase : BrowserTest
             Screenshots = true,
             Snapshots = true,
             Sources = true
+
         });
 
-        // Create a new page
         Page = await Context.NewPageAsync();
-
     }
 
     [TearDown]
@@ -71,7 +99,7 @@ public class BrowserTestBase : BrowserTest
         {
             Path = failed ? tracePath : null
         });
-        //TestContext.AddTestAttachment(tracePath, description: "Trace");
+        TestContext.AddTestAttachment(tracePath, description: "Trace");
 
 
         // Take a screenshot on error and add it as an attachment
@@ -86,10 +114,9 @@ public class BrowserTestBase : BrowserTest
             {
                 Path = screenshotPath,
             });
-            //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
+            TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
-        //await Page.CloseAsync();
         await Context.CloseAsync();
 
         var videoPath = Path.Combine(
@@ -99,19 +126,10 @@ public class BrowserTestBase : BrowserTest
         if (Page.Video != null)
         {
             await Page.Video.SaveAsAsync(videoPath);
-            //TestContext.AddTestAttachment(videoPath, description: "Video");
+            TestContext.AddTestAttachment(videoPath, description: "Video");
         }
 
-        //await Browser.CloseAsync();
-        //await Browser.DisposeAsync();
-
-
-    }
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        //Playwright.Dispose();
+        await Browser.CloseAsync();
 
     }
 }

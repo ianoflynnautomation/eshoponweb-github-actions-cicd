@@ -22,7 +22,6 @@ public class CustomerOrderSystemTests : InMemoryBaseTest
     private ICheckoutPage CheckoutPage;
     private ISuccessPage SuccessPage;
 
-
     [SetUp]
     public async Task SetUp()
     {
@@ -44,7 +43,7 @@ public class CustomerOrderSystemTests : InMemoryBaseTest
         await HomePage.FilterForProduct(".NET", "Mug");
         await HomePage.AddItemToBasket(".NET Black & White Mug");
         await BasketPage.Checkout();
-        await CheckoutPage.PayNow();     
+        await CheckoutPage.PayNow();
         await SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 

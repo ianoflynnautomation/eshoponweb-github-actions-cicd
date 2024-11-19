@@ -1,3 +1,7 @@
+
+using Autofac;
+using Azure;
+using Microsoft.Playwright;
 using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Infra.NUnit;
 
@@ -17,7 +21,7 @@ public class InMemoryBaseTest : PageTestBase
     [SetUp]
     public async Task SetUp()
     {
-
+        await base.SetUp();
     }
 
     [OneTimeTearDown]
@@ -26,4 +30,5 @@ public class InMemoryBaseTest : PageTestBase
         _fixture.Dispose();
 
     }
+
 }
