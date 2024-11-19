@@ -21,7 +21,6 @@ public class InMemoryBaseTest : PageTestBase
     [SetUp]
     public async Task SetUp()
     {
-        await base.SetUp();
     }
 
     [OneTimeTearDown]

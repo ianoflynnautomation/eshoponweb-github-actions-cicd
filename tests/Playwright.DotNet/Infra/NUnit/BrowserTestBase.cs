@@ -89,7 +89,6 @@ public class BrowserTestBase : BrowserTest
             //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
-        //await Page.CloseAsync();
         await Context.CloseAsync();
 
         var videoPath = Path.Combine(
@@ -101,10 +100,6 @@ public class BrowserTestBase : BrowserTest
             await Page.Video.SaveAsAsync(videoPath);
             //TestContext.AddTestAttachment(videoPath, description: "Video");
         }
-
-        //await Browser.CloseAsync();
-        //await Browser.DisposeAsync();
-
 
     }
 

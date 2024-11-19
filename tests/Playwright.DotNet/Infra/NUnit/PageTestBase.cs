@@ -1,6 +1,4 @@
-﻿using Autofac;
-using Microsoft.Playwright;
-using Microsoft.Playwright.NUnit;
+﻿using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
@@ -18,8 +16,8 @@ namespace Playwright.DotNet.Infra.NUnit;
 public class PageTestBase : PageTest
 {
     protected TestContext TestContext => TestContext.CurrentContext;
-    private IContainer _container;
-    private ContainerBuilder _builder;
+    // private IContainer _container;
+    // private ContainerBuilder _builder;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -30,10 +28,7 @@ public class PageTestBase : PageTest
     public async Task SetUp()
     {
 
-        _builder = new ContainerBuilder();
-        _builder.RegisterType<IPage>().SingleInstance();
-        _container = _builder.Build();
-      
+
         await Context.Tracing.StartAsync(new()
         {
             Title = TestContext.CurrentContext.Test.Name,
@@ -78,10 +73,7 @@ public class PageTestBase : PageTest
             //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
-        //await Page.CloseAsync();
         await Context.CloseAsync();
-        //await Browser.CloseAsync();
-        //await Browser.DisposeAsync();
 
         var videoPath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
@@ -92,7 +84,6 @@ public class PageTestBase : PageTest
             await Page.Video.SaveAsAsync(videoPath);
             //TestContext.AddTestAttachment(videoPath, description: "Video");
         }
-
 
     }
 
