@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
-    <TestRunParameters>
-        <!-- The below parameters are optional -->
-        <Parameter name="Os" value="linux" />
-        <!--<Parameter name="RunId" value="sample-run-id1" />-->
-        <Parameter name="ServiceAuthType" value="EntraId" />
-        <Parameter name="UseCloudHostedBrowsers" value="true" />
-        <Parameter name="AzureTokenCredentialType" value="DefaultAzureCredential" />
-        <!--<Parameter name="ManagedIdentityClientId" value="{clientId-value}" />-->
-        <Parameter name="EnableGitHubSummary" value="false" />
-        <!--<Parameter name="ExposeNetwork" value="*" />-->
-    </TestRunParameters>
   <!-- NUnit adapter -->  
   <NUnit>
-    <!-- Adjust parallel workers, parallel worker would also be bound by number of unit test files -->
-    <NumberOfTestWorkers>10</NumberOfTestWorkers>
+    <NumberOfTestWorkers>2</NumberOfTestWorkers>
   </NUnit>
   <!-- General run configuration -->
   <RunConfiguration>
     <EnvironmentVariables>
       <!-- For debugging selectors, it's recommend to set the following environment variable -->
-        <!--<DEBUG>pw:api*</DEBUG>--> 
+      <DEBUG>pw:api</DEBUG>
     </EnvironmentVariables>
   </RunConfiguration>
   <!-- Playwright -->  
@@ -29,15 +17,7 @@
     <ExpectTimeout>5000</ExpectTimeout>
     <LaunchOptions>
       <Headless>false</Headless>
-      <!--Channel>msedge</Channel-->
+      <Channel>msedge</Channel>
     </LaunchOptions>
   </Playwright>
-    <LoggerRunSettings>
-        <Loggers>
-            <!--microsoft playwright testing service logger for reporting -->
-            <Logger friendlyName="microsoft-playwright-testing" enabled="True" />
-            <!--could enable any logger additionally -->
-            <Logger friendlyName="trx" enabled="false" />
-        </Loggers>
-    </LoggerRunSettings>
 </RunSettings>
