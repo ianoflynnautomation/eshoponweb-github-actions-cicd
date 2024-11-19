@@ -9,11 +9,6 @@ using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
-using Serilog;
-using BlazorAdmin.Pages.CatalogItemPage;
-using BlazorAdmin.Services;
-using BlazorShared.Interfaces;
-using Docker.DotNet.Models;
 using System.Net.Sockets;
 using System.Net;
 
@@ -27,7 +22,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
 {
     private IHost? _host;
     private bool _disposed;
-    private IServiceProvider _serviceProvider;
 
     public ServerTestFixture()
     {
@@ -35,8 +29,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         {
             AllowAutoRedirect = false
         });
-
-        ServiceProvider = new ServiceCollection().BuildServiceProvider();
 
     }
 
@@ -49,12 +41,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
     }
 
     protected HttpClient Client { get; }
-
-    protected IServiceProvider ServiceProvider { get; private set; }
-
-    protected CatalogContext CatalogContext => GetScopedService<CatalogContext>();
-    
-    protected AppIdentityDbContext AppIdentityDbContext => GetScopedService<AppIdentityDbContext>();
 
     /// <summary>
     /// Gets the server address.
@@ -161,26 +147,6 @@ public class ServerTestFixture : WebApplicationFactory<Program>
         testHost.Start();
 
         return testHost;
-    }
-
-
-    protected T GetWebServerService<T>()
-    {
-        if (_host is null)
-        {
-            return ServiceProvider.GetRequiredService<T>();
-        }
-        else
-        {
-
-            return _host.Services.GetRequiredService<T>();
-        }
-    }
-
-    protected T GetScopedService<T>()
-    {
-        using var scope = _host.Services.CreateScope();
-        return scope.ServiceProvider.GetRequiredService<T>();
     }
 
     /// <summary>

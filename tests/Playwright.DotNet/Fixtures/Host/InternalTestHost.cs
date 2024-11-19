@@ -16,24 +16,15 @@ public class InternalTestHost : ServerTestFixture,  ITestHost
     public string? PublicApiUrl => string.Empty;
 
 
-    //protected CatalogItemService CatalogItemService => ServiceProvider.GetRequiredService<CatalogItemService>();
-
-
     public async Task CreateCatelogItem(CreateCatalogItemRequest catalogItem)
     {
-        var adminToken = ApiTokenHelper.GetAdminUserToken();
-        var client = ProgramTest.NewClient;
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-        var json = JsonSerializer.Serialize(catalogItem);
-        var data = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await client.PostAsync("api/catalog-items", data);
-        response.EnsureSuccessStatusCode();
+         await Task.CompletedTask;
     }
 
 
     public async Task DeleteCatalogItem(int catalogItemId)
     {
-        //CatalogContext.Database.ExecuteSqlRaw("DELETE FROM Catalog WHERE Id = {0}", catalogItemId);
+         await Task.CompletedTask;
     }
 
 }

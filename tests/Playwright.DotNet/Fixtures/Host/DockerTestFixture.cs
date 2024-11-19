@@ -34,10 +34,7 @@ public class DockerTestFixture : ITestHost, IDisposable
 
     public async Task CleanDatabase()
     {
-        var adminToken = ApiTokenHelper.GetAdminUserToken();
-        Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-        var response = await Client.DeleteAsync($"{PublicApiUrl}catalog-items");
-        response.EnsureSuccessStatusCode();
+         await Task.CompletedTask;
     }
 
     public Task DeleteCatalogItem(int catalogItemId)

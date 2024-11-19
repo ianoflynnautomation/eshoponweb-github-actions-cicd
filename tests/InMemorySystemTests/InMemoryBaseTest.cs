@@ -14,7 +14,7 @@ public class InMemoryBaseTest : PageTestBase
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new SystemTestFixture();
+        _fixture = GetSystemTestFixture();
 
     }
 
@@ -29,6 +29,11 @@ public class InMemoryBaseTest : PageTestBase
     {
         _fixture.Dispose();
 
+    }
+
+    private SystemTestFixture GetSystemTestFixture()
+    {
+        return new SystemTestFixture();
     }
 
 }

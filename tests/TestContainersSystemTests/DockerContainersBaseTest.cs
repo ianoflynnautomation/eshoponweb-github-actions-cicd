@@ -10,7 +10,7 @@ public class DockerContainersBaseTest : PageTestBase
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new SystemTestContainersFixture();
+        _fixture = GetSystemTestContainersFixture();
 
     }
 
@@ -30,5 +30,10 @@ public class DockerContainersBaseTest : PageTestBase
     public void OneTimeTearDown()
     {
         _fixture.Dispose();
+    }
+
+        private SystemTestContainersFixture GetSystemTestContainersFixture()
+    {
+        return new SystemTestContainersFixture();
     }
 }

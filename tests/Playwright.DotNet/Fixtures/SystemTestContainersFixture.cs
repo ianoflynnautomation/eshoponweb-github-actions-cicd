@@ -5,12 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using Playwright.DotNet.Fixtures.DataBase;
 
 namespace Playwright.DotNet.Fixtures;
@@ -25,16 +23,13 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
     /// </summary>
     public SystemTestContainersFixture()
     {
-        SqlEdgeFixture = new SqlEdgeFixture();
+        SqlEdgeFixture = GetSqlEdgeFixture();
     }
 
     /// <summary>
     /// Gets the SQL Edge fixture.
     /// </summary>
     public SqlEdgeFixture SqlEdgeFixture { get; }
-
-    protected CatalogContext CatalogContext => Services.GetRequiredService<CatalogContext>();
-    protected AppIdentityDbContext AppIdentityDbContext => Services.GetRequiredService<AppIdentityDbContext>();
 
     private IHost? _host;
     private bool _disposed;
@@ -46,6 +41,11 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
         {
             using var _ = CreateDefaultClient();
         }
+    }
+
+    private SqlEdgeFixture GetSqlEdgeFixture()
+    {
+        return new SqlEdgeFixture();
     }
 
     /// <summary>
@@ -69,9 +69,6 @@ public class SystemTestContainersFixture : WebApplicationFactory<Program>
         {
             // remove the default logging providers
             c.ClearProviders();
-            // c.Services.AddSingleton<ILoggerFactory, CustomSerilogLoggerFactory>();
-            // c.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(serviceProvider
-            //     => serviceProvider.GetRequiredService<ILogger<SystemTestContainersFixture>>());
         });
 
         builder.UseKestrel(Options =>

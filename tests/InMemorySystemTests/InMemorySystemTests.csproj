@@ -1,7 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- <Import Project="..\..\EShopOnWeb.Default.SystemTests.ProjectSettings" /> -->
-
   <PropertyGroup>
     <AssemblyName>EShopOnWeb.InMemorySystemTests</AssemblyName>
     <RootNamespace>EShopOnWeb.InMemorySystemTests</RootNamespace>
