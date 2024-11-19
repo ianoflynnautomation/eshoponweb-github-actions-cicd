@@ -8,11 +8,10 @@ using Playwright.DotNet.PageObjectModels.Sections;
 namespace EShopOnWeb.DockerSystemTests;
 
 [Parallelizable(ParallelScope.Self)]
-//[FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
 [assembly: LevelOfParallelism(1)]
 
 [TestFixture]
-public class CustomerOrderSystemTests : BaseTest
+public class CustomerOrderSystemTests : DockerSystemTestsBase
 {
     private IHeaderSection HeaderSection;
     private ILoginPage LoginPage;
@@ -20,7 +19,6 @@ public class CustomerOrderSystemTests : BaseTest
     private IBasketPage BasketPage;
     private ICheckoutPage CheckoutPage;
     private ISuccessPage SuccessPage;
-
 
     [SetUp]
     public async Task SetUp()
@@ -36,7 +34,7 @@ public class CustomerOrderSystemTests : BaseTest
     }
 
     [Test]
-    public async Task TC_01_Customer_Order_UserJourney()
+    public async Task Customer_Order_UserJourney()
     {
         await HeaderSection.OpenLogin();
         await LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);

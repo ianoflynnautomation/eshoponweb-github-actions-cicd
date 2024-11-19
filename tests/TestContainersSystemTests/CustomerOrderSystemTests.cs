@@ -36,7 +36,7 @@ public class CustomerOrderSystemTests : DockerContainersBaseTest
     }
 
     [Test]
-    public async Task TC_01_Customer_Order_UserJourney()
+    public async Task Customer_Order_UserJourney()
     {
         await HeaderSection.OpenLogin();
         await LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);

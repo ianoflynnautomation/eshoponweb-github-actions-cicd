@@ -7,7 +7,7 @@ using Playwright.DotNet.Infra.NUnit;
 
 namespace EShopOnWeb.InMemorySystemTests;
 
-public class InMemoryBaseTest : PageTestBase
+public class InMemorySystemTestsBase : PageTestBase
 {
     protected SystemTestFixture _fixture;
 

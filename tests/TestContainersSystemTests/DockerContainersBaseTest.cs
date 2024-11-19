@@ -32,7 +32,7 @@ public class DockerContainersBaseTest : PageTestBase
         _fixture.Dispose();
     }
 
-        private SystemTestContainersFixture GetSystemTestContainersFixture()
+    private SystemTestContainersFixture GetSystemTestContainersFixture()
     {
         return new SystemTestContainersFixture();
     }

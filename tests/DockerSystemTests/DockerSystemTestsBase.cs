@@ -4,15 +4,14 @@ using Playwright.DotNet.Infra.NUnit;
 
 namespace EShopOnWeb.DockerSystemTests;
 
-public class BaseTest : PageTestBase
+public class DockerSystemTestsBase : PageTestBase
 {
     protected SystemTestFixture _fixture;
-    protected TestContext TestContext => TestContext.CurrentContext;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _fixture = new SystemTestFixture();
+        _fixture = GetSystemTestFixture();
     }
 
     [SetUp]
@@ -32,4 +31,10 @@ public class BaseTest : PageTestBase
     {
         _fixture.Dispose();
     }
+
+
+    private SystemTestFixture GetSystemTestFixture()
+    {
+        return new SystemTestFixture();
+    }   
 }
