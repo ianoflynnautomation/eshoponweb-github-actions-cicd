@@ -174,7 +174,7 @@ jobs:
             headless: true
           - test-type: TestContainersSystemTests_Chrome
             artifact-name: tests_TestContainersSystemTests
-            project-name: TestContainersSystemTests
+            project-name: NUnit.TestContainers.InProcess.SystemTests
             project-pattern: |
               **/*NUnit.TestContainers.InProcess.SystemTests.csproj
             test-filter-criteria: ""
