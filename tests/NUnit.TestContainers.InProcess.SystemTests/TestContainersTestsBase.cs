@@ -1,9 +1,9 @@
 ﻿using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Infra.NUnit;
 
-namespace EShopOnWeb.TestContainersSystemTests;
+namespace EShopOnWeb.NUnit.TestContainers.InProcess.SystemTests;
 
-public class DockerContainersBaseTest : PageTestBase
+public class TestContainersTestsBase : PageTestBase
 {
     protected SystemTestContainersFixture _fixture;
 

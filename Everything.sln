@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicApiIntegrationTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{EAD6CF0B-2979-462C-BBB9-AF723B1EB570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemorySystemTests", "tests\InMemorySystemTests\InMemorySystemTests.csproj", "{2982AA1E-0B81-40B2-983C-763AA332773C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.InProcess.SystemTests", "tests\NUnit.InProcess.SystemTests\NUnit.InProcess.SystemTests.csproj", "{2982AA1E-0B81-40B2-983C-763AA332773C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestContainersSystemTests", "tests\TestContainersSystemTests\TestContainersSystemTests.csproj", "{E9F9F160-B997-43B0-8DC1-3E8423FED173}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.TestContainers.InProcess.SystemTests", "tests\NUnit.TestContainers.InProcess.SystemTests\NUnit.TestContainers.InProcess.SystemTests.csproj", "{E9F9F160-B997-43B0-8DC1-3E8423FED173}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playwright.DotNet", "tests\Playwright.DotNet\Playwright.DotNet.csproj", "{B2B4E11C-0F42-4E12-9F43-866DEFCCEA69}"
 EndProject

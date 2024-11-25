@@ -7,13 +7,12 @@ using Playwright.DotNet.PageObjectModels.HomePage;
 using Playwright.DotNet.PageObjectModels.LoginPage;
 using Playwright.DotNet.PageObjectModels.Sections;
 
-namespace EShopOnWeb.InMemorySystemTests;
-
+namespace EShopOnWeb.NUnit.InProcess.SystemTests;
 [Parallelizable(ParallelScope.Self)]
 [assembly: LevelOfParallelism(1)]
 
 [TestFixture]
-public class CustomerOrderSystemTests : InMemorySystemTestsBase
+public class CustomerOrderSystemTests : NUnitInProcessSystemTestsBase
 {
     private IHeaderSection HeaderSection;
     private ILoginPage LoginPage;

@@ -1,3 +1,4 @@
+using Microsoft.Playwright;
 using Playwright.DotNet.PageObjectModels.Basket;
 using Playwright.DotNet.PageObjectModels.Basket.CheckoutPage;
 using Playwright.DotNet.PageObjectModels.Basket.SuccessPage;
@@ -41,8 +42,19 @@ public class CustomerOrderSystemTests : DockerSystemTestsBase
         await HomePage.FilterForProduct(".NET", "Mug");
         await HomePage.AddItemToBasket(".NET Black & White Mug");
         await BasketPage.Checkout();
-        await CheckoutPage.PayNow();     
+        await CheckoutPage.PayNow();
         await SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 
+
+    public override BrowserNewContextOptions ContextOptions()
+    {
+        return new BrowserNewContextOptions
+        {
+
+            IgnoreHTTPSErrors = true,
+            Locale = "en-US",
+        };
+
+    }
 }

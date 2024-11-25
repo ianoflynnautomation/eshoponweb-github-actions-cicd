@@ -8,6 +8,11 @@
   <PropertyGroup>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PlaywrightPlatform>all</PlaywrightPlatform>
+  </PropertyGroup>
+
   
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />

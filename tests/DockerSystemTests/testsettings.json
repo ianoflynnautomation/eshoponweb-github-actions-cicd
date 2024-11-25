@@ -7,46 +7,5 @@
   "ConnectionStrings": {
     "CatalogConnection": "Server=localhost,1433;Integrated Security=true;Initial Catalog=Microsoft.eShopOnWeb.CatalogDb;User Id=sa;Password=@someThingComplicated1234;Trusted_Connection=false;TrustServerCertificate=true;",
     "IdentityConnection": "Server=localhost,1433;Integrated Security=true;Initial Catalog=Microsoft.eShopOnWeb.Identity;User Id=sa;Password=@someThingComplicated1234;Trusted_Connection=false;TrustServerCertificate=true;"
-  },
-  "WebSettings": {
-    "IsParallelExecutionEnabled": "false",
-    "ArtificialDelayBeforeAction": "0",
-    "AutomaticallyScrollToVisible": "false",
-    "WaitUntilReadyOnElementFound": "false",
-    "WaitForAngular": "false",
-    "ShouldHighlightElements": "true",
-    "ShouldCaptureHttpTraffic": "false",
-    "PathToSslCertificate": "path",
-    "ShouldCheckForJavaScriptErrors": "false",
-    "TimeoutSettings": {
-      "ElementWaitTimeout": "3000",
-      "PageLoadTimeout": "3000",
-      "ScriptTimeout": "1",
-      "WaitForAjaxTimeout": "3000",
-      "SleepInterval": "1",
-      "WaitUntilReadyTimeout": "3000",
-      "WaitForJavaScriptAnimationsTimeout": "3000",
-      "WaitForAngularTimeout": "3000",
-      "WaitForPartialUrl": "3000",
-      "ValidationsTimeout": "3000",
-      "ElementToBeVisibleTimeout": "3000",
-      "ElementToExistTimeout": "3000",
-      "ElementToNotExistTimeout": "3000",
-      "ElementToBeClickableTimeout": "3000",
-      "ElementNotToBeVisibleTimeout": "3000",
-      "ElementToHaveContentTimeout": "1500"
-    },
-    "ExecutionSettings": {
-      "ExecutionType": "regular",
-      "DefaultBrowser": "edge",
-      "DefaultLifeCycle": "restart every time",
-      "Resolution": "",
-      "BrowserVersion": "",
-      "IsCloudRun": "false",
-      "Url": "http://127.0.0.1:4444/wd/hub",
-      "Arguments": [
-        {}
-      ]
-    }
   }
 }

@@ -6,13 +6,13 @@ using Playwright.DotNet.PageObjectModels.HomePage;
 using Playwright.DotNet.PageObjectModels.LoginPage;
 using Playwright.DotNet.PageObjectModels.Sections;
 
-namespace EShopOnWeb.TestContainersSystemTests;
+namespace EShopOnWeb.NUnit.TestContainers.InProcess.SystemTests;
 
 [Parallelizable(ParallelScope.Self)]
 [assembly: LevelOfParallelism(1)]
 
 [TestFixture]
-public class CustomerOrderSystemTests : DockerContainersBaseTest
+public class CustomerOrderSystemTests : TestContainersTestsBase
 {
     private IHeaderSection HeaderSection;
     private ILoginPage LoginPage;

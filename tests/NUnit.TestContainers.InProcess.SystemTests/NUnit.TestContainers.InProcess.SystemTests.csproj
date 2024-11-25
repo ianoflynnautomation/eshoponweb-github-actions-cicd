@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>EShopOnWeb.TestContainersSystemTests</AssemblyName>
-    <RootNamespace>EShopOnWeb.TestContainersSystemTests</RootNamespace>
+    <AssemblyName>EShopOnWeb.NUnit.TestContainers.InProcess.SystemTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.NUnit.TestContainers.InProcess.SystemTests</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

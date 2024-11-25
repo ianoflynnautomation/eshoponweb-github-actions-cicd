@@ -5,9 +5,9 @@ using Microsoft.Playwright;
 using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Infra.NUnit;
 
-namespace EShopOnWeb.InMemorySystemTests;
+namespace EShopOnWeb.NUnit.InProcess.SystemTests;
 
-public class InMemorySystemTestsBase : PageTestBase
+public class NUnitInProcessSystemTestsBase : PageTestBase
 {
     protected SystemTestFixture _fixture;
 

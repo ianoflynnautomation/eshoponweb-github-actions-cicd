@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>EShopOnWeb.InMemorySystemTests</AssemblyName>
-    <RootNamespace>EShopOnWeb.InMemorySystemTests</RootNamespace>
+    <AssemblyName>EShopOnWeb.NUnit.InProcess.SystemTests</AssemblyName>
+    <RootNamespace>EShopOnWeb.NUnit.InProcess.SystemTests</RootNamespace>
   </PropertyGroup>
 
     <PropertyGroup>
