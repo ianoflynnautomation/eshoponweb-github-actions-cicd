@@ -46,7 +46,11 @@ jobs:
           - test-type: UnitTests
             artifact-name: tests_UnitTests
             project-pattern: |
-              **/*UnitTests.csproj
+              UnitTests/UnitTests.csproj
+          - test-type: BUnitTests
+            artifact-name: tests_BUnitTests
+            project-pattern: |
+              Blazor.UI.UnitTests/Blazor.UI.UnitTests.csproj
           - test-type: IntegrationTests
             artifact-name: tests_IntegrationTests
             project-pattern: | 
@@ -91,6 +95,10 @@ jobs:
             artifact-name: tests_UnitTests
             project-pattern: |
               **/*UnitTests.csproj
+          - test-type: BUnitTests
+            artifact-name: tests_BUnitTests
+            project-pattern: |
+              **/*Blazor.UI.UnitTests.csproj
             test-filter-criteria: ""
           - test-type: IntegrationTests
             artifact-name: tests_IntegrationTests
