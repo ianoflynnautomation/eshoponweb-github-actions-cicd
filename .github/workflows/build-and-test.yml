@@ -46,8 +46,7 @@ jobs:
           - test-type: UnitTests
             artifact-name: tests_UnitTests
             project-pattern: |
-              UnitTests/UnitTests.csproj
-              Blazor.UI.UnitTests/Blazor.UI.UnitTests.csproj
+              **/*UnitTests.csproj
           - test-type: IntegrationTests
             artifact-name: tests_IntegrationTests
             project-pattern: | 
