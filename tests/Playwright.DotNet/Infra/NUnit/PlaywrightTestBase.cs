@@ -42,30 +42,32 @@ public class PlaywrightTestBase : PlaywrightTest
     [SetUp]
     public async Task SetUp()
     {
-        // Create Browser
-        if (TestContext.Parameters.Get(RunSettingKey.UseCloudHostedBrowsers) == "false")
-        {
-            Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
-        }
-        else
-        {
-            /* Connect Remote Browser using BrowserType.ConnectAsync
-             * fetches service connect options like wsEndpoint and options
-             * add x-playwright-launch-options header to pass launch options likes channel, headless, etc.
-             */
-            var playwrightService = new PlaywrightService();
-            var connectOptions = await playwrightService.GetConnectOptionsAsync<BrowserTypeConnectOptions>();
-            var launchOptionString = JsonSerializer.Serialize(PlaywrightSettingsProvider.LaunchOptions, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
-            if (connectOptions.Options!.Headers is not null)
-            {
-                connectOptions.Options.Headers = connectOptions.Options.Headers.Concat(new Dictionary<string, string> { { "x-playwright-launch-options", launchOptionString } });
-            }
-            else
-            {
-                connectOptions.Options.Headers = new Dictionary<string, string> { { "x-playwright-launch-options", launchOptionString } };
-            }
-            Browser = await BrowserType.ConnectAsync(connectOptions.WsEndpoint!, connectOptions.Options!);
-        }
+        Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
+
+        // // Create Browser
+        // if (TestContext.Parameters.Get(RunSettingKey.UseCloudHostedBrowsers) == "false")
+        // {
+        //     Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
+        // }
+        // else
+        // {
+        //     /* Connect Remote Browser using BrowserType.ConnectAsync
+        //      * fetches service connect options like wsEndpoint and options
+        //      * add x-playwright-launch-options header to pass launch options likes channel, headless, etc.
+        //      */
+        //     var playwrightService = new PlaywrightService();
+        //     var connectOptions = await playwrightService.GetConnectOptionsAsync<BrowserTypeConnectOptions>();
+        //     var launchOptionString = JsonSerializer.Serialize(PlaywrightSettingsProvider.LaunchOptions, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+        //     if (connectOptions.Options!.Headers is not null)
+        //     {
+        //         connectOptions.Options.Headers = connectOptions.Options.Headers.Concat(new Dictionary<string, string> { { "x-playwright-launch-options", launchOptionString } });
+        //     }
+        //     else
+        //     {
+        //         connectOptions.Options.Headers = new Dictionary<string, string> { { "x-playwright-launch-options", launchOptionString } };
+        //     }
+        //     Browser = await BrowserType.ConnectAsync(connectOptions.WsEndpoint!, connectOptions.Options!);
+        // }
 
         // Create context and page
         Context = await Browser.NewContextAsync(ContextOptions());

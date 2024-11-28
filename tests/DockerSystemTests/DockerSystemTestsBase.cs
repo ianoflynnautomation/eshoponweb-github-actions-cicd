@@ -4,7 +4,7 @@ using Playwright.DotNet.Infra.NUnit;
 
 namespace EShopOnWeb.DockerSystemTests;
 
-public class DockerSystemTestsBase : PageTestBase
+public class DockerSystemTestsBase : PlaywrightTestBase
 {
     protected SystemTestFixture _fixture;
 

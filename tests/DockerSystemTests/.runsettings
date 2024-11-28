@@ -4,17 +4,17 @@
         <!-- The below parameters are optional -->
         <Parameter name="Os" value="linux" />
         <!--<Parameter name="RunId" value="sample-run-id1" />-->
-        <Parameter name="ServiceAuthType" value="EntraId" />
-        <Parameter name="UseCloudHostedBrowsers" value="true" />
-        <Parameter name="AzureTokenCredentialType" value="DefaultAzureCredential" />
+        <!-- <Parameter name="ServiceAuthType" value="EntraId" /> -->
+        <Parameter name="UseCloudHostedBrowsers" value="false" />
+        <!-- <Parameter name="AzureTokenCredentialType" value="DefaultAzureCredential" /> -->
         <!--<Parameter name="ManagedIdentityClientId" value="{clientId-value}" />-->
-        <Parameter name="EnableGitHubSummary" value="false" />
+        <!-- <Parameter name="EnableGitHubSummary" value="false" /> -->
         <!--<Parameter name="ExposeNetwork" value="*" />-->
     </TestRunParameters>
   <!-- NUnit adapter -->  
   <NUnit>
     <!-- Adjust parallel workers, parallel worker would also be bound by number of unit test files -->
-    <NumberOfTestWorkers>10</NumberOfTestWorkers>
+    <NumberOfTestWorkers>1</NumberOfTestWorkers>
   </NUnit>
   <!-- General run configuration -->
   <RunConfiguration>
@@ -29,7 +29,7 @@
     <ExpectTimeout>5000</ExpectTimeout>
     <LaunchOptions>
       <Headless>false</Headless>
-      <!--Channel>msedge</Channel-->
+      <Channel>chrome</Channel>
     </LaunchOptions>
   </Playwright>
     <LoggerRunSettings>

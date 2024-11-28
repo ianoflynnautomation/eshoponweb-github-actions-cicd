@@ -1,7 +1,7 @@
 {
   "TestHost": {
     "HostType": "Docker",
-    "HostUrl": "http://localhost:5106/",
+    "HostUrl": "http://host.docker.internal:5106/",
     "PublicApiUrl": "http://localhost:5200/api/"
   },
   "ConnectionStrings": {

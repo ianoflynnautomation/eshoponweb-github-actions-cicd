@@ -54,6 +54,7 @@ public class CustomerOrderSystemTests : DockerSystemTestsBase
 
             IgnoreHTTPSErrors = true,
             Locale = "en-US",
+            BaseURL = _fixture.SystemTestHost.WebServerUrl
         };
 
     }
