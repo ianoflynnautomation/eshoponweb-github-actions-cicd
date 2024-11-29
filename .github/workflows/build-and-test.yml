@@ -199,39 +199,17 @@ jobs:
           channel: ${{ matrix.channel }}
           headless: ${{ matrix.headless }}
 
-  # run_system_tests-docker:
-  #   runs-on: [ubuntu-latest]
-  #   timeout-minutes: 20
-  #   needs: [ build_solution, build_web_assets, build_tests ]
-  #   strategy:
-  #     matrix:
-  #       include:
-  #         - test-type: SystemTests_Chrome
-  #           artifact-name: tests_InMemorySystemTests
-  #           project-name: DockerSystemTests
-  #           project-pattern: |
-  #             **/*DockerSystemTests.csproj
-  #           test-filter-criteria: ""
-  #           browser-name: 'chromium'
-  #           channel: 'chrome'
-  #           headless: true
+  run_system_tests-docker-compose:
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 20
+    needs: [ build_solution, build_web_assets, build_tests ]
     
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  #     - name: Run ${{ matrix.test-type }} and Publish Test Results
-  #       uses: ./.github/actions/run-docker-playwright-tests-action
-  #       with:
-  #         dotnet-version: ${{ env.DOTNET_VERSION }}
-  #         test-artifact-name: ${{ matrix.artifact-name }}
-  #         test-project-name: ${{ matrix.project-name }}
-  #         test-project-pattern: |
-  #           ${{ matrix.project-pattern }}
-  #         test-filter-criteria: ${{ matrix.test-filter-criteria }}
-  #         browser-name: ${{ matrix.browser-name }}
-  #         channel: ${{ matrix.channel }}
-  #         headless: ${{ matrix.headless }}
+      - name: Run Docker Compose tests
+        uses: ./.github/actions/run-docker-compose-tests-action
   
   publish_service_artifacts:
     needs: [ run_tests]
