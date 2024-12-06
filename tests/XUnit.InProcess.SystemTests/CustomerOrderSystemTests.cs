@@ -14,34 +14,34 @@ public class CustomerOrderSystemTests(SystemTestFixtureXUnit fixture)
 : XUnitInProcessSystemTestsBase(fixture)
     {
 
-    private IHeaderSection HeaderSection;
-    private ILoginPage LoginPage;
-    private IHomePage HomePage;
-    private IBasketPage BasketPage;
-    private ICheckoutPage CheckoutPage;
-    private ISuccessPage SuccessPage;
+    private HeaderSection _headerSection;
+    private LoginPage _loginPage;
+    private HomePage _homePage;
+    private BasketPage _basketPage;
+    private CheckoutPage _checkoutPage;
+    private SuccessPage _successPage;
 
     public override async Task InitializeAsync()
     {
        await base.InitializeAsync();
-        HeaderSection = new HeaderSection(Page);
-        LoginPage = new LoginPage(Page);
-        HomePage = new HomePage(Page);
-        BasketPage = new BasketPage(Page);
-        CheckoutPage = new CheckoutPage(Page);
-        SuccessPage = new SuccessPage(Page);
+        _headerSection = new HeaderSection(Page);
+        _loginPage = new LoginPage(Page);
+        _homePage = new HomePage(Page);
+        _basketPage = new BasketPage(Page);
+        _checkoutPage = new CheckoutPage(Page);
+        _successPage = new SuccessPage(Page);
     }
 
     [Fact]
     public async Task Customer_Order_UserJourney()
     {
         await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
-        await HeaderSection.OpenLogin();
-        await LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
-        await HomePage.FilterForProduct(".NET", "Mug");
-        await HomePage.AddItemToBasket(".NET Black & White Mug");
-        await BasketPage.Checkout();
-        await CheckoutPage.PayNow();
-        await SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
+        await _headerSection.OpenLogin();
+        await _loginPage.Login("demouser@microsoft.com", "Pass@word1", false);
+        await _homePage.FilterForProduct(".NET", "Mug");
+        await _homePage.AddItemToBasket(".NET Black & White Mug");
+        await _basketPage.Checkout();
+        await _checkoutPage.PayNow();
+        await _successPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 }

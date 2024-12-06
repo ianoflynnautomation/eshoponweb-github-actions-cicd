@@ -1,7 +1,4 @@
 
-using Autofac;
-using Azure;
-using Microsoft.Playwright;
 using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Infra.NUnit;
 

@@ -2,7 +2,6 @@ using Microsoft.Extensions.Configuration;
 using Playwright.DotNet.Configuration;
 using Playwright.DotNet.Configuration.Options;
 using Playwright.DotNet.Fixtures.XUnit.HostXUnit;
-using Playwright.DotNet.Infra.XUnit;
 using Xunit;
 
 namespace Playwright.DotNet.Fixtures.XUnit;
@@ -15,12 +14,9 @@ public class SystemTestFixtureXUnit : IAsyncLifetime
     {
         _configurationRoot = ConfigurationRootInstance.TestConfiguration;
         SystemTestHost = GetTestHostFixture();
-        BrowserTestFixture = GetBrowserTestFixture();
     }
 
     public ITestHostXunit SystemTestHost { get; }
-
-    public BrowserTestFixture BrowserTestFixture { get; set; }
 
     private ITestHostXunit GetTestHostFixture()
     {
@@ -34,11 +30,6 @@ public class SystemTestFixtureXUnit : IAsyncLifetime
             HostTypeXUnit.Docker => new DockerTestFixture(),
             _ => throw new ArgumentOutOfRangeException(nameof(testHostOptions.HostType), testHostOptions.HostType, null)
         };
-    }
-
-    private BrowserTestFixture GetBrowserTestFixture()
-    {
-        return new BrowserTestFixture();
     }
 
     public async Task InitializeAsync() =>  await SystemTestHost.InitializeAsync();

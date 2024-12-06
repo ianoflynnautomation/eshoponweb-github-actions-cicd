@@ -10,9 +10,9 @@ namespace Playwright.DotNet.Infra.XUnit;
 public class BrowserTestFixture : IAsyncLifetime
 {
 
-    public IPage Page { get; set; } = null!;
-    public IBrowserContext Context { get; set; } = null!;
-    public IBrowser Browser { get; set; } = null!;
+    protected IPage Page { get; set; } = null!;
+    protected IBrowserContext Context { get; set; } = null!;
+    protected IBrowser Browser { get; set; } = null!;
     private IPlaywright Playwright { get;  set; } = null!;
 
     // public ITestOutputHelper? _testOutputHelper = testOutputHelper;
@@ -36,7 +36,7 @@ public class BrowserTestFixture : IAsyncLifetime
 
     };
 
-    public async Task InitializeAsync()
+    public virtual async Task InitializeAsync()
     {
         Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
 
@@ -58,7 +58,7 @@ public class BrowserTestFixture : IAsyncLifetime
         // Page.PageError += (_, e) => _testOutputHelper.WriteLine(e);
     }
 
-    public async Task DisposeAsync()
+    public virtual async Task DisposeAsync()
     {
 
         var tracePath = Path.Combine(

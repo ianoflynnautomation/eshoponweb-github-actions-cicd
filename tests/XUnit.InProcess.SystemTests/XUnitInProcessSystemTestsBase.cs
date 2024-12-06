@@ -1,36 +1,23 @@
 
-using Microsoft.Playwright;
 using Playwright.DotNet.Fixtures.XUnit;
-using Xunit;
+using Playwright.DotNet.Infra.XUnit;
 
 namespace EShopOnWeb.XUnit.InProcess.SystemTests;
 
-public class XUnitInProcessSystemTestsBase : IAsyncLifetime
+public class XUnitInProcessSystemTestsBase(SystemTestFixtureXUnit fixture) : BrowserTestFixture
 {
-    protected SystemTestFixtureXUnit _fixture;
+    protected SystemTestFixtureXUnit _fixture = fixture;
 
-    //  private readonly ITestOutputHelper _output;
-
-    public XUnitInProcessSystemTestsBase(SystemTestFixtureXUnit fixture)
-    {
-        _fixture = fixture;
-    }
-
-    protected IBrowser Browser => _fixture.BrowserTestFixture.Browser;
-
-    protected IPage Page => _fixture.BrowserTestFixture.Page;
-
-    public virtual async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
         await InitializeAsyncCore();
-        await _fixture.BrowserTestFixture.InitializeAsync();
+        await base.InitializeAsync();
     }
 
-    public virtual async Task DisposeAsync()
+    public override async Task DisposeAsync()
     {
-       await _fixture.BrowserTestFixture.DisposeAsync();
+         await base.DisposeAsync();
          await DisposeAsyncCore();
-       //_fixture.TestOutputHelper = null;
     }
 
     protected virtual Task InitializeAsyncCore() => Task.CompletedTask;
