@@ -1,5 +1,6 @@
 
 using Microsoft.Playwright;
+using Playwright.DotNet.Fixtures;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -8,11 +9,13 @@ namespace Playwright.DotNet.Infra.XUnit;
 
 public class BrowserTestFixture : IAsyncLifetime
 {
-    public IPage Page { get; private set; } = null!;
-    public IBrowserContext Context { get; private set; } = null!;
-    protected IBrowser Browser { get; private set; } = null!;
-    public IPlaywright Playwright { get; private set; } = null!;
-    public TestOutputHelper Output { get; private set; } = null!;
+
+    public IPage Page { get; set; } = null!;
+    public IBrowserContext Context { get; set; } = null!;
+    public IBrowser Browser { get; set; } = null!;
+    private IPlaywright Playwright { get;  set; } = null!;
+
+    // public ITestOutputHelper? _testOutputHelper = testOutputHelper;
 
     public virtual BrowserNewContextOptions ContextOptions()
     {
@@ -24,17 +27,18 @@ public class BrowserTestFixture : IAsyncLifetime
         };
     }
 
-    protected virtual BrowserTypeLaunchOptions LaunchOptions { get; } = new BrowserTypeLaunchOptions()
+    protected virtual BrowserTypeLaunchOptions LaunchOptions { get; } = new()
     {
-        Headless = true
+        Headless = false,
+        Channel = "msedge",
+        Timeout = 30000,
+        SlowMo = 100
+
     };
 
-    public async Task InitializeAsync(TestOutputHelper output)
+    public async Task InitializeAsync()
     {
-
-        Output = output;
-
-        Playwright ??= (await Microsoft.Playwright.Playwright.CreateAsync());
+        Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
 
         Browser = await Playwright.Chromium.LaunchAsync(LaunchOptions);
 
@@ -42,31 +46,59 @@ public class BrowserTestFixture : IAsyncLifetime
 
         await Context.Tracing.StartAsync(new()
         {
-            Title = $"{nameof(ITestMethod)}",
+            Title = Guid.NewGuid().ToString(),
             Screenshots = true,
             Snapshots = true,
             Sources = true
         });
 
         Page = await Context.NewPageAsync();
+        // Capture output from the browser to the test logs
+        // Page.Console += (_, e) => _testOutputHelper.WriteLine(e.Text);
+        // Page.PageError += (_, e) => _testOutputHelper.WriteLine(e);
     }
 
     public async Task DisposeAsync()
     {
 
-        //     var screenshotPath = Path.Combine(
-        //         Environment.CurrentDirectory,
-        //         "screenshots",
-        //         $"{nameof(ITestMethod)}.png");
+        var tracePath = Path.Combine(
+               Directory.GetCurrentDirectory(),
+               "playwright-traces",
+               $"{Guid.NewGuid}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}.zip");
 
-        // await Page.ScreenshotAsync(screenshotPath);
-        // Output.WriteLine($"Screenshot: {screenshotPath}");
+        await Context.Tracing.StopAsync(new()
+        {
+            Path = tracePath
+        });
+
+
+
+        var screenshotPath = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "playwright-screenshot",
+            $"{Guid.NewGuid}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}.png");
+
+        await Page.ScreenshotAsync(new()
+        {
+            Path = screenshotPath,
+        });
+
 
         await Context.CloseAsync();
-        await Browser.CloseAsync();
+
+        var videoPath = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "playwright-videos",
+            $"{Guid.NewGuid}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}.webm");
+        if (Page.Video != null)
+        {
+            await Page.Video.SaveAsAsync(videoPath);
+        }
+
+        await Browser.DisposeAsync();
         Playwright.Dispose();
 
-        }
+    }
 
     // Provides a new page for each test.
     public async Task<IPage> CreateNewPageAsync()
@@ -79,9 +111,28 @@ public class BrowserTestFixture : IAsyncLifetime
         return await Context.NewPageAsync();
     }
 
-    public Task InitializeAsync()
-    {
-        throw new NotImplementedException();
-    }
+//    public Task InitializeAsync()
+//     {
+//        var exitCode = Microsoft.Playwright.Program.Main(new[] {"install"});
+
+//         if (exitCode != 0)
+//         {
+//             throw new InvalidOperationException($"Playwright exited with code {exitCode}.");
+//         }
+
+//         return Task.CompletedTask;
+//     }
+
+
+    // public ITestOutputHelper? TestOutputHelper
+    // {
+    //     get => _testOutputHelper;
+    //     set
+    //     {
+    //         _testOutputHelper = (TestOutputHelper?)value;
+
+    //     }
+    // }
+
 }
 

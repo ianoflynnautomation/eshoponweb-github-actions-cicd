@@ -1,19 +1,19 @@
-using Microsoft.Playwright;
+using Playwright.DotNet.Fixtures.XUnit;
 using Playwright.DotNet.PageObjectModels.Basket;
 using Playwright.DotNet.PageObjectModels.Basket.CheckoutPage;
 using Playwright.DotNet.PageObjectModels.Basket.SuccessPage;
 using Playwright.DotNet.PageObjectModels.HomePage;
 using Playwright.DotNet.PageObjectModels.LoginPage;
 using Playwright.DotNet.PageObjectModels.Sections;
+using Xunit;
 
-namespace EShopOnWeb.DockerSystemTests;
+namespace EShopOnWeb.XUnit.InProcess.SystemTests;
 
-[Parallelizable(ParallelScope.Self)]
-[assembly: LevelOfParallelism(1)]
+[Collection(nameof(SystemTestCollection))]
+public class CustomerOrderSystemTests(SystemTestFixtureXUnit fixture)
+: XUnitInProcessSystemTestsBase(fixture)
+    {
 
-[TestFixture]
-public class CustomerOrderSystemTests : DockerSystemTestsBase
-{
     private IHeaderSection HeaderSection;
     private ILoginPage LoginPage;
     private IHomePage HomePage;
@@ -21,22 +21,21 @@ public class CustomerOrderSystemTests : DockerSystemTestsBase
     private ICheckoutPage CheckoutPage;
     private ISuccessPage SuccessPage;
 
-    [SetUp]
-    public async Task SetUp()
+    public override async Task InitializeAsync()
     {
+       await base.InitializeAsync();
         HeaderSection = new HeaderSection(Page);
         LoginPage = new LoginPage(Page);
         HomePage = new HomePage(Page);
         BasketPage = new BasketPage(Page);
         CheckoutPage = new CheckoutPage(Page);
         SuccessPage = new SuccessPage(Page);
-
-        await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
     }
 
-    [Test]
+    [Fact]
     public async Task Customer_Order_UserJourney()
     {
+        await Page.GotoAsync(_fixture.SystemTestHost.WebServerUrl);
         await HeaderSection.OpenLogin();
         await LoginPage.Login("demouser@microsoft.com", "Pass@word1", false);
         await HomePage.FilterForProduct(".NET", "Mug");
@@ -44,19 +43,5 @@ public class CustomerOrderSystemTests : DockerSystemTestsBase
         await BasketPage.Checkout();
         await CheckoutPage.PayNow();
         await SuccessPage.SuccessMessageShouldBe("Thanks for your Order!");
-    }
-
-
-    public override BrowserNewContextOptions ContextOptions()
-    {
-        return new BrowserNewContextOptions
-        {
-
-            IgnoreHTTPSErrors = true,
-            Locale = "en-US",
-            BaseURL = _fixture.SystemTestHost.WebServerUrl // This is the URL of the web server running in the Docker container
-            
-        };
-
     }
 }

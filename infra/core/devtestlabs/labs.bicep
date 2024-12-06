@@ -2,7 +2,7 @@
 metadata description = 'Create a DevTest Lab with a Virtual Network'
 
 @description('The name of the DevTest Lab')
-param labName string = 'Ians-DevTestLab'
+param labName string = 'DevTestLab'
 @description('The name of the Virtual Network')
 param labVirtualNetworkName string = 'vnet'
 @description('The location of the DevTest Lab')

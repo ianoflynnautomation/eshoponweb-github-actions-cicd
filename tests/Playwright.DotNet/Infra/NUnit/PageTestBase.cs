@@ -28,7 +28,6 @@ public class PageTestBase : PageTest
     public async Task SetUp()
     {
 
-
         await Context.Tracing.StartAsync(new()
         {
             Title = TestContext.CurrentContext.Test.Name,

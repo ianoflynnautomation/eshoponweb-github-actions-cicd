@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
     <TestRunParameters>
-        <!-- <Parameter name="Os" value="linux" /> -->
+        <!-- The below parameters are optional -->
+        <Parameter name="Os" value="linux" />
+        <!--<Parameter name="RunId" value="sample-run-id1" />-->
+        <!-- <Parameter name="ServiceAuthType" value="EntraId" /> -->
         <Parameter name="UseCloudHostedBrowsers" value="false" />
+        <!-- <Parameter name="AzureTokenCredentialType" value="DefaultAzureCredential" /> -->
+        <!--<Parameter name="ManagedIdentityClientId" value="{clientId-value}" />-->
+        <!-- <Parameter name="EnableGitHubSummary" value="false" /> -->
+        <!--<Parameter name="ExposeNetwork" value="*" />-->
     </TestRunParameters>
   <!-- NUnit adapter -->  
   <NUnit>
@@ -19,9 +26,9 @@
   <!-- Playwright -->  
   <Playwright>
     <BrowserName>chromium</BrowserName>
-    <ExpectTimeout>10000</ExpectTimeout>
+    <ExpectTimeout>5000</ExpectTimeout>
     <LaunchOptions>
-      <Headless>true</Headless>
+      <Headless>false</Headless>
       <Channel>chrome</Channel>
     </LaunchOptions>
   </Playwright>

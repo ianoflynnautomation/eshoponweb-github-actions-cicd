@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.Playwright.NUnit" />
-    <PackageReference Include="Microsoft.Playwright.TestAdapter"/>
+    <PackageReference Include="Microsoft.Playwright.TestAdapter" />
     <PackageReference Include="Microsoft.Playwright" />
     <PackageReference Include="Azure.Developer.MicrosoftPlaywrightTesting.NUnit" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
@@ -35,6 +35,10 @@
     <ProjectReference Include="..\..\src\PublicApi\PublicApi.csproj" />
     <ProjectReference Include="..\..\src\Web\Web.csproj" />
   </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Fixtures/XUnit/" />
+    </ItemGroup>
 
 </Project>
 

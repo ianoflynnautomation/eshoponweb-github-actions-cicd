@@ -21,6 +21,11 @@ services:
       dockerfile: src/PublicApi/Dockerfile
     depends_on:
       - "sqlserver"
+    # healthcheck:
+    #   test: curl --fail http://localhost:5200/health || exit 1
+    #   interval: 10s
+    #   retries: 3
+    #   timeout: 5s
     networks:
       - eshoponweb
 
@@ -31,6 +36,12 @@ services:
     environment:
       - SA_PASSWORD=@someThingComplicated1234
       - ACCEPT_EULA=Y
+    # healthcheck:
+    #   test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "@someThingComplicated1234", "-Q", "SELECT 1" ]
+    #   interval: 10s
+    #   retries: 3
+    #   timeout: 5s
+    #   start_period: 60s
     networks:
       - eshoponweb
 
@@ -38,12 +49,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args: 
+        - TEST_USER=root
     depends_on:
-      - "eshopwebmvc"
-      - "eshoppublicapi"
-      - "sqlserver"
+      eshopwebmvc:
+        condition: service_healthy
+      # eshoppublicapi:
+      #   condition: service_healthy
+      # sqlserver:
+      #   condition: service_healthy
+    environment:
+      - PLAYWRIGHT_TEST_BASE_URL=http://host.docker.internal:5106/
     networks:
       - eshoponweb
+    volumes:
+      - ${PWD}/DockerSystemTests/TestResults:/app/TestResults/
+      - ${PWD}/DockerSystemTests/Traces:/app/playwright-traces/
+      - ${PWD}/DockerSystemTests/ScreenShots:/app/playwright-screenshots/
+      - ${PWD}/DockerSystemTests/Videos:/app/playwright-videos/
 
 networks:
   eshoponweb:

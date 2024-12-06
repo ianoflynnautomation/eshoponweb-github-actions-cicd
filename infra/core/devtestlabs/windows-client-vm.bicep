@@ -3,7 +3,7 @@ metadata description = 'Create a Windows VM in a DevTestLab with Chocolatey pack
 @description('The location of the resource.')
 param location string = resourceGroup().location
 @description('The name of the DevTest Lab in which to create the virtual machine.')
-param labName string = 'Ians-DevTestLab'
+param labName string = 'DevTestLab'
 @description('The name of the VM in the DevTest Lab')
 param vmName string = 'client-vm'
 @description('The name of the virtual network in the DevTest Lab.')

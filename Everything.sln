@@ -42,6 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.UI.UnitTests", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerSystemTests", "tests\DockerSystemTests\DockerSystemTests.csproj", "{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnit.InProcess.SystemTests", "tests\XUnit.InProcess.SystemTests\XUnit.InProcess.SystemTests.csproj", "{ED6D1AB8-677D-4B78-A717-E906E373DE9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.PlaywrightTestingService.SystemTests", "tests\NUnit.PlaywrightTestingService.SystemTests\NUnit.PlaywrightTestingService.SystemTests.csproj", "{FE9DB911-ADB6-463F-89B7-4A75E56BFB6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +112,14 @@ Global
 		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED6D1AB8-677D-4B78-A717-E906E373DE9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6D1AB8-677D-4B78-A717-E906E373DE9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6D1AB8-677D-4B78-A717-E906E373DE9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6D1AB8-677D-4B78-A717-E906E373DE9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE9DB911-ADB6-463F-89B7-4A75E56BFB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE9DB911-ADB6-463F-89B7-4A75E56BFB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE9DB911-ADB6-463F-89B7-4A75E56BFB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE9DB911-ADB6-463F-89B7-4A75E56BFB6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,5 +140,7 @@ Global
 		{B2B4E11C-0F42-4E12-9F43-866DEFCCEA69} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
 		{BC15A605-4D04-400D-9C04-0DBF8DF63A52} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
 		{BCA5B8A5-1AC6-43D7-B5F6-D00A74D1EE21} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
+		{ED6D1AB8-677D-4B78-A717-E906E373DE9F} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
+		{FE9DB911-ADB6-463F-89B7-4A75E56BFB6E} = {BAA5312D-B54C-42D6-A3B9-504DD12F8250}
 	EndGlobalSection
 EndGlobal
