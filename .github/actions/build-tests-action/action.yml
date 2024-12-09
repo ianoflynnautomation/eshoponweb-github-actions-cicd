@@ -33,7 +33,7 @@ runs:
     - name: Publish Test project
       shell: bash
       run:  |
-        dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }} --no-restore --no-build
+        dotnet publish --property:PublishDir="${{ github.workspace }}/output" tests/${{ inputs.project-pattern }}
 
     - name: Publish ${{ inputs.artifact-name }} artifacts
       uses: actions/upload-artifact@v4
