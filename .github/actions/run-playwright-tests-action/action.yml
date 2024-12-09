@@ -64,7 +64,7 @@ runs:
       shell: pwsh
       working-directory: artifacts
       run: |
-        pwsh ${{ inputs.test-artifact-name }}/${{ inputs.test-artifact-name }}/playwright.ps1 install
+        pwsh ${{ inputs.test-artifact-name }}/playwright.ps1 install
 
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
