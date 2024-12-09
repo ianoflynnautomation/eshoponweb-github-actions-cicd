@@ -77,6 +77,12 @@ runs:
       with:
         name: test_results_${{ inputs.test-type }}
         path: ${{ github.workspace }}/TestResults
+
+    - name : Publish playwright traces 
+      uses: actions/upload-artifact@v2
+      with:
+        name: playwright-traces-${{ inputs.test-type }}
+        path: artifacts/playwright-traces
     
     - uses: dorny/test-reporter@v1
       with:
