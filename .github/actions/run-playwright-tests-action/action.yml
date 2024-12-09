@@ -76,7 +76,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: playwright-traces-${{ inputs.test-type }}
-        path: artifacts/playwright-traces
+        path: ${{ github.workspace }}/playwright-traces
         if-no-files-found: ignore
     
     - uses: dorny/test-reporter@v1
