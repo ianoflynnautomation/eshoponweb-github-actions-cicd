@@ -60,18 +60,18 @@ runs:
     #   run: |
     #     pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
 
-    - name: Ensure browsers are installed
-      shell: pwsh
-      working-directory: artifacts
-      run: |
-        pwsh ${{ inputs.test-artifact-name }}/playwright.ps1 install
-
     - name: List directory contents
       shell: bash
       working-directory: artifacts
       run: |
         echo "Root directory contents:"
         ls -la
+
+    - name: Ensure browsers are installed
+      shell: pwsh
+      working-directory: artifacts
+      run: |
+        pwsh ${{ inputs.test-artifact-name }}/playwright.ps1 install
 
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
