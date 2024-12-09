@@ -53,14 +53,6 @@ runs:
       shell: bash
       run: chmod +x ./artifacts/.playwright/node/linux-x64/node
 
-
-    # - name: List directory contents
-    #   shell: bash
-    #   working-directory: artifacts
-    #   run: |
-    #     echo "Root directory contents:"
-    #     ls -la
-
     - name: Ensure browsers are installed
       shell: pwsh
       working-directory: artifacts
@@ -73,16 +65,19 @@ runs:
       run: dotnet test *Tests.dll --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }} -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }}
 
     - name: Publish Test Results
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: test_results_${{ inputs.test-type }}
         path: ${{ github.workspace }}/TestResults
 
     - name : Publish playwright traces 
+      if: failure()
       uses: actions/upload-artifact@v4
       with:
         name: playwright-traces-${{ inputs.test-type }}
         path: artifacts/playwright-traces
+        if-no-files-found: ignore
     
     - uses: dorny/test-reporter@v1
       with:
