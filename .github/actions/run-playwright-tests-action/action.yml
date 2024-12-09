@@ -64,6 +64,16 @@ runs:
       working-directory: artifacts
       run: dotnet test *Tests.dll --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }} -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }}
 
+    - name: List folders
+      shell: bash 
+      working-directory: ${{ github.workspace }}
+      run: ls -la
+
+    - name: List folders artifacts
+      shell: bash 
+      working-directory: ${{ github.workspace }}
+      run: ls -la
+
     - name: Publish Test Results
       if: always()
       uses: actions/upload-artifact@v4
