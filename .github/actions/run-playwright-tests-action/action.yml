@@ -17,14 +17,14 @@ inputs:
   test-filter-criteria:
     description: 'The filter criteria to use to run the tests'
     required: false
-  browser-name:
-    description: 'The name of the browser to use'
-    required: true
-  channel:
-    description: 'The channel of the browser to use'
-  headless:
-    description: 'Whether to run the browser in headless mode'
-    required: true
+  # browser-name:
+  #   description: 'The name of the browser to use'
+  #   required: true
+  # channel:
+  #   description: 'The channel of the browser to use'
+  # headless:
+  #   description: 'Whether to run the browser in headless mode'
+  #   required: true
 
 runs:
   using: "composite"
@@ -63,7 +63,7 @@ runs:
     - name: Ensure browsers are installed
       shell: pwsh
       run: |
-        pwsh ${{ github.workspace }}/${{ inputs.artifact-name}}/${{ inputs.artifact-name}}/playwright.ps1 install
+        pwsh ${{ github.workspace }}/${{ inputs.test-artifact-name }}/${{ inputs.test-artifact-name }}/playwright.ps1 install
 
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
