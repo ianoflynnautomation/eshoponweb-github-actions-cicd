@@ -66,6 +66,13 @@ runs:
       run: |
         pwsh ${{ inputs.test-artifact-name }}/playwright.ps1 install
 
+    - name: List directory contents
+      shell: bash
+      working-directory: artifacts
+      run: |
+        echo "Root directory contents:"
+        ls -la
+
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
     #   with:

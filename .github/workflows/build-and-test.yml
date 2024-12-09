@@ -195,9 +195,9 @@ jobs:
           test-project-pattern: |
             ${{ matrix.project-pattern }}
           test-filter-criteria: ${{ matrix.test-filter-criteria }}
-          browser-name: ${{ matrix.browser-name }}
-          channel: ${{ matrix.channel }}
-          headless: ${{ matrix.headless }}
+          # browser-name: ${{ matrix.browser-name }}
+          # channel: ${{ matrix.channel }}
+          # headless: ${{ matrix.headless }}
 
   run_system_tests-docker-compose:
     runs-on: [ubuntu-latest]
