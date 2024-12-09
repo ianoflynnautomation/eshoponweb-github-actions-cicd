@@ -20,14 +20,14 @@ inputs:
   test-filter-criteria:
     description: 'The filter criteria to use to run the tests'
     required: false
-  # browser-name:
-  #   description: 'The name of the browser to use'
-  #   required: true
-  # channel:
-  #   description: 'The channel of the browser to use'
-  # headless:
-  #   description: 'Whether to run the browser in headless mode'
-  #   required: true
+  browser-name:
+    description: 'The name of the browser to use'
+    required: true
+  channel:
+    description: 'The channel of the browser to use'
+  headless:
+    description: 'Whether to run the browser in headless mode'
+    required: true
 
 runs:
   using: "composite"
@@ -67,11 +67,10 @@ runs:
       run: |
         pwsh playwright.ps1 install --with-deps
 
-
     - name: Run your tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test *Tests.dll --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
+      run: dotnet test *Tests.dll -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }} --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
 
     - name: Publish Test Results
       uses: actions/upload-artifact@v4
