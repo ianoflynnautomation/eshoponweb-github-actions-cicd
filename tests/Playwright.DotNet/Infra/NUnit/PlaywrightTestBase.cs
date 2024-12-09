@@ -37,16 +37,16 @@ public class PlaywrightTestBase : PlaywrightTest
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
+        var exitCode = Microsoft.Playwright.Program.Main(new[] { "install", "--with-deps" });
+        if (exitCode != 0)
+        {
+            throw new Exception($"Playwright exited with code {exitCode}");
+        }
     }
 
     [SetUp]
     public async Task SetUp()
     {
-        var exitCode = Microsoft.Playwright.Program.Main(new[] { "install" });
-        if (exitCode != 0)
-        {
-            throw new Exception($"Playwright exited with code {exitCode}");
-        }
 
         Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
 
