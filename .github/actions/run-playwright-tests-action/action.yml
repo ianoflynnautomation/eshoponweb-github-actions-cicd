@@ -79,7 +79,7 @@ runs:
         path: ${{ github.workspace }}/TestResults
 
     - name : Publish playwright traces 
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: playwright-traces-${{ inputs.test-type }}
         path: artifacts/playwright-traces
