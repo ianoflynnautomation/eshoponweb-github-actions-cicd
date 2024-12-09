@@ -51,9 +51,9 @@ runs:
     #   run: |
     #     dotnet build Everything.sln --configuration Release --no-restore
 
-    # - name: Install PowerShell
-    #   shell: pwsh
-    #   run: dotnet tool update --global PowerShell
+    - name: Install PowerShell
+      shell: pwsh
+      run: dotnet tool update --global PowerShell
 
     # - name: Ensure browsers are installed
     #   shell: pwsh
@@ -67,12 +67,12 @@ runs:
     #     echo "Root directory contents:"
     #     ls -la
 
-    # - name: Ensure browsers are installed
-    #   shell: pwsh
-    #   working-directory: artifacts
-    #   run: |
-    #     pwsh playwright.ps1 install
-
+    - name: Ensure browsers are installed
+      shell: pwsh
+      working-directory: artifacts
+      run: |
+        pwsh playwright.ps1 install --with-deps
+        
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
     #   with:
