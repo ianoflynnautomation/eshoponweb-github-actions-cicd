@@ -44,21 +44,26 @@ runs:
 
     # - name: Install Dependencies
     #   shell: bash
-    #   run: dotnet restore Everything.sln 
+    #   run: dotnet restore Everything.sln
 
     # - name: Build Solution
     #   shell: bash
     #   run: |
     #     dotnet build Everything.sln --configuration Release --no-restore
 
-    # - name: Install PowerShell
-    #   shell: pwsh
-    #   run: dotnet tool update --global PowerShell
+    - name: Install PowerShell
+      shell: pwsh
+      run: dotnet tool update --global PowerShell
 
     # - name: Ensure browsers are installed
     #   shell: pwsh
     #   run: |
     #     pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
+
+    - name: Ensure browsers are installed
+      shell: pwsh
+      run: |
+        pwsh ${{ github.workspace }}/${{ inputs.artifact-name}}/${{ inputs.artifact-name}}/playwright.ps1 install
 
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
