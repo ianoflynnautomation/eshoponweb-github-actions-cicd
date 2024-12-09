@@ -46,9 +46,6 @@ runs:
       with:
         node-version: latest
 
-    # - run: npm ci
-    #   shell: bash
-    
     - name: Make Node binary executable
       shell: bash
       run: chmod +x ./artifacts/.playwright/node/linux-x64/node
@@ -66,10 +63,10 @@ runs:
     #   shell: pwsh
     #   run: dotnet tool update --global PowerShell
 
-    # - name: Ensure browsers are installed
-    #   shell: pwsh
-    #   run: |
-    #     pwsh ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
+    - name: Ensure browsers are installed
+      shell: pwsh
+      run: |
+        pwsh tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
 
     # - name: List directory contents
     #   shell: bash
@@ -102,7 +99,7 @@ runs:
     - name: Run your tests
       shell: bash
       working-directory: artifacts
-      run: dotnet test *Tests.dll --no-build --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
+      run: dotnet test *Tests.dll --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
