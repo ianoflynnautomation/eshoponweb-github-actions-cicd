@@ -46,9 +46,12 @@ runs:
       with:
         node-version: latest
 
-    - run: npm ci
-      shell: bash
+    # - run: npm ci
+    #   shell: bash
     
+    - name: Make Node binary executable
+      shell: bash
+      run: chmod +x ./artifacts/.playwright/node/linux-x64/node
 
     # - name: Install Dependencies
     #   shell: bash
