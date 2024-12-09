@@ -2,6 +2,9 @@ name: Run Playwright Tests
 description: 'Runs the Playwright tests for the eShopOnWeb project'
 
 inputs:
+  test-type:
+    description: 'The type of tests to run'
+    required: true
   dotnet-version:
     description: 'The version of the .Net Core SDK to use'
     required: true
@@ -50,25 +53,13 @@ runs:
       shell: bash
       run: chmod +x ./artifacts/.playwright/node/linux-x64/node
 
-    # - name: Install Dependencies
-    #   shell: bash
-    #   run: dotnet restore Everything.sln
 
-    # - name: Build Solution
+    # - name: List directory contents
     #   shell: bash
+    #   working-directory: artifacts
     #   run: |
-    #     dotnet build Everything.sln --configuration Release --no-restore
-
-    # - name: Install PowerShell
-    #   shell: pwsh
-    #   run: dotnet tool update --global PowerShell
-
-    - name: List directory contents
-      shell: bash
-      working-directory: artifacts
-      run: |
-        echo "Root directory contents:"
-        ls -la
+    #     echo "Root directory contents:"
+    #     ls -la
 
     - name: Ensure browsers are installed
       shell: pwsh
@@ -76,44 +67,24 @@ runs:
       run: |
         pwsh playwright.ps1 install --with-deps
 
-    # - name: Ensure browsers are installed
-    #   shell: pwsh
-    #   working-directory: artifacts
-    #   run: |
-    #     dotnet tool install --global Microsoft.Playwright.CLI
-    #     playwright install
-
-
-    # pwsh playwright.ps1 install --with-deps
-
-    # - name: Replace Variables
-    #   uses: microsoft/variable-substitution@v1 
-    #   with:
-    #     files: '${{ github.workspace }}/tests/${{ inputs.test-project-name }}/testsettings.json'
-    #   env:
-    #     WebSettings.ExecutionSettings.DefaultBrowser: ${{ inputs.browser-name }}
-
-    # - name: Run your tests
-    #   shell: bash
-    #   run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj
 
     - name: Run your tests
       shell: bash
       working-directory: artifacts
       run: dotnet test *Tests.dll --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
 
-    # - name: Publish Test Results
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: test_results_${{ inputs.test-type }}
-    #     path: ${{ github.workspace }}/TestResults
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test_results_${{ inputs.test-type }}
+        path: ${{ github.workspace }}/TestResults
     
-    # - uses: dorny/test-reporter@v1
-    #   with:
-    #     artifact: test_results_${{ inputs.test-artifact-name }}
-    #     name: test_results_${{ inputs.test-artifact-name }}
-    #     path: '*.trx'
-    #     reporter: dotnet-trx
+    - uses: dorny/test-reporter@v1
+      with:
+        artifact: test_results_${{ inputs.test-type }}
+        name: test_results_${{ inputs.test-type }}
+        path: '*.trx'
+        reporter: dotnet-trx
 
     
 

@@ -189,6 +189,7 @@ jobs:
       - name: Run ${{ matrix.test-type }} and Publish Test Results
         uses: ./.github/actions/run-playwright-tests-action
         with:
+          test-type: ${{ matrix.test-type }}
           dotnet-version: ${{ env.DOTNET_VERSION }}
           test-artifact-name: ${{ matrix.artifact-name }}
           test-project-name: ${{ matrix.project-name }}
