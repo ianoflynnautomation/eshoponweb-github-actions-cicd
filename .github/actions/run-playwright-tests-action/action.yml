@@ -71,8 +71,12 @@ runs:
       shell: pwsh
       working-directory: artifacts
       run: |
-        pwsh playwright.ps1 install --with-deps
-        
+        dotnet tool install --global Microsoft.Playwright.CLI
+        playwright install
+
+
+    # pwsh playwright.ps1 install --with-deps
+
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
     #   with:
