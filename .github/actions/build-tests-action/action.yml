@@ -41,4 +41,4 @@ runs:
         name: ${{ inputs.artifact-name }}
         path: ${{ github.workspace }}/output
         retention-days: 1
-        include-hidden-files: true
+        include-hidden-files: true # Include .playwright folder
