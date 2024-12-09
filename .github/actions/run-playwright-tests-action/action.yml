@@ -62,8 +62,9 @@ runs:
 
     - name: Ensure browsers are installed
       shell: pwsh
+      working-directory: artifacts
       run: |
-        pwsh ${{ github.workspace }}/${{ inputs.test-artifact-name }}/${{ inputs.test-artifact-name }}/playwright.ps1 install
+        pwsh ${{ inputs.test-artifact-name }}/${{ inputs.test-artifact-name }}/playwright.ps1 install
 
     # - name: Replace Variables
     #   uses: microsoft/variable-substitution@v1 
@@ -72,9 +73,14 @@ runs:
     #   env:
     #     WebSettings.ExecutionSettings.DefaultBrowser: ${{ inputs.browser-name }}
 
+    # - name: Run your tests
+    #   shell: bash
+    #   run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj
+
     - name: Run your tests
       shell: bash
-      run: dotnet test ${{ github.workspace }}/tests/${{ inputs.test-project-name }}/${{ inputs.test-project-name }}.csproj
+      working-directory: artifacts
+      run: dotnet test *Tests.dll --no-build --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }}
 
     # - name: Publish Test Results
     #   uses: actions/upload-artifact@v4
