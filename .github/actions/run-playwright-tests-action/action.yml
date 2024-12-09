@@ -73,7 +73,7 @@ runs:
     - name: List folders artifacts
       if: always()
       shell: bash 
-      working-directory: ${{ github.workspace }}
+      working-directory: artifacts
       run: ls -la
 
     - name: Publish Test Results
