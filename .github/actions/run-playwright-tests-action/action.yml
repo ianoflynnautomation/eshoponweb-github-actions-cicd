@@ -63,17 +63,18 @@ runs:
     #   shell: pwsh
     #   run: dotnet tool update --global PowerShell
 
+    - name: List directory contents
+      shell: bash
+      working-directory: artifacts
+      run: |
+        echo "Root directory contents:"
+        ls -la
+
     - name: Ensure browsers are installed
       shell: pwsh
+      working-directory: artifacts
       run: |
-        pwsh tests/${{ inputs.test-project-name }}/bin/Release/net8.0/playwright.ps1 install --with-deps
-
-    # - name: List directory contents
-    #   shell: bash
-    #   working-directory: artifacts
-    #   run: |
-    #     echo "Root directory contents:"
-    #     ls -la
+        pwsh playwright.ps1 install --with-deps
 
     # - name: Ensure browsers are installed
     #   shell: pwsh
