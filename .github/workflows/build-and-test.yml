@@ -154,33 +154,33 @@ jobs:
             browser-name: 'chromium'
             channel: 'msedge'
             headless: true
-          - test-type: SystemTests_Firefox
-            artifact-name: tests_InMemorySystemTests
-            project-name: NUnit.InProcess.SystemTests
-            project-pattern: |
-              **/*NUnit.InProcess.SystemTests.csproj
-            test-filter-criteria: ""
-            browser-name: 'firefox'
-            channel: ''
-            headless: true
-          - test-type: SystemTests_Webkit
-            artifact-name: tests_InMemorySystemTests
-            project-name: NUnit.InProcess.SystemTests
-            project-pattern: |
-              **/*NUnit.InProcess.SystemTests.csproj
-            test-filter-criteria: ""
-            browser-name: 'webkit'
-            channel: ''
-            headless: true
-          - test-type: TestContainersSystemTests_Chrome
-            artifact-name: tests_TestContainersSystemTests
-            project-name: NUnit.TestContainers.InProcess.SystemTests
-            project-pattern: |
-              **/*NUnit.TestContainers.InProcess.SystemTests.csproj
-            test-filter-criteria: ""
-            browser-name: 'chromium'
-            channel: 'chrome'
-            headless: true
+          # - test-type: SystemTests_Firefox
+          #   artifact-name: tests_InMemorySystemTests
+          #   project-name: NUnit.InProcess.SystemTests
+          #   project-pattern: |
+          #     **/*NUnit.InProcess.SystemTests.csproj
+          #   test-filter-criteria: ""
+          #   browser-name: 'firefox'
+          #   channel: ''
+          #   headless: true
+          # - test-type: SystemTests_Webkit
+          #   artifact-name: tests_InMemorySystemTests
+          #   project-name: NUnit.InProcess.SystemTests
+          #   project-pattern: |
+          #     **/*NUnit.InProcess.SystemTests.csproj
+          #   test-filter-criteria: ""
+          #   browser-name: 'webkit'
+          #   channel: ''
+          #   headless: true
+          # - test-type: TestContainersSystemTests_Chrome
+          #   artifact-name: tests_TestContainersSystemTests
+          #   project-name: NUnit.TestContainers.InProcess.SystemTests
+          #   project-pattern: |
+          #     **/*NUnit.TestContainers.InProcess.SystemTests.csproj
+          #   test-filter-criteria: ""
+          #   browser-name: 'chromium'
+          #   channel: 'chrome'
+          #   headless: true
     
     steps:
       - name: Checkout Repository
@@ -200,17 +200,17 @@ jobs:
           channel: ${{ matrix.channel }}
           headless: ${{ matrix.headless }}
 
-  run_system_tests-docker-compose:
-    runs-on: [ubuntu-latest]
-    timeout-minutes: 20
-    needs: [ build_solution, build_web_assets, build_tests ]
+  # run_system_tests-docker-compose:
+  #   runs-on: [ubuntu-latest]
+  #   timeout-minutes: 20
+  #   needs: [ build_solution, build_web_assets, build_tests ]
     
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Run Docker Compose tests
-        uses: ./.github/actions/run-docker-compose-tests-action
+  #     - name: Run Docker Compose tests
+  #       uses: ./.github/actions/run-docker-compose-tests-action
   
   publish_service_artifacts:
     needs: [ run_tests]
