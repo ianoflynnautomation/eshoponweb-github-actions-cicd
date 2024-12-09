@@ -51,9 +51,9 @@ runs:
     #   run: |
     #     dotnet build Everything.sln --configuration Release --no-restore
 
-    - name: Install PowerShell
-      shell: pwsh
-      run: dotnet tool update --global PowerShell
+    # - name: Install PowerShell
+    #   shell: pwsh
+    #   run: dotnet tool update --global PowerShell
 
     # - name: Ensure browsers are installed
     #   shell: pwsh
@@ -67,12 +67,12 @@ runs:
     #     echo "Root directory contents:"
     #     ls -la
 
-    - name: Ensure browsers are installed
-      shell: pwsh
-      working-directory: artifacts
-      run: |
-        dotnet tool install --global Microsoft.Playwright.CLI
-        playwright install
+    # - name: Ensure browsers are installed
+    #   shell: pwsh
+    #   working-directory: artifacts
+    #   run: |
+    #     dotnet tool install --global Microsoft.Playwright.CLI
+    #     playwright install
 
 
     # pwsh playwright.ps1 install --with-deps

@@ -42,6 +42,12 @@ public class PlaywrightTestBase : PlaywrightTest
     [SetUp]
     public async Task SetUp()
     {
+        var exitCode = Microsoft.Playwright.Program.Main(new[] { "install" });
+        if (exitCode != 0)
+        {
+            throw new Exception($"Playwright exited with code {exitCode}");
+        }
+
         Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
 
         // // Create Browser

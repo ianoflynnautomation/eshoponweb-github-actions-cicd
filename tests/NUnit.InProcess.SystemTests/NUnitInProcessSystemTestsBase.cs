@@ -13,12 +13,6 @@ public class NUnitInProcessSystemTestsBase : PageTestBase
     public void OneTimeSetUp()
     {
         _fixture = GetSystemTestFixture();
-        
-        var exitCode = Microsoft.Playwright.Program.Main(new[] { "install" });
-        if (exitCode != 0)
-        {
-            throw new Exception($"Playwright exited with code {exitCode}");
-        }
 
     }
 
