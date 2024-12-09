@@ -170,7 +170,7 @@ jobs:
               **/*NUnit.InProcess.SystemTests.csproj
             test-filter-criteria: ""
             browser-name: 'webkit'
-            channel: '2'
+            channel: ''
             headless: true
           - test-type: TestContainersSystemTests_Chrome
             artifact-name: tests_TestContainersSystemTests
@@ -178,7 +178,7 @@ jobs:
             project-pattern: |
               **/*NUnit.TestContainers.InProcess.SystemTests.csproj
             test-filter-criteria: ""
-            browser-name: 'chromium2'
+            browser-name: 'chromium'
             channel: 'chrome'
             headless: true
     
