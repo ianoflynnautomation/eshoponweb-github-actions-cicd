@@ -1,11 +1,10 @@
 
-using System;
 using Playwright.DotNet.Fixtures;
 using Playwright.DotNet.Infra.NUnit;
 
 namespace EShopOnWeb.NUnit.InProcess.SystemTests;
 
-public class NUnitInProcessSystemTestsBase : PageTestBase
+public class NUnitInProcessSystemTestsBase : PlaywrightTestBase
 {
     protected SystemTestFixture _fixture;
 
