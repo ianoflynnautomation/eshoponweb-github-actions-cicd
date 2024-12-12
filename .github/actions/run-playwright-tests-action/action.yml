@@ -71,25 +71,20 @@ runs:
         name: test_results_${{ inputs.test-type }}
         path: ${{ github.workspace }}/TestResults
 
-    - name: List folders
-      if: always()
-      shell: bash 
-      working-directory: ${{ github.workspace }}
-      run: ls -la
+    # - name: List folders artifacts
+    #   if: always()
+    #   shell: bash 
+    #   working-directory: artifacts
+    #   run: ls -la
 
-    - name: List folders artifacts
-      if: always()
-      shell: bash 
+    - name : Publish playwright traces 
+      if: failure()
       working-directory: artifacts
-      run: ls -la
-
-    # - name : Publish playwright traces 
-    #   if: failure()
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: playwright-traces-${{ inputs.test-type }}
-    #     path: ${{ github.workspace }}/playwright-traces
-    #     if-no-files-found: ignore
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-traces-${{ inputs.test-type }}
+        path: playwright-traces
+        if-no-files-found: ignore
     
     - uses: dorny/test-reporter@v1
       with:
