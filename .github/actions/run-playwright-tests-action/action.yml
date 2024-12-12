@@ -81,10 +81,11 @@ runs:
       if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-traces-${{ inputs.test-type }}
+        # name: playwright-traces-${{ inputs.test-type }}
         path: artifacts/playwright-traces
         if-no-files-found: ignore
         include-hidden-files: true
+        compression-level: 0
     
     - uses: dorny/test-reporter@v1
       with:
