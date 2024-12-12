@@ -64,18 +64,6 @@ runs:
       working-directory: artifacts
       run: dotnet test *Tests.dll --logger "trx;LogFileName=test_results_${{ inputs.test-artifact-name }}.trx" --results-directory ${{ github.workspace }}/TestResults ${{ inputs.test-filter-criteria }} -- Playwright.BrowserName=${{ inputs.browser-name }} Playwright.LaunchOptions.Channel=${{ inputs.channel }}
 
-    # - name: List folders
-    #   if: always()
-    #   shell: bash 
-    #   working-directory: ${{ github.workspace }}
-    #   run: ls -la
-
-    # - name: List folders artifacts
-    #   if: always()
-    #   shell: bash 
-    #   working-directory: artifacts
-    #   run: ls -la
-
     - name: Publish Test Results
       if: always()
       uses: actions/upload-artifact@v4
@@ -83,13 +71,25 @@ runs:
         name: test_results_${{ inputs.test-type }}
         path: ${{ github.workspace }}/TestResults
 
-    - name : Publish playwright traces 
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-traces-${{ inputs.test-type }}
-        path: ${{ github.workspace }}/playwright-traces
-        if-no-files-found: ignore
+    - name: List folders
+      if: always()
+      shell: bash 
+      working-directory: ${{ github.workspace }}
+      run: ls -la
+
+    - name: List folders artifacts
+      if: always()
+      shell: bash 
+      working-directory: artifacts
+      run: ls -la
+
+    # - name : Publish playwright traces 
+    #   if: failure()
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: playwright-traces-${{ inputs.test-type }}
+    #     path: ${{ github.workspace }}/playwright-traces
+    #     if-no-files-found: ignore
     
     - uses: dorny/test-reporter@v1
       with:
