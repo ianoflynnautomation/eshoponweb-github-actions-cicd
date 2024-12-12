@@ -70,11 +70,10 @@ public class ContextTestBase : ContextTest
         {
             Path = failed ? tracePath : null
         });
-        //TestContext.AddTestAttachment(tracePath, description: "Trace");
+        TestContext.AddTestAttachment(tracePath, description: "Trace");
 
         Directory.CreateDirectory("playwright-screenshot");
 
-        // Take a screenshot on error and add it as an attachment
         if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
         {
             var screenshotPath = Path.Combine(
@@ -86,7 +85,7 @@ public class ContextTestBase : ContextTest
             {
                 Path = screenshotPath,
             });
-            //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
+            TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
         await Context.CloseAsync();
@@ -100,7 +99,7 @@ public class ContextTestBase : ContextTest
         if (Page.Video != null)
         {
             await Page.Video.SaveAsAsync(videoPath);
-            //TestContext.AddTestAttachment(videoPath, description: "Video");
+            TestContext.AddTestAttachment(videoPath, description: "Video");
         }
 
     }
