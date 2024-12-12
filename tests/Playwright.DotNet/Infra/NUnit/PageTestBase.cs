@@ -55,7 +55,7 @@ public class PageTestBase : PageTest
         {
             Path = failed ? tracePath : null
         });
-        //TestContext.AddTestAttachment(tracePath, description: "Trace");
+        TestContext.AddTestAttachment(tracePath, description: "Trace");
 
         Directory.CreateDirectory("playwright-screenshot");
 
@@ -71,7 +71,7 @@ public class PageTestBase : PageTest
             {
                 Path = screenshotPath,
             });
-            //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
+            TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
         await Context.CloseAsync();
@@ -85,7 +85,7 @@ public class PageTestBase : PageTest
         if (Page.Video != null)
         {
             await Page.Video.SaveAsAsync(videoPath);
-            //TestContext.AddTestAttachment(videoPath, description: "Video");
+            TestContext.AddTestAttachment(videoPath, description: "Video");
         }
 
     }
