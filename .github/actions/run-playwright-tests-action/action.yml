@@ -84,6 +84,7 @@ runs:
         name: playwright-traces-${{ inputs.test-type }}
         path: artifacts/playwright-traces
         if-no-files-found: ignore
+        include-hidden-files: true
     
     - uses: dorny/test-reporter@v1
       with:
