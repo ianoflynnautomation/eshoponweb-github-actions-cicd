@@ -79,11 +79,10 @@ runs:
 
     - name : Publish playwright traces 
       if: failure()
-      working-directory: artifacts
       uses: actions/upload-artifact@v4
       with:
         name: playwright-traces-${{ inputs.test-type }}
-        path: playwright-traces
+        path: artifacts/playwright-traces
         if-no-files-found: ignore
     
     - uses: dorny/test-reporter@v1
