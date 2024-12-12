@@ -61,6 +61,7 @@ public class BrowserTestBase : BrowserTest
         var failed = TestContext.CurrentContext.Result.Outcome == ResultState.Error
             || TestContext.CurrentContext.Result.Outcome == ResultState.Failure;
 
+        Directory.CreateDirectory("playwright-traces");
 
         var tracePath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
@@ -73,6 +74,7 @@ public class BrowserTestBase : BrowserTest
         });
         //TestContext.AddTestAttachment(tracePath, description: "Trace");
 
+         Directory.CreateDirectory("playwright-screenshot");
 
         // Take a screenshot on error and add it as an attachment
         if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
@@ -90,6 +92,8 @@ public class BrowserTestBase : BrowserTest
         }
 
         await Context.CloseAsync();
+
+         Directory.CreateDirectory("playwright-videos");
 
         var videoPath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,

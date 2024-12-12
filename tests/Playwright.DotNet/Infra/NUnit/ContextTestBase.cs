@@ -59,6 +59,7 @@ public class ContextTestBase : ContextTest
         var failed = TestContext.CurrentContext.Result.Outcome == ResultState.Error
             || TestContext.CurrentContext.Result.Outcome == ResultState.Failure;
 
+        Directory.CreateDirectory("playwright-traces");
 
         var tracePath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
@@ -71,6 +72,7 @@ public class ContextTestBase : ContextTest
         });
         //TestContext.AddTestAttachment(tracePath, description: "Trace");
 
+        Directory.CreateDirectory("playwright-screenshot");
 
         // Take a screenshot on error and add it as an attachment
         if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
@@ -88,6 +90,8 @@ public class ContextTestBase : ContextTest
         }
 
         await Context.CloseAsync();
+
+        Directory.CreateDirectory("playwright-videos");
 
         var videoPath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,

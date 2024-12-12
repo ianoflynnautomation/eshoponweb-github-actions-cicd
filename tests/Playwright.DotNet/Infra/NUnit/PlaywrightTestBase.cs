@@ -42,7 +42,6 @@ public class PlaywrightTestBase : PlaywrightTest
     [SetUp]
     public async Task SetUp()
     {
-
         Browser = await BrowserType.LaunchAsync(PlaywrightSettingsProvider.LaunchOptions);
 
         // // Create Browser
@@ -92,6 +91,7 @@ public class PlaywrightTestBase : PlaywrightTest
         var failed = TestContext.CurrentContext.Result.Outcome == ResultState.Error
             || TestContext.CurrentContext.Result.Outcome == ResultState.Failure;
 
+        Directory.CreateDirectory("playwright-traces");
 
         var tracePath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
@@ -104,6 +104,7 @@ public class PlaywrightTestBase : PlaywrightTest
         });
         //TestContext.AddTestAttachment(tracePath, description: "Trace");
 
+        Directory.CreateDirectory("playwright-screenshot");
 
         // Take a screenshot on error and add it as an attachment
         if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
@@ -121,6 +122,8 @@ public class PlaywrightTestBase : PlaywrightTest
         }
 
         await Context.CloseAsync();
+
+        Directory.CreateDirectory("playwright-videos");
 
         var videoPath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
