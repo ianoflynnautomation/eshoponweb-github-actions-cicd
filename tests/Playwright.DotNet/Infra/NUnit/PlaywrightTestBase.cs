@@ -91,7 +91,7 @@ public class PlaywrightTestBase : PlaywrightTest
         var failed = TestContext.CurrentContext.Result.Outcome == ResultState.Error
             || TestContext.CurrentContext.Result.Outcome == ResultState.Failure;
 
-        Directory.CreateDirectory("playwright-traces");
+        //Directory.CreateDirectory("playwright-traces");
 
         var tracePath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
@@ -102,9 +102,9 @@ public class PlaywrightTestBase : PlaywrightTest
         {
             Path = failed ? tracePath : null
         });
-        TestContext.AddTestAttachment(tracePath, description: "Trace");
+        //TestContext.AddTestAttachment(tracePath, description: "Trace");
 
-        Directory.CreateDirectory("playwright-screenshot");
+        //Directory.CreateDirectory("playwright-screenshot");
 
         // Take a screenshot on error and add it as an attachment
         if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
@@ -118,12 +118,12 @@ public class PlaywrightTestBase : PlaywrightTest
             {
                 Path = screenshotPath,
             });
-            TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
+            //TestContext.AddTestAttachment(screenshotPath, description: "Screenshot");
         }
 
         await Context.CloseAsync();
 
-        Directory.CreateDirectory("playwright-videos");
+        //Directory.CreateDirectory("playwright-videos");
 
         var videoPath = Path.Combine(
             TestContext.CurrentContext.WorkDirectory,
@@ -132,7 +132,7 @@ public class PlaywrightTestBase : PlaywrightTest
         if (Page.Video != null)
         {
             await Page.Video.SaveAsAsync(videoPath);
-            TestContext.AddTestAttachment(videoPath, description: "Video");
+            //TestContext.AddTestAttachment(videoPath, description: "Video");
         }
 
         await Browser.CloseAsync();
