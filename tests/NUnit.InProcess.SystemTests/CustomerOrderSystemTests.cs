@@ -43,7 +43,7 @@ public class CustomerOrderSystemTests : NUnitInProcessSystemTestsBase
         await _homePage.AddItemToBasket(".NET Black & White Mug");
         await _basketPage.Checkout();
         await _checkoutPage.PayNow();
-        await _successPage.SuccessMessageShouldBe("Thanks for your Order222222!");
+        await _successPage.SuccessMessageShouldBe("Thanks for your Order!");
     }
 
     public override BrowserNewContextOptions ContextOptions()
